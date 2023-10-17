@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from "react";
-import { queryConsultants } from "@/server/client";
-import { Consultant } from "types";
+import { queryConsultants } from "@/server/server-actions";
+
 import SearchItem from "../_components/SearchItem";
+import type { Consultant } from "types";
 
 const Search = () => {
   const [consultants, setConsultants] = useState<Consultant[]>();

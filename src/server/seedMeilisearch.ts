@@ -1,7 +1,8 @@
-import type { Consultant } from "@/types";
-import { client } from "./client";
+import client from "./meilisearchClient";
 import { data } from "./mockdata";
 import settings from "./meilisearchSettings";
+import type { Consultant } from "types";
+
 
 // eslint-disable-next-line
 const populateMeilisearch = async () => {
@@ -21,5 +22,12 @@ const populateMeilisearch = async () => {
       console.log(err.message);
     });
 };
+
+populateMeilisearch()
+  .then(() => console.log("Meilisearch populated!"))
+  .catch((err: Error) => {
+    console.log(err.message);
+  });
+
 
 export default populateMeilisearch

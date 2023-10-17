@@ -1,4 +1,5 @@
-import type { Consultant } from "@/types";
+import type { Consultant } from "types";
+
 
 export const data: { consultants: Consultant[] } = {
   consultants: [

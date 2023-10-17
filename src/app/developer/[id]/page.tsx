@@ -1,33 +1,16 @@
-"use client";
-import { useEffect, useState } from "react";
-import { getUser } from "@/server/client";
+
+import { getUser } from "@/server/server-actions";
 
 import Link from "next/link";
-import { Consultant } from "types";
 import ContactCard from "@/app/_components/DeveloperContactCard";
 import SectionHeader from "@/app/_components/SectionHeader";
 import Projects from "@/app/_components/DeveloperProjects";
 import Skills from "@/app/_components/DeveloperSkills";
 import TeamMembers from "@/app/_components/DeveloperTeamMembers";
 
-const Developer = ({ params: { id } }: { params: { id: string } }) => {
-  const [consultant, setConsultant] = useState<Consultant>();
-  const [members, setMembers] = useState<Consultant[]>([]);
-
-  useEffect(() => {
-    // get data from api
-    getUser(id)
-      .then((res) => {
-        setConsultant(res);
-        return Promise.all(res.teamMembers.map((id) => getUser(id)));
-      })
-      .then((res) => {
-        setMembers(res);
-      })
-      .catch((err: Error) => {
-        console.log(err.message);
-      });
-  }, [id]);
+const Developer = async ({ params: { id } }: { params: { id: string } }) => {
+  const consultant = await getUser(id);
+  const members = await Promise.all(consultant.teamMembers.map((id) => getUser(id)))
   return (
     <main className="from-orange to-pink flex grow justify-center bg-gradient-to-b px-10 ">
       <div className="flex flex-col gap-4 py-6 md:w-[95%] md:flex-row md:py-0">
