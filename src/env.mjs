@@ -31,7 +31,7 @@ export const env = createEnv({
     NEXT_GOOGLE_CLIENT_ID: z.string(),
     NEXT_GOOGLE_SECRET: z.string(),
     NEXT_MEILISEARCH_HOST: z.string(),
-  NEXT_MEILISEARCH_KEY: z.string(),
+    NEXT_MEILISEARCH_KEY: z.string(),
     // Add ` on ID and SECRET if you want to make sure they're not empty
   },
 
@@ -42,8 +42,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-    NEXT_PUBLIC_MEILISEARCH_HOST: z.string(),
-    NEXT_PUBLIC_MEILISEARCH_KEY: z.string(),
+   
   },
 
   /**
@@ -55,8 +54,6 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_MEILISEARCH_HOST: process.env.NEXT_PUBLIC_MEILISEARCH_HOST,
-    NEXT_PUBLIC_MEILISEARCH_KEY: process.env.NEXT_PUBLIC_MEILISEARCH_KEY,
     NEXT_GOOGLE_CLIENT_ID: process.env.NEXT_GOOGLE_CLIENT_ID,
     NEXT_GOOGLE_SECRET: process.env.NEXT_GOOGLE_SECRET,
     NEXT_MEILISEARCH_HOST: process.env.NEXT_MEILISEARCH_HOST,
