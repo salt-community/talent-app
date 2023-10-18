@@ -12,7 +12,7 @@ const Developer = async ({ params: { id } }: { params: { id: string } }) => {
   const consultant = await getUser(id);
   const members = await Promise.all(consultant.teamMembers.map((id) => getUser(id)))
   return (
-    <main className="from-orange to-pink flex grow justify-center bg-gradient-to-b px-10 ">
+    <div className="from-orange to-pink flex grow justify-center bg-gradient-to-b px-10 ">
       <div className="flex flex-col gap-4 py-6 md:w-[95%] md:flex-row md:py-0">
         {consultant && (
           <>
@@ -38,7 +38,7 @@ const Developer = async ({ params: { id } }: { params: { id: string } }) => {
       >
         go back
       </Link>
-    </main>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ const Search = () => {
   }, []);
 
   return (
-    <main className="flex grow flex-col gap-6 px-6 md:gap-10">
+    <div className="flex grow flex-col gap-6 px-6 md:gap-10">
       <form
         className="flex gap-2 pt-4 md:w-1/3"
         onSubmit={(e) => {
@@ -51,7 +51,7 @@ const Search = () => {
           <p>Loading...</p>
         )}
       </ul>
-    </main>
+    </div>
   );
 };
 
