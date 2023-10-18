@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -24,6 +24,7 @@ model Post {
     createdById String
 
     @@index([name])
+    @@map("public.post")
 }
 
 // Necessary for Next auth
@@ -43,6 +44,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@map("public.account")
 }
 
 model Session {
@@ -51,6 +53,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("public.session")
 }
 
 model User {
@@ -62,6 +66,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     posts         Post[]
+
+    @@map("public.user")
 }
 
 model VerificationToken {
@@ -70,4 +76,39 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+    @@map("public.verificationtoken")
+}
+
+model Project {
+    id          String     @id @default(cuid())
+    title       String
+    youtube     String
+    description String
+    githubLink  String
+    Developer   Developer? @relation(fields: [developerId], references: [id])
+    developerId String?
+
+    @@map("public.project")
+}
+
+model Developer {
+    id          String    @id @default(cuid())
+    image       String
+    firstName   String
+    lastName    String
+    phone       String
+    mail        String
+    city        String
+    address     String
+    country     String
+    github      String
+    linkedin    String
+    cv          String
+    decription  String
+    skills      String[]
+    title       String
+    projects    Project[]
+    teamMembers String[]
+
+    @@map("public.developer")
 }

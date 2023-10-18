@@ -105,7 +105,7 @@ export const data: { consultants: Consultant[] } = {
         city: "City",
         country: "Coutry",
       },
-      cv: "url",
+      cv: "https://drive.google.com/file/d/1mfKGlDpMmxpFdK91YYyifK7dnsPK0ASV/view?usp=sharing",
       skills: ["JavaScript", "TypeScript", 'React', "Python", 'MongoDB', 'PostgreSQL', 'Prisma'],
       decription:
         "I like to BBQ, drink beer and code",
