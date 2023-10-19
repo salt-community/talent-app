@@ -3,10 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Github from "./icons/Github";
 import LinkedIn from "./icons/LinkedIn";
-import { Consultant } from "types";
-import { RouterOutputs } from "@/trpc/shared";
+import type { RouterOutputs } from "@/trpc/shared";
 
-type DeveloperSearch = RouterOutputs["developer"]["getDeveloperById"];
+type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type DeveloperListProps = {
   consultant: DeveloperSearch;
 };

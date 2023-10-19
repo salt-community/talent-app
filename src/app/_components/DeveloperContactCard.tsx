@@ -1,15 +1,15 @@
 import type { FC } from "react";
 import Image from "next/image";
 import Github from "./icons/Github";
-
-
 import { mdilEmail, mdilPhone, mdilMapMarker } from "@mdi/light-js";
 import IconTemp from "./icons/IconTemp";
 import LinkedIn from "./icons/LinkedIn";
-import { Consultant } from "types";
+import type { RouterOutputs } from "@/trpc/shared";
+
+type Developer = RouterOutputs["developer"]["getById"];
 
 type ContactCardProps = {
-  consultant: Consultant;
+  consultant: Developer;
 };
 
 const ContactCard: FC<ContactCardProps> = ({ consultant }) => {
@@ -44,9 +44,9 @@ const ContactCard: FC<ContactCardProps> = ({ consultant }) => {
         <div className="flex items-center gap-1">
           <IconTemp path={mdilMapMarker} />
           <div className="flex flex-wrap gap-1">
-            <p>{consultant.location.address}</p>
-            <p>{consultant.location.city}</p>
-            <p>{consultant.location.country}</p>
+            <p>{consultant.address}</p>
+            <p>{consultant.city}</p>
+            <p>{consultant.country}</p>
           </div>
         </div>
       </div>

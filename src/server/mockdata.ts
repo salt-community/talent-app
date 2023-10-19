@@ -18,6 +18,7 @@ if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
 export const data: Omit<Developer, "lastModified" | "id">[] = [
   {
+    userId: "",
     image: "https://avatars.githubusercontent.com/u/81062114?v=4",
     firstName: "Jou-Fang",
     lastName: "Wang",
@@ -33,9 +34,9 @@ export const data: Omit<Developer, "lastModified" | "id">[] = [
     github: "https://github.com/rofunn",
     linkedin: "https://www.linkedin.com/in/jou-fang-wang-44a14a16b/",
     title: "Fullstack JavaScript Developer",
-    teamMembers: ["2", "3", "4"],
   },
   {
+    userId: "",
     image: "https://avatars.githubusercontent.com/u/121552608?v=4",
     firstName: "Allan",
     lastName: "Heremi",
@@ -50,9 +51,9 @@ export const data: Omit<Developer, "lastModified" | "id">[] = [
     github: "https://github.com/allanheremi",
     linkedin: "https://www.linkedin.com/in/allanheremi/",
     title: "Fullstack JavaScript Developer",
-    teamMembers: ["2", "3", "4"],
   },
   {
+    userId: "clnx9xkk40000w548wpakrywb",
     image: "https://avatars.githubusercontent.com/u/49008491?v=4",
     firstName: "Rasmus",
     lastName: "Eklund",
@@ -75,7 +76,6 @@ export const data: Omit<Developer, "lastModified" | "id">[] = [
     github: "https://github.com/rasmus-eklund",
     linkedin: "https://www.linkedin.com/in/rasmus-eklund-36348255/",
     title: "Fullstack JavaScript Developer",
-    teamMembers: ["2", "3", "4"],
   },
 ];
 

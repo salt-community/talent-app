@@ -1,14 +1,8 @@
 "use client";
-import { queryConsultants } from "@/server/server-actions";
-import React, { useEffect, useState } from "react";
-import SearchItem from "./SearchItem";
-import { Consultant } from "types";
-import { api } from "@/trpc/react";
+import  {  useState } from "react";
 import SearchResults from "./SearchResults";
 
-type Props = {};
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [finalSearch, setFinalSearch] = useState("");
 
@@ -18,7 +12,6 @@ const SearchBar = (props: Props) => {
         className="flex gap-2 pt-4 md:w-1/3"
         onSubmit={(e) => {
           e.preventDefault();
-  
           setFinalSearch(search);
         }}
       >

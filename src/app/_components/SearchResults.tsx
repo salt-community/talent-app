@@ -1,5 +1,5 @@
 import { api } from '@/trpc/react'
-import { FC } from 'react'
+import type { FC } from 'react'
 import SearchItem from './SearchItem'
 
 type Props = {
@@ -7,8 +7,7 @@ type Props = {
 }
 
 const SearchResults: FC<Props> = ({search}) => {
-  console.log('made search with', search);
-  const data = api.developer.getSearchedDevelopers.useQuery({search})
+  const data = api.developer.getBySearch.useQuery({search})
   const developers = data.data
   return (
     <ul className="flex flex-col gap-2">
