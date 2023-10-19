@@ -1,11 +1,10 @@
-'use server'
-import { data } from "./mockdata";
+"use server";
+import { data } from "./mockdata.js";
 import type { Consultant, SearchResult } from "types";
 import client from "./meilisearchClient";
 
-
 // eslint-disable-next-line
-export const getUser = async (id: string) : Promise<Consultant> => {
+export const getUser = async (id: string): Promise<Consultant> => {
   // fetch
   return data.consultants.find((c) => c.id === id)!;
 };
@@ -27,4 +26,3 @@ export const queryConsultants = async (text: string) => {
   const searchData = res.hits as SearchResult[];
   return await getUsersById(searchData.map((consultant) => consultant.id));
 };
-

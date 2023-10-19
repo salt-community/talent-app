@@ -92,23 +92,24 @@ model Project {
 }
 
 model Developer {
-    id          String    @id @default(cuid())
-    image       String
-    firstName   String
-    lastName    String
-    phone       String
-    mail        String
-    city        String
-    address     String
-    country     String
-    github      String
-    linkedin    String
-    cv          String
-    decription  String
-    skills      String[]
-    title       String
-    projects    Project[]
-    teamMembers String[]
+    id           String    @id @default(cuid())
+    image        String
+    firstName    String
+    lastName     String
+    phone        String
+    mail         String
+    city         String
+    address      String
+    country      String
+    github       String
+    linkedin     String
+    cv           String
+    decription   String
+    skills       String[]
+    title        String
+    projects     Project[]
+    teamMembers  String[]
+    lastModified DateTime
 
     @@map("public.developer")
 }

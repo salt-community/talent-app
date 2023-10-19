@@ -1,12 +1,12 @@
 import client from "./meilisearchClient";
-import { data } from "./mockdata";
 import settings from "./meilisearchSettings";
-import type { Consultant } from "types";
-
+import { Developer } from "@prisma/client";
+import { db } from "./db";
 
 // eslint-disable-next-line
 const populateMeilisearch = async () => {
-  const devs = data.consultants.map((c: Consultant) => ({
+  const data = await db.developer.findMany();
+  const devs = data.map((c: Developer) => ({
     title: c.title,
     skills: c.skills,
     name: `${c.firstName} ${c.lastName}`,
@@ -29,5 +29,4 @@ populateMeilisearch()
     console.log(err.message);
   });
 
-
-export default populateMeilisearch
+export default populateMeilisearch;
