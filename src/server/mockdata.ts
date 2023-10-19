@@ -1,4 +1,3 @@
-import { Developer } from "@prisma/client";
 import { PrismaClient } from "@prisma/client";
 
 import { env } from "@/env.mjs";
@@ -16,9 +15,9 @@ const db =
 
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
-export const data: Omit<Developer, "lastModified" | "id">[] = [
+const data = [
   {
-    userId: "",
+    userId: "clnxa4z810000qo4vnlexks3s",
     image: "https://avatars.githubusercontent.com/u/81062114?v=4",
     firstName: "Jou-Fang",
     lastName: "Wang",
@@ -36,7 +35,7 @@ export const data: Omit<Developer, "lastModified" | "id">[] = [
     title: "Fullstack JavaScript Developer",
   },
   {
-    userId: "",
+    userId: "clnxa3qc20000phqctzbu1hil",
     image: "https://avatars.githubusercontent.com/u/121552608?v=4",
     firstName: "Allan",
     lastName: "Heremi",
@@ -82,7 +81,10 @@ export const data: Omit<Developer, "lastModified" | "id">[] = [
 export const seed = async () => {
   for (const dev of data) {
     const lastModified = new Date();
-    await db.developer.create({ data: { ...dev, lastModified } });
+    const userId = dev.userId;
+    await db.developer.create({
+      data: { ...dev, lastModified, userId },
+    });
     console.log("added: ", dev.firstName);
   }
 };

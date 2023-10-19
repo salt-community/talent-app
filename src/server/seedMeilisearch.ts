@@ -1,6 +1,6 @@
 import client from "./meilisearchClient";
 import settings from "./meilisearchSettings";
-import { Developer } from "@prisma/client";
+import type { Developer } from "@prisma/client";
 import { db } from "./db";
 
 // eslint-disable-next-line

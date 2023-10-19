@@ -1,23 +1,29 @@
-import type { Project } from "@/types";
 import type { FC } from "react";
 import SectionHeader from "./SectionHeader";
+
+import type { RouterOutputs } from "@/trpc/shared";
+
+type Project =
+  RouterOutputs["developer"]["getById"]["projects"][number]["project"];
 
 type RecentProjectProps = {
   project: Project;
 };
 
-const Projects: FC<RecentProjectProps> = ({ project }) => {
+const Projects: FC<RecentProjectProps> = ({
+  project: { description, title, youtube },
+}) => {
   return (
     <div className="flex flex-col gap-4">
-      <SectionHeader title={project.title}/>
+      <SectionHeader title={title} />
       <div className="flex flex-col gap-4 md:flex-row">
         <iframe
-          src={project.youtube}
-          title={project.title}
+          src={youtube}
+          title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
-        <p>{project.description}</p>
+        <p>{description}</p>
       </div>
     </div>
   );

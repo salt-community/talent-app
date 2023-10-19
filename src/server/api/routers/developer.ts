@@ -19,6 +19,27 @@ export const developerRouter = createTRPCRouter({
     .query(async ({ ctx, input: { id } }) => {
       const dev = await ctx.db.developer.findUnique({
         where: { id },
+        include: {
+          mobs: {
+            include: {
+              Developer: {
+                select: {
+                  image: true,
+                  firstName: true,
+                  lastName: true,
+                  id: true,
+                },
+              },
+            },
+          },
+          projects: {
+            include: {
+              project: {
+                select: { description: true, title: true, youtube: true },
+              },
+            },
+          },
+        },
       });
       if (!dev) {
         throw new TRPCError({ code: "NOT_FOUND" });

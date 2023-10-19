@@ -1,33 +1,39 @@
-import type { Consultant } from "@/types";
 import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "./SectionHeader";
+import { RouterOutputs } from "@/trpc/shared";
+
+type Developer =
+  RouterOutputs["developer"]["getById"]["mobs"][number]["Developer"];
 
 type TeamMembersProps = {
-  consultants: Consultant[];
+  developers: Developer[];
 };
 
-const TeamMembers: FC<TeamMembersProps> = ({ consultants }) => {
+const TeamMembers: FC<TeamMembersProps> = ({ developers }) => {
   return (
     <div className="flex flex-col gap-4">
-      <SectionHeader title="Team members"/>
+      <SectionHeader title="Team members" />
       <ul className="flex gap-6">
-        {consultants.map((consultant) => (
-          <li className="p-2 rounded-md hover:translate-y-[-2%] hover:bg-orange/20 ease-in-out duration-300 text-center gap-2" key={consultant.id}>
+        {developers.map((developer) => (
+          <li
+            className="gap-2 rounded-md p-2 text-center duration-300 ease-in-out hover:translate-y-[-2%] hover:bg-orange/20"
+            key={consultant.id}
+          >
             <Link
               className="flex flex-col items-center"
-              href={`/developer/${consultant.id}`}
+              href={`/developer/${developer.id}`}
             >
               <Image
-                src={consultant.image}
+                src={developer.image}
                 alt="image"
                 width={50}
                 height={50}
                 className="rounded-full"
               />
               <p>
-                {consultant.firstName} {consultant.lastName}
+                {developer.firstName} {developer.lastName}
               </p>
             </Link>
           </li>

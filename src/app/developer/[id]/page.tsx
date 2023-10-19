@@ -15,23 +15,23 @@ const DeveloperPage = async ({
   return (
     <div className="flex grow justify-center bg-gradient-to-b from-orange to-pink px-10 ">
       <div className="flex flex-col gap-4 py-6 md:w-[95%] md:flex-row md:py-0">
-        {developer && (
-          <>
-            <div className="rounded-md bg-gray md:w-1/4 md:rounded-none">
-              <ContactCard consultant={developer} />
-            </div>
-            {/* <hr className="h-full border-[1px] border-black/20" /> */}
-            <div className="flex flex-col gap-12 rounded-md bg-gray p-4 text-xl md:w-3/4 md:rounded-none md:px-10">
-              <section className="flex flex-col gap-4">
-                <SectionHeader title={developer.title} />
-                <p>{developer.decription}</p>
-              </section>
-              {/* <Projects project={developer.recentProjects} /> */}
-              <Skills skills={developer.skills} />
-              {/* <TeamMembers consultants={members} /> */}
-            </div>
-          </>
-        )}
+        <div className="rounded-md bg-gray md:w-1/4 md:rounded-none">
+          <ContactCard consultant={developer} />
+        </div>
+        <div className="flex flex-col gap-12 rounded-md bg-gray p-4 text-xl md:w-3/4 md:rounded-none md:px-10">
+          <section className="flex flex-col gap-4">
+            <SectionHeader title={developer.title} />
+            <p>{developer.decription}</p>
+          </section>
+          {developer.projects.map((project) => (
+            <Projects
+              key={project.id}
+              project={developer.projects.map((project) => project.project)}
+            />
+          ))}
+          <Skills skills={developer.skills} />
+          <TeamMembers consultants={developer.mobs} />
+        </div>
       </div>
       <Link
         href={"/"}
