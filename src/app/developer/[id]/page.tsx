@@ -33,7 +33,7 @@ const Developer = async ({ params: { id } }: { params: { id: string } }) => {
         )}
       </div>
       <Link
-        href={"/search"}
+        href={"/"}
         className="hover:bg-orange fixed bottom-5 right-5 rounded-md border-2 border-black bg-white p-2 text-black hover:text-white"
       >
         go back
