@@ -14,19 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-    @@map("public.post")
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -58,14 +45,14 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    Developer     Developer[]
 
     @@map("public.user")
 }
@@ -80,19 +67,28 @@ model VerificationToken {
 }
 
 model Project {
-    id          String     @id @default(cuid())
-    title       String
-    youtube     String
-    description String
-    githubLink  String
-    Developer   Developer? @relation(fields: [developerId], references: [id])
-    developerId String?
+    id                String              @id @default(cuid())
+    title             String
+    youtube           String
+    description       String
+    githubLink        String
+    Project_developer Project_developer[]
 
     @@map("public.project")
 }
 
+model Project_developer {
+    id          String     @id @default(cuid())
+    Developer   Developer? @relation(fields: [developerId], references: [id], onDelete: Cascade)
+    developerId String?
+    project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    projectId   String
+
+    @@map("public.project_developer")
+}
+
 model Developer {
-    id           String    @id @default(cuid())
+    id           String              @id @default(cuid())
     image        String
     firstName    String
     lastName     String
@@ -107,9 +103,29 @@ model Developer {
     decription   String
     skills       String[]
     title        String
-    projects     Project[]
-    teamMembers  String[]
     lastModified DateTime
+    projects     Project_developer[]
+    mobs         Mob_developer[]
+    User         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId       String
 
     @@map("public.developer")
+}
+
+model Mob_developer {
+    id          String     @id @default(cuid())
+    Developer   Developer? @relation(fields: [developerId], references: [id], onDelete: Cascade)
+    developerId String?
+    Mob         Mob?       @relation(fields: [mobId], references: [id], onDelete: Cascade)
+    mobId       String?
+
+    @@map("public.mob_developer")
+}
+
+model Mob {
+    id      String          @id @default(cuid())
+    name    String
+    members Mob_developer[]
+
+    @@map("public.mob")
 }
