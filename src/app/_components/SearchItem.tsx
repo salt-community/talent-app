@@ -4,9 +4,11 @@ import Link from "next/link";
 import Github from "./icons/Github";
 import LinkedIn from "./icons/LinkedIn";
 import { Consultant } from "types";
+import { RouterOutputs } from "@/trpc/shared";
 
+type DeveloperSearch = RouterOutputs["developer"]["getDeveloperById"];
 type DeveloperListProps = {
-  consultant: Consultant;
+  consultant: DeveloperSearch;
 };
 
 const SearchItem: FC<DeveloperListProps> = ({ consultant }) => {

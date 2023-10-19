@@ -14,6 +14,7 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
+import msClient from "../meilisearchClient";
 
 /**
  * 1. CONTEXT
@@ -44,6 +45,7 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
     session,
     headers: opts.headers,
     db,
+    msClient,
   };
 };
 
