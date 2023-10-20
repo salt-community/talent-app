@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "@/server/api/trpc";
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
 
@@ -58,7 +62,7 @@ export const developerRouter = createTRPCRouter({
         lastName: dev.lastName,
         title: dev.title,
         skills: dev.skills,
-        description: dev.decription,
+        description: dev.description,
         github: dev.github,
         linkedin: dev.linkedin,
         phone: dev.phone,
@@ -126,7 +130,7 @@ export const developerRouter = createTRPCRouter({
         github: z.string(),
         linkedin: z.string(),
         cv: z.string(),
-        decription: z.string(),
+        description: z.string(),
         skills: z.array(z.string()),
         title: z.string(),
       }),
@@ -139,4 +143,21 @@ export const developerRouter = createTRPCRouter({
       });
       return developer;
     }),
+
+  getRecentTen: publicProcedure.query(async ({ ctx }) => {
+    const data = await ctx.db.developer.findMany({
+      orderBy: { lastModified: "asc" },
+      take: 10,
+    });
+    return data.map((dev) => ({
+      id: dev.id,
+      image: dev.image,
+      firstName: dev.firstName,
+      lastName: dev.lastName,
+      title: dev.title,
+      skills: dev.skills,
+      github: dev.github,
+      linkedin: dev.linkedin,
+    }));
+  }),
 });
