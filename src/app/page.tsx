@@ -1,5 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import SearchBar from "./_components/SearchBar";
+import EditDeveloperForm from "./_components/EditDeveloperForm";
 
 const Home = async () => {
   const session = await getServerAuthSession();
@@ -13,6 +14,7 @@ const Home = async () => {
         </div>
       </div>
       {session && <SearchBar />}
+      <EditDeveloperForm />
     </>
   );
 };

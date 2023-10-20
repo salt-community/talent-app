@@ -111,4 +111,32 @@ export const developerRouter = createTRPCRouter({
         linkedin: dev.linkedin,
       }));
     }),
+
+  create: protectedProcedure
+    .input(
+      z.object({
+        image: z.string(),
+        firstName: z.string(),
+        lastName: z.string(),
+        phone: z.string(),
+        mail: z.string(),
+        city: z.string(),
+        address: z.string(),
+        country: z.string(),
+        github: z.string(),
+        linkedin: z.string(),
+        cv: z.string(),
+        decription: z.string(),
+        skills: z.array(z.string()),
+        title: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const lastModified = new Date();
+      const developer = await ctx.db.developer.create({
+        data: { userId, lastModified, ...input },
+      });
+      return developer;
+    }),
 });
