@@ -1,29 +1,38 @@
-import { api } from '@/trpc/react'
-import type { FC } from 'react'
-import SearchItem from './SearchItem'
+import { api } from "@/trpc/react";
+import type { FC } from "react";
+import SearchItem from "./SearchItem";
+import SearchItemShimmer from "./SearchItemShimmer";
 
 type Props = {
-  search: string
-}
+  search: string;
+};
 
-const SearchResults: FC<Props> = ({search}) => {
-  const data = api.developer.getBySearch.useQuery({search})
-  const developers = data.data
+const SearchResults: FC<Props> = ({ search }) => {
+  const { data, isSuccess } = api.developer.getBySearch.useQuery({
+    search,
+  });
+
   return (
     <ul className="flex flex-col gap-2">
-    {developers ? (
-      developers.length === 0 ? (
-        <p className="text-2xl font-semibold">No results found...</p>
+      {isSuccess ? (
+        data.length === 0 ? (
+          <p className="text-2xl font-semibold"> No results found...</p>
+        ) : (
+          data.map((consultant) => (
+            <SearchItem key={consultant.id} consultant={consultant} />
+          ))
+        )
       ) : (
-        developers.map((consultant) => (
-          <SearchItem key={consultant.id} consultant={consultant} />
-        ))
-      )
-    ) : (
-      <p>Loading...</p>
-    )}
-  </ul>
-  )
-}
+        <>
+          <SearchItemShimmer />
+          <SearchItemShimmer />
+          <SearchItemShimmer />
+          <SearchItemShimmer />
+          <SearchItemShimmer />
+        </>
+      )}
+    </ul>
+  );
+};
 
-export default SearchResults
+export default SearchResults;
