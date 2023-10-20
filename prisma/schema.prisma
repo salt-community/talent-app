@@ -100,7 +100,7 @@ model Developer {
     github       String
     linkedin     String
     cv           String
-    decription   String
+    description  String
     skills       String[]
     title        String
     lastModified DateTime

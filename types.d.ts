@@ -1,31 +1,30 @@
-export type Consultant = {
-  image: string;
+export type Developer = {
   firstName: string;
   lastName: string;
+  image: string;
   phone: string;
   mail: string;
-  location: { city: string; address: string; country: string };
+  city: string;
+  address: string;
+  country: string;
   github: string;
   linkedin: string;
   cv: string;
-  decription: string;
-  skills: string[];
-  title: string;
-  recentProjects: Project[];
-  teamMembers: string[];
-};
-
-export type Project = {
-  title: string;
-  youtube: string;
   description: string;
+  skills: string;
+  title: string;
 };
 
 export type SearchResult = {
   firstName: string;
   lastName: string;
-  decription: string;
+  description: string;
   skills: string[];
   id: string;
   title: string;
 };
+
+export type GithubApiResponse = {
+  avatar_url: string;
+  url: string;
+}
