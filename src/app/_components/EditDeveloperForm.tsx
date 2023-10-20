@@ -1,26 +1,56 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { devSchema } from "@/utils/zodSchema";
+import type { Developer } from "types";
+import type { FC } from "react";
 
-type Inputs = {
-  firstName: string;
+type EditDeveloperFormProps = {
+  developer?: Developer;
 };
 
-const EditDeveloperForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
+const EditDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
+  const { register, handleSubmit } = useForm<Developer>({
+    mode: "onSubmit",
+    defaultValues: developer,
+  });
+  const onSubmit: SubmitHandler<Developer> = async (data) => {
+    const parsedData = devSchema.safeParse(data);
+    console.log(parsedData);
   };
+  const fields = [
+    "firstName",
+    "lastName",
+    "image",
+    "phone",
+    "mail",
+    "city",
+    "address",
+    "country",
+    "github",
+    "linkedin",
+    "cv",
+    "description",
+    "skills",
+    "title",
+  ] as const;
+  const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="firstName">firstName</label>
-      <input type="text" {...register("firstName")} />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <form onSubmit={void handleSubmit(onSubmit)}>
+        {fields.map((field) => {
+          return (
+            <input
+              key={field}
+              type="text"
+              {...register(field)}
+              className={className}
+              placeholder={field}
+            />
+          );
+        })}
+      </form>
+    </>
   );
 };
 
