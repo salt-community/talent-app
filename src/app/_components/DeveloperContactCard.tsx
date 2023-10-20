@@ -9,34 +9,34 @@ import type { RouterOutputs } from "@/trpc/shared";
 type Developer = RouterOutputs["developer"]["getById"];
 
 type ContactCardProps = {
-  consultant: Developer;
+  developer: Developer;
 };
 
-const ContactCard: FC<ContactCardProps> = ({ consultant }) => {
+const ContactCard: FC<ContactCardProps> = ({ developer }) => {
   return (
     <section className="flex flex-col gap-6 p-4 pt-8">
       <div className="flex flex-col items-center gap-2">
         <Image
           className="rounded-full "
-          src={consultant.image}
+          src={developer.image}
           alt="profile picture"
           width={100}
           height={100}
         />
         <h1 className="text-center text-2xl md:text-4xl">
-          {consultant.firstName} {consultant.lastName}
+          {developer.firstName} {developer.lastName}
         </h1>
       </div>
       <div className="flex flex-col gap-4 p-2">
         <div className="flex gap-1">
           <IconTemp path={mdilPhone} />
-          <p>{consultant.phone}</p>
+          <p>{developer.phone}</p>
         </div>
         <div className="flex items-center gap-1">
           <IconTemp path={mdilEmail} />
           <a
             className="text-orange underline"
-            href={`mailto: ${consultant.mail}`}
+            href={`mailto: ${developer.mail}`}
           >
             email me
           </a>
@@ -44,15 +44,15 @@ const ContactCard: FC<ContactCardProps> = ({ consultant }) => {
         <div className="flex items-center gap-1">
           <IconTemp path={mdilMapMarker} />
           <div className="flex flex-wrap gap-1">
-            <p>{consultant.address}</p>
-            <p>{consultant.city}</p>
-            <p>{consultant.country}</p>
+            <p>{developer.address}</p>
+            <p>{developer.city}</p>
+            <p>{developer.country}</p>
           </div>
         </div>
       </div>
       <div className="flex">
-        <Github url={consultant.github} className={"h-10 w-10"} />
-        <LinkedIn url={consultant.linkedin} className={"h-10 w-10"} />
+        <Github url={developer.github} className={"h-10 w-10"} />
+        <LinkedIn url={developer.linkedin} className={"h-10 w-10"} />
       </div>
     </section>
   );

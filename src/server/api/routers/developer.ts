@@ -21,13 +21,22 @@ export const developerRouter = createTRPCRouter({
         where: { id },
         include: {
           mobs: {
-            include: {
-              Developer: {
+            select: {
+              Mob: {
                 select: {
-                  image: true,
-                  firstName: true,
-                  lastName: true,
-                  id: true,
+                  name: true,
+                  members: {
+                    select: {
+                      Developer: {
+                        select: {
+                          id: true,
+                          image: true,
+                          firstName: true,
+                          lastName: true,
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },
@@ -44,7 +53,45 @@ export const developerRouter = createTRPCRouter({
       if (!dev) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
-      return dev;
+
+      return {
+        id: dev.id,
+        image: dev.image,
+        firstName: dev.firstName,
+        lastName: dev.lastName,
+        title: dev.title,
+        skills: dev.skills,
+        description: dev.decription,
+        github: dev.github,
+        linkedin: dev.linkedin,
+        phone: dev.phone,
+        mail: dev.mail,
+        address: dev.address,
+        city: dev.city,
+        country: dev.country,        
+        projects: dev.projects.map((project) => ({
+          description: project.project.description,
+          title: project.project.title,
+          youtube: project.project.youtube,
+          id: project.projectId,
+        })),
+        mobs: dev.mobs.map((mob) => {
+          if (mob.Mob) {
+            return {
+              name: mob.Mob.name,
+              members: mob.Mob.members.map((member) => {
+                if (member.Developer)
+                  return {
+                    id: member.Developer.id,
+                    image: member.Developer.image,
+                    firstName: member.Developer.firstName,
+                    lastName: member.Developer.lastName,
+                  };
+              }),
+            };
+          }
+        }),
+      };
     }),
 
   getBySearch: protectedProcedure

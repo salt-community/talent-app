@@ -3,30 +3,27 @@ import SectionHeader from "./SectionHeader";
 
 import type { RouterOutputs } from "@/trpc/shared";
 
-type Project =
-  RouterOutputs["developer"]["getById"]["projects"][number]["project"];
+type Project = RouterOutputs["developer"]["getById"]["projects"][number];
 
 type RecentProjectProps = {
-  project: Project;
+  projects: Project[];
 };
 
-const Projects: FC<RecentProjectProps> = ({
-  project: { description, title, youtube },
-}) => {
-  return (
+const Projects: FC<RecentProjectProps> = ({ projects }) => {
+  return projects.map((project) => (
     <div className="flex flex-col gap-4">
-      <SectionHeader title={title} />
+      <SectionHeader title={project.title} />
       <div className="flex flex-col gap-4 md:flex-row">
         <iframe
-          src={youtube}
-          title={title}
+          src={project.youtube}
+          title={project.title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
-        <p>{description}</p>
+        <p>{project.description}</p>
       </div>
     </div>
-  );
+  ));
 };
 
 export default Projects;
