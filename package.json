@@ -10,7 +10,10 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "seed": "ts-node src/server/mockdata.ts"
+    "db-seed": "cross-env NODE_ENV=development prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@mdi/light-js": "^0.2.63",
@@ -23,6 +26,7 @@
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
+    "cross-env": "^7.0.3",
     "meilisearch": "^0.35.0",
     "next": "^13.5.4",
     "next-auth": "^4.23.0",
@@ -30,6 +34,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.47.0",
     "superjson": "^1.13.1",
+    "tsx": "^3.14.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

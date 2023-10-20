@@ -4,13 +4,13 @@ import type { Developer } from "@prisma/client";
 import { db } from "./db";
 
 // eslint-disable-next-line
-const populateMeilisearch = async () => {
+const seedMeilisearch = async () => {
   const data = await db.developer.findMany();
   const devs = data.map((c: Developer) => ({
     title: c.title,
     skills: c.skills,
     name: `${c.firstName} ${c.lastName}`,
-    description: c.decription,
+    description: c.description,
     id: c.id,
   }));
   client
@@ -23,10 +23,4 @@ const populateMeilisearch = async () => {
     });
 };
 
-populateMeilisearch()
-  .then(() => console.log("Meilisearch populated!"))
-  .catch((err: Error) => {
-    console.log(err.message);
-  });
-
-export default populateMeilisearch;
+export default seedMeilisearch;
