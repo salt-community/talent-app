@@ -11,7 +11,7 @@ type RecentProjectProps = {
 
 const Projects: FC<RecentProjectProps> = ({ projects }) => {
   return projects.map((project) => (
-    <div className="flex flex-col gap-4">
+    <div key={project.id} className="flex flex-col gap-4">
       <SectionHeader title={project.title} />
       <div className="flex flex-col gap-4 md:flex-row">
         <iframe

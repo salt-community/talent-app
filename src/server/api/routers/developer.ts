@@ -1,10 +1,6 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
 
@@ -24,6 +20,7 @@ export const developerRouter = createTRPCRouter({
             select: {
               Mob: {
                 select: {
+                  id: true,
                   name: true,
                   members: {
                     select: {
@@ -68,7 +65,7 @@ export const developerRouter = createTRPCRouter({
         mail: dev.mail,
         address: dev.address,
         city: dev.city,
-        country: dev.country,        
+        country: dev.country,
         projects: dev.projects.map((project) => ({
           description: project.project.description,
           title: project.project.title,
@@ -78,6 +75,7 @@ export const developerRouter = createTRPCRouter({
         mobs: dev.mobs.map((mob) => {
           if (mob.Mob) {
             return {
+              id: mob.Mob.id,
               name: mob.Mob.name,
               members: mob.Mob.members.map((member) => {
                 if (member.Developer)

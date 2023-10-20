@@ -6,7 +6,6 @@ import { headers } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import Footer from "./_components/Footer";
-import { SessionProvider } from "next-auth/react";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 
 const inter = Inter({

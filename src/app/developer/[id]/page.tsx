@@ -27,7 +27,9 @@ const DeveloperPage = async ({
             <Projects key={project.id} projects={developer.projects} />
           ))}
           <Skills skills={developer.skills} />
-          {developer.mobs.map((mob) => mob && <TeamMembers mob={mob} />)}
+          {developer.mobs.map(
+            (mob) => mob && <TeamMembers key={mob.id} mob={mob} />,
+          )}
         </div>
       </div>
       <Link
