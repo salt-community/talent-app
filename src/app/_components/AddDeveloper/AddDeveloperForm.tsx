@@ -1,37 +1,49 @@
 "use client";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import {
-  devInputSchema,
-  devSchema,
-  type TdevInputSchema,
-  type TDevSchema,
-} from "@/utils/zodSchema";
+import { devSchema, type tDevSchema } from "@/utils/zodSchema";
 
 import { useState, type FC, FormEvent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getGithubData } from "@/server/gitHub";
 import toast from "react-hot-toast";
+import { getGithubData } from "./getGithubData";
 
 type EditDeveloperFormProps = {
-  developer?: TDevSchema;
+  developer?: tDevSchema;
 };
 
 const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
-  const { register, handleSubmit } = useForm<TdevInputSchema>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<tDevSchema>({
     mode: "onSubmit",
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [skill, setSkill] = useState("");
-  const onSubmit: SubmitHandler<TdevInputSchema> = async (data) => {
-    const gitHubData = await getGithubData(data.gitHubUserName);
-    const { gitHubUserName, ...rest } = data;
-    const newData: TDevSchema = { ...rest, ...gitHubData };
-    const parsedData = devSchema.safeParse(newData);
-    if (!parsedData.success) {
-      toast.error("Incorrect github username provided");
+
+  const onSubmit: SubmitHandler<tDevSchema> = async (data) => {
+    try {
+      const gitHubData = await getGithubData(data.gitHubUrl);
+      const { gitHubUrl, ...rest } = data;
+      const newData: tDevSchema = {
+        ...rest,
+        ...gitHubData,
+        ...{ skills: skills },
+      };
+      const parsedData = devSchema.safeParse(newData);
+      if (!parsedData.success) {
+        toast.error("Incorrect github username provided");
+      }
+      console.log(parsedData);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong!");
+      }
     }
-    console.log(parsedData);
   };
 
   const handleAddSkill = (e: FormEvent<HTMLFormElement>) => {
@@ -48,61 +60,70 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (
     <>
-      <form onSubmit={void handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type="text"
           {...register("name")}
           className={className}
           placeholder={"First and last name"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("phone")}
           className={className}
           placeholder={"Phone number"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("mail")}
           className={className}
           placeholder={"E-mail address"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("city")}
           className={className}
           placeholder={"City"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("address")}
           className={className}
           placeholder={"Address"}
-        />{" "}
+        />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("country")}
           className={className}
           placeholder={"Country of residence"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
-          {...register("gitHubUserName")}
+          {...register("gitHubUrl")}
           className={className}
           placeholder={"GitHub username"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("linkedinUrl")}
           className={className}
           placeholder={"LinkedIn url"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("resume")}
           className={className}
           placeholder={"Link to Resume"}
         />
+        {errors.name && <p>{errors.name.message}</p>}
         <input
           type="text"
           {...register("description")}
@@ -115,6 +136,7 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
           className={className}
           placeholder={"E.g Full-stack Java developer"}
         />
+        <button type="submit">Save</button>
       </form>
       <Skills skills={skills} removeSkill={handleRemoveSkill} />
       <form onSubmit={handleAddSkill}>
@@ -130,7 +152,6 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
 };
 
 type Props = { skills: string[]; removeSkill: (skill: string) => void };
-
 const Skills: FC<Props> = ({ skills, removeSkill }) => {
   return (
     <div className="flex flex-col gap-4">
