@@ -8,6 +8,7 @@ const Header = () => {
       <Link href={"/"}>
         <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
       </Link>
+      <Link href={"/addDeveloper"}>Add developer</Link>
       <Login />
     </header>
   );
