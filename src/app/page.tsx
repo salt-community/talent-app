@@ -13,8 +13,6 @@ const Home = async () => {
         </div>
       </div>
       {session && <SearchBar />}
-
-      {/* <EditDeveloperForm /> */}
     </>
   );
 };
