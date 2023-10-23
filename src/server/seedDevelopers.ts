@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 import { env } from "@/env.mjs";
-import type { TDevSchema } from "@/utils/zodSchema";
+import type { tDevSchema } from "@/utils/zodSchema";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -16,7 +16,7 @@ const db =
 
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
-const data: (TDevSchema & { userId: string })[] = [
+const data: (tDevSchema & { userId: string })[] = [
   {
     userId: "clnyo354d000aw5zo4uq6opi3",
     name: "Jou-Fang Wang",
