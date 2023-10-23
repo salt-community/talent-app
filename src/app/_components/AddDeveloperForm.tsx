@@ -8,7 +8,7 @@ import {
   type TDevSchema,
 } from "@/utils/zodSchema";
 
-import { useState, type FC } from "react";
+import { useState, type FC, FormEvent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getGithubData } from "@/server/gitHub";
 import toast from "react-hot-toast";
@@ -22,6 +22,7 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
     mode: "onSubmit",
   });
   const [skills, setSkills] = useState<string[]>([]);
+  const [skill, setSkill] = useState("");
   const onSubmit: SubmitHandler<TdevInputSchema> = async (data) => {
     const gitHubData = await getGithubData(data.gitHubUserName);
     const { gitHubUserName, ...rest } = data;
@@ -31,6 +32,17 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
       toast.error("Incorrect github username provided");
     }
     console.log(parsedData);
+  };
+
+  const handleAddSkill = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSkills((prev) => {
+      return [...prev, skill];
+    });
+  };
+
+  const handleRemoveSkill = (name: string) => {
+    setSkills((prev) => prev.filter((skill) => skill !== name));
   };
 
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
@@ -99,18 +111,43 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
         />
         <input
           type="text"
-          {...register("skills")}
-          className={className}
-          placeholder={"Your skills"}
-        />
-        <input
-          type="text"
           {...register("title")}
           className={className}
           placeholder={"E.g Full-stack Java developer"}
         />
       </form>
+      <Skills skills={skills} removeSkill={handleRemoveSkill} />
+      <form onSubmit={handleAddSkill}>
+        <input
+          type="text"
+          className={className}
+          placeholder={"Your skills"}
+          onChange={(e) => setSkill(e.target.value)}
+        />
+      </form>
     </>
+  );
+};
+
+type Props = { skills: string[]; removeSkill: (skill: string) => void };
+
+const Skills: FC<Props> = ({ skills, removeSkill }) => {
+  return (
+    <div className="flex flex-col gap-4">
+      <ul className="flex flex-wrap gap-4">
+        {skills.map((skill, index) => (
+          <li
+            key={skill + index}
+            className="flex gap-4 rounded-full bg-orange px-4 py-1 text-white"
+          >
+            <p>{skill}</p>
+            <button className="text-red-800" onClick={() => removeSkill(skill)}>
+              x
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
