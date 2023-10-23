@@ -1,40 +1,24 @@
 import { z } from "zod";
 
 export const devSchema = z.object({
-  name: z.string(),
+  name: z.string().min(2, "Provide a name"),
   phone: z.string(),
-  mail: z.string(),
-  city: z.string(),
-  address: z.string(),
-  country: z.string(),
-  image: z.string().url(),
+  mail: z.string().email("Not valid mail"),
+  city: z.string().min(2),
+  address: z.string().min(2),
+  country: z.string().min(2),
+  linkedinUrl: z.string().url(),
+  resume: z.string().url(),
+  title: z.string(),
+  description: z.string().min(2),
+  skills: z.array(z.string()).min(1),
   gitHubUrl: z.string().url(),
-  linkedinUrl: z.string().url(),
-  resume: z.string().url(),
-  description: z.string(),
-  skills: z.array(z.string()),
-  title: z.string(),
+  image: z.string().url(),
 });
-export type TDevSchema = z.infer<typeof devSchema>;
-
-export const devInputSchema = z.object({
-  name: z.string(),
-  phone: z.string(),
-  mail: z.string(),
-  city: z.string(),
-  address: z.string(),
-  country: z.string(),
-  gitHubUserName: z.string(),
-  linkedinUrl: z.string().url(),
-  resume: z.string().url(),
-  description: z.string(),
-  skills: z.array(z.string()),
-  title: z.string(),
-});
-export type TdevInputSchema = z.infer<typeof devInputSchema>;
+export type tDevSchema = z.infer<typeof devSchema>;
 
 export const githubResponseSchema = z.object({
   avatar_url: z.string().url(),
   html_url: z.string().url(),
 });
-export type TgithubResponseSchema = z.infer<typeof githubResponseSchema>;
+export type tGithubResponseSchema = z.infer<typeof githubResponseSchema>;
