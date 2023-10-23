@@ -1,4 +1,4 @@
-import AddDeveloperForm from "../_components/AddDeveloperForm";
+import AddDeveloperForm from "../_components/AddDeveloper/AddDeveloperForm";
 
 const page = () => {
   return (
