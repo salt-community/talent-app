@@ -3,7 +3,6 @@ import Link from "next/link";
 import Login from "./Login";
 import { getServerAuthSession } from "@/server/auth";
 
-
 const Header = async () => {
   const session = await getServerAuthSession();
   return (
@@ -11,9 +10,7 @@ const Header = async () => {
       <Link href={"/"}>
         <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
       </Link>
-    { session &&
-      <Link href={"/addDeveloper"}>Add developer</Link>
-    }  
+      {session && <Link href={"/addDeveloper"}>Add developer</Link>}
       <Login />
     </header>
   );
