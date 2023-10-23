@@ -7,13 +7,9 @@ import {
 } from "@/server/api/trpc";
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
+import { devSchema } from "@/utils/zodSchema";
 
 export const developerRouter = createTRPCRouter({
-  getAll: protectedProcedure.query(async ({ ctx }) => {
-    const data = await ctx.db.developer.findMany();
-    return data.map((i) => ({ id: i.id, firstName: i.firstName }));
-  }),
-
   getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
@@ -31,9 +27,8 @@ export const developerRouter = createTRPCRouter({
                       Developer: {
                         select: {
                           id: true,
+                          name: true,
                           image: true,
-                          firstName: true,
-                          lastName: true,
                         },
                       },
                     },
@@ -54,22 +49,8 @@ export const developerRouter = createTRPCRouter({
       if (!dev) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
-
       return {
-        id: dev.id,
-        image: dev.image,
-        firstName: dev.firstName,
-        lastName: dev.lastName,
-        title: dev.title,
-        skills: dev.skills,
-        description: dev.description,
-        github: dev.github,
-        linkedin: dev.linkedin,
-        phone: dev.phone,
-        mail: dev.mail,
-        address: dev.address,
-        city: dev.city,
-        country: dev.country,
+        ...dev,
         projects: dev.projects.map((project) => ({
           description: project.project.description,
           title: project.project.title,
@@ -85,9 +66,8 @@ export const developerRouter = createTRPCRouter({
                 if (member.Developer)
                   return {
                     id: member.Developer.id,
+                    name: member.Developer.name,
                     image: member.Developer.image,
-                    firstName: member.Developer.firstName,
-                    lastName: member.Developer.lastName,
                   };
               }),
             };
@@ -107,34 +87,16 @@ export const developerRouter = createTRPCRouter({
       return devs.map((dev) => ({
         id: dev.id,
         image: dev.image,
-        firstName: dev.firstName,
-        lastName: dev.lastName,
+        name: dev.name,
         title: dev.title,
         skills: dev.skills,
-        github: dev.github,
-        linkedin: dev.linkedin,
+        gitHubUrl: dev.gitHubUrl,
+        linkedinUrl: dev.linkedinUrl,
       }));
     }),
 
   create: protectedProcedure
-    .input(
-      z.object({
-        image: z.string(),
-        firstName: z.string(),
-        lastName: z.string(),
-        phone: z.string(),
-        mail: z.string(),
-        city: z.string(),
-        address: z.string(),
-        country: z.string(),
-        github: z.string(),
-        linkedin: z.string(),
-        cv: z.string(),
-        description: z.string(),
-        skills: z.array(z.string()),
-        title: z.string(),
-      }),
-    )
+    .input(devSchema)
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
       const lastModified = new Date();
@@ -152,12 +114,11 @@ export const developerRouter = createTRPCRouter({
     return data.map((dev) => ({
       id: dev.id,
       image: dev.image,
-      firstName: dev.firstName,
-      lastName: dev.lastName,
+      name: dev.name,
       title: dev.title,
       skills: dev.skills,
-      github: dev.github,
-      linkedin: dev.linkedin,
+      gitHubUrl: dev.gitHubUrl,
+      linkedinUrl: dev.linkedinUrl,
     }));
   }),
 });

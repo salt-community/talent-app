@@ -33,9 +33,7 @@ const TeamMembers: FC<TeamMembersProps> = ({ mob }) => {
                     height={50}
                     className="rounded-full"
                   />
-                  <p>
-                    {developer.firstName} {developer.lastName}
-                  </p>
+                  <p>{developer.name}</p>
                 </Link>
               </li>
             ),

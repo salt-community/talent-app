@@ -1,7 +1,8 @@
-import seedDevelopers from "@/server/mockdata";
+import seedDevelopers, { clearDatabase } from "@/server/seedDevelopers";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
 const seedData = async () => {
+  await clearDatabase();
   await seedDevelopers();
   await seedMeilisearch();
 };

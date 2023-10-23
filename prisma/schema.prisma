@@ -89,17 +89,16 @@ model Project_developer {
 
 model Developer {
     id           String              @id @default(cuid())
-    image        String
-    firstName    String
-    lastName     String
+    name         String
     phone        String
     mail         String
     city         String
     address      String
     country      String
-    github       String
-    linkedin     String
-    cv           String
+    image        String
+    gitHubUrl    String
+    linkedinUrl  String
+    resume       String
     description  String
     skills       String[]
     title        String

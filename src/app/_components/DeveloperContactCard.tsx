@@ -23,9 +23,7 @@ const ContactCard: FC<ContactCardProps> = ({ developer }) => {
           width={100}
           height={100}
         />
-        <h1 className="text-center text-2xl md:text-4xl">
-          {developer.firstName} {developer.lastName}
-        </h1>
+        <h1 className="text-center text-2xl md:text-4xl">{developer.name}</h1>
       </div>
       <div className="flex flex-col gap-4 p-2">
         <div className="flex gap-1">
@@ -51,8 +49,8 @@ const ContactCard: FC<ContactCardProps> = ({ developer }) => {
         </div>
       </div>
       <div className="flex">
-        <Github url={developer.github} className={"h-10 w-10"} />
-        <LinkedIn url={developer.linkedin} className={"h-10 w-10"} />
+        <Github url={developer.gitHubUrl} className={"h-10 w-10"} />
+        <LinkedIn url={developer.linkedinUrl} className={"h-10 w-10"} />
       </div>
     </section>
   );

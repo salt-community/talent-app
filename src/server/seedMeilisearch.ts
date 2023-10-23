@@ -1,15 +1,13 @@
 import client from "./meilisearchClient";
 import settings from "./meilisearchSettings";
-import type { Developer } from "@prisma/client";
 import { db } from "./db";
 
-// eslint-disable-next-line
 const seedMeilisearch = async () => {
   const data = await db.developer.findMany();
-  const devs = data.map((c: Developer) => ({
+  const devs = data.map((c) => ({
     title: c.title,
     skills: c.skills,
-    name: `${c.firstName} ${c.lastName}`,
+    name: c.name,
     description: c.description,
     id: c.id,
   }));
