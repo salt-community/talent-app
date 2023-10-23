@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import Footer from "./_components/Footer";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,16 +27,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`font-sans ${inter.variable} h-full flex flex-col`}>
+      <body className={`font-sans ${inter.variable} flex h-full flex-col`}>
         <TRPCReactProvider headers={headers()}>
+          <Toaster />
           <SessionProviderWrapper>
-          <Header />
-          <main className="flex flex-col p-5 grow overflow-y-auto">
-            {children}
-          </main>
-          <Footer />
-         </SessionProviderWrapper>
-
+            <Header />
+            <main className="flex grow flex-col overflow-y-auto p-5">
+              {children}
+            </main>
+            <Footer />
+          </SessionProviderWrapper>
         </TRPCReactProvider>
       </body>
     </html>
