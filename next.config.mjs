@@ -6,10 +6,10 @@ await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
 const config = {
-    images: {
-        domains: ["avatars.githubusercontent.com"],
-      },
-      experimental: {serverActions: true}
+  images: {
+    domains: ["avatars.githubusercontent.com", "lh3.googleusercontent.com"],
+  },
+  experimental: { serverActions: true },
 };
 
 export default config;
