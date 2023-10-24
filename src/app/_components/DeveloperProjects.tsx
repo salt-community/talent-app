@@ -15,7 +15,7 @@ const Projects: FC<RecentProjectProps> = ({ projects }) => {
       <SectionHeader title={project.title} />
       <div className="flex flex-col gap-4 md:flex-row">
         <iframe
-          src={project.youtube}
+          src={`https://www.youtube.com/embed/${project.youtube}`}
           title={project.title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
