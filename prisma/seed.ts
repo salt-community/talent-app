@@ -5,10 +5,10 @@ import seedDevelopers, {
 import seedMeilisearch from "@/server/seedMeilisearch";
 
 const seedData = async () => {
-  await clearUsers();
-  // await clearDatabase();
-  // await seedDevelopers();
-  // await seedMeilisearch();
+  // await clearUsers();
+  await clearDatabase();
+  await seedDevelopers();
+  await seedMeilisearch();
 };
 
 seedData()
