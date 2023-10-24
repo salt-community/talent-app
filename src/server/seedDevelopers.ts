@@ -94,6 +94,10 @@ export const clearDatabase = async () => {
   await db.project.deleteMany();
 };
 
+export const clearUsers = async () => {
+  await db.user.deleteMany();
+};
+
 const seedDevelopers = async () => {
   const { id: projectId } = await db.project.create({ data: project });
   const { id: mobId } = await db.mob.create({ data: mob });
