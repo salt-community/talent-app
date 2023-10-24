@@ -22,3 +22,11 @@ export const githubResponseSchema = z.object({
   html_url: z.string().url(),
 });
 export type tGithubResponseSchema = z.infer<typeof githubResponseSchema>;
+
+export const projectSchema = z.object({
+  title: z.string().min(2),
+  youtube: z.string().min(2),
+  description: z.string().min(2),
+  githubLink: z.string().url(),
+});
+export type tProjectSchema = z.infer<typeof projectSchema>;
