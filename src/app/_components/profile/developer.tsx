@@ -1,21 +1,17 @@
-import { RouterOutputs } from "@/trpc/shared";
+import type { RouterOutputs } from "@/trpc/shared";
 import Image from "next/image";
 import Link from "next/link";
-type User = RouterOutputs["developer"]["getByUserId"][number];
-
+import Container from "../container";
+type NullableDeveloper = RouterOutputs["developer"]["getByUser"];
+type Developer = NonNullable<NullableDeveloper>;
 type Props = {
-  user: User;
+  developer: Developer;
 };
 
-const Developer = ({ user: { image, id, name } }: Props) => {
+const Developer = ({ developer: { id, image, name } }: Props) => {
   return (
-    <li>
-      <Link
-        className={
-          "flex items-center gap-2 rounded-md border-2 border-black/30 p-2 shadow-lg duration-500 ease-linear hover:bg-orange/50 md:p-4"
-        }
-        href={`/profile/developer/${id}`}
-      >
+    <Link href={`/profile/developer/${id}`}>
+      <Container>
         <Image
           className="rounded-full"
           src={image}
@@ -24,8 +20,8 @@ const Developer = ({ user: { image, id, name } }: Props) => {
           height={48}
         />
         <p>{name}</p>
-      </Link>
-    </li>
+      </Container>
+    </Link>
   );
 };
 
