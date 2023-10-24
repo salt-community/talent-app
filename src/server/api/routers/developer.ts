@@ -8,6 +8,7 @@ import {
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
 import { devSchema } from "@/utils/zodSchema";
+import seedMeilisearch from "@/server/seedMeilisearch";
 
 export const developerRouter = createTRPCRouter({
   getById: protectedProcedure
@@ -98,11 +99,12 @@ export const developerRouter = createTRPCRouter({
   create: protectedProcedure
     .input(devSchema)
     .mutation(async ({ ctx, input }) => {
-      const userId = ctx.session.user.id;
+      const id = ctx.session.user.id;
       const lastModified = new Date();
       const developer = await ctx.db.developer.create({
-        data: { userId, lastModified, ...input },
+        data: { lastModified, ...input, User: { connect: { id } } },
       });
+      await seedMeilisearch();
       return developer;
     }),
 
@@ -122,15 +124,16 @@ export const developerRouter = createTRPCRouter({
     }));
   }),
 
-  getByUserId: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.developer.findUnique({
-      where: { userId: ctx.session.user.id },
+  getByUser: protectedProcedure.query(async ({ ctx }) => {
+    const developer = await ctx.db.developer.findFirst({
+      where: { User: { every: { id: ctx.session.user.id } } },
     });
-    if (user) {
+
+    if (developer) {
       return {
-        id: user.id,
-        image: user.image,
-        name: user.name,
+        id: developer.id,
+        image: developer.image,
+        name: developer.name,
       };
     }
     return null;
