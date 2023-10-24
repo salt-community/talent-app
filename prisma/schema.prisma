@@ -45,15 +45,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    Developer     Developer @relation(fields: [developerId], references: [id])
-    developerId   String
+    developer     Developer? @relation(fields: [developerId], references: [id])
+    developerId   String?
 
     @@map("public.user")
 }
@@ -106,7 +106,6 @@ model Developer {
     lastModified DateTime
     projects     Project_developer[]
     mobs         Mob_developer[]
-    userId       String
     User         User[]
 
     @@map("public.developer")
