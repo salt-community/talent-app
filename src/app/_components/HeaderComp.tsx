@@ -12,7 +12,6 @@ const Header = async () => {
       </Link>
       <div className="flex gap-2">
         {session && <Link href={"/profile"}>Profile</Link>}
-        {session && <Link href={"/addDeveloper"}>Add developer</Link>}
         <Login />
       </div>
     </header>
