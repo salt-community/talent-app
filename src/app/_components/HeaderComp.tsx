@@ -10,8 +10,11 @@ const Header = async () => {
       <Link href={"/"}>
         <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
       </Link>
-      {session && <Link href={"/addDeveloper"}>Add developer</Link>}
-      <Login />
+      <div className="flex gap-2">
+        {session && <Link href={"/profile"}>Profile</Link>}
+        {session && <Link href={"/addDeveloper"}>Add developer</Link>}
+        <Login />
+      </div>
     </header>
   );
 };

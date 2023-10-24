@@ -121,4 +121,18 @@ export const developerRouter = createTRPCRouter({
       linkedinUrl: dev.linkedinUrl,
     }));
   }),
+
+  getByUserId: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.developer.findUnique({
+      where: { userId: ctx.session.user.id },
+    });
+    if (user) {
+      return {
+        id: user.id,
+        image: user.image,
+        name: user.name,
+      };
+    }
+    return null;
+  }),
 });
