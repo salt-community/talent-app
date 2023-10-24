@@ -17,41 +17,41 @@ const db =
 if (env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
 const data: (tDevSchema & { userId: string })[] = [
+  // {
+  //   userId: "clnyo354d000aw5zo4uq6opi3",
+  //   name: "Jou-Fang Wang",
+  //   phone: "+46-012-345-678",
+  //   mail: "joufang.w@gmail.com",
+  //   address: "Somewhere 12",
+  //   city: "Stockholm",
+  //   country: "Sweden",
+  //   resume: "url",
+  //   skills: ["JavaScript", "TypeScript", "C++", "Python"],
+  //   description:
+  //     "With a background in Mechatronics and Architecture, I am a detail-oriented problem solver passionate about IT. I enjoy the challenge of designing products and find being a fullstack developer to be the perfect blend of my engineering and design expertise. My multidimensional perspective enables me to approach tasks from different angles, delivering innovative and user-centric solutions. I am driven to create seamless and intuitive experiences that make a lasting impact. ",
+  //   gitHubUrl: "https://github.com/rofunn",
+  //   image: "https://avatars.githubusercontent.com/u/81062114?v=4",
+  //   linkedinUrl: "https://www.linkedin.com/in/jou-fang-wang-44a14a16b/",
+  //   title: "Fullstack JavaScript Developer",
+  // },
+  // {
+  //   userId: "clnyo2epp0000w5zou59bw09z",
+  //   name: "Allan Heremi",
+  //   phone: "+46-000-111-222",
+  //   mail: "allan.heremi@appliedtechnology.se",
+  //   address: "Wonderland 55",
+  //   city: "Västerås",
+  //   country: "Sweden",
+  //   resume: "url",
+  //   skills: ["Javascript", "Typescript", "Solidity", "Tailwind", "React"],
+  //   description: "I like to code, especially using React. ",
+  //   image: "https://avatars.githubusercontent.com/u/121552608?v=4",
+  //   gitHubUrl: "https://github.com/allanheremi",
+  //   linkedinUrl: "https://www.linkedin.com/in/allanheremi/",
+  //   title: "Fullstack JavaScript Developer",
+  // },
   {
-    userId: "clnyo354d000aw5zo4uq6opi3",
-    name: "Jou-Fang Wang",
-    phone: "+46-012-345-678",
-    mail: "joufang.w@gmail.com",
-    address: "Somewhere 12",
-    city: "Stockholm",
-    country: "Sweden",
-    resume: "url",
-    skills: ["JavaScript", "TypeScript", "C++", "Python"],
-    description:
-      "With a background in Mechatronics and Architecture, I am a detail-oriented problem solver passionate about IT. I enjoy the challenge of designing products and find being a fullstack developer to be the perfect blend of my engineering and design expertise. My multidimensional perspective enables me to approach tasks from different angles, delivering innovative and user-centric solutions. I am driven to create seamless and intuitive experiences that make a lasting impact. ",
-    gitHubUrl: "https://github.com/rofunn",
-    image: "https://avatars.githubusercontent.com/u/81062114?v=4",
-    linkedinUrl: "https://www.linkedin.com/in/jou-fang-wang-44a14a16b/",
-    title: "Fullstack JavaScript Developer",
-  },
-  {
-    userId: "clnyo2epp0000w5zou59bw09z",
-    name: "Allan Heremi",
-    phone: "+46-000-111-222",
-    mail: "allan.heremi@appliedtechnology.se",
-    address: "Wonderland 55",
-    city: "Västerås",
-    country: "Sweden",
-    resume: "url",
-    skills: ["Javascript", "Typescript", "Solidity", "Tailwind", "React"],
-    description: "I like to code, especially using React. ",
-    image: "https://avatars.githubusercontent.com/u/121552608?v=4",
-    gitHubUrl: "https://github.com/allanheremi",
-    linkedinUrl: "https://www.linkedin.com/in/allanheremi/",
-    title: "Fullstack JavaScript Developer",
-  },
-  {
-    userId: "clnyo2nan0005w5zo5guuznus",
+    userId: "clo46ms5j0000w5j0g57edhmb",
     name: "Rasmus Eklund",
     phone: "+46-000-111-222",
     mail: "rasmus.eklund@appliedtechnology.se",
@@ -79,7 +79,7 @@ const data: (tDevSchema & { userId: string })[] = [
 
 const project = {
   title: "SaltTalentPool",
-  youtube: "https://www.youtube.com/embed/Qxs1acmhgUM?si=19rtmtTSruHZ1dXL",
+  youtube: "Qxs1acmhgUM?si=19rtmtTSruHZ1dXL",
   description: "Salt talent pool",
   githubLink: "https://github.com/rasmus-eklund/SaltTalentPool",
 };
@@ -103,13 +103,9 @@ const seedDevelopers = async () => {
   const { id: mobId } = await db.mob.create({ data: mob });
   for (const dev of data) {
     const lastModified = new Date();
-    const userId = dev.userId;
+    const { userId, ...rest } = dev;
     const { id: developerId } = await db.developer.create({
-      data: {
-        ...dev,
-        userId,
-        lastModified,
-      },
+      data: { ...rest, lastModified, User: { connect: { id: userId } } },
     });
     await db.project_developer.create({ data: { developerId, projectId } });
     await db.mob_developer.create({ data: { developerId, mobId } });
