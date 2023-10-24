@@ -4,6 +4,7 @@ import Link from "next/link";
 import Github from "./icons/Github";
 import LinkedIn from "./icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
+import Container from "./container";
 
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type DeveloperListProps = {
@@ -12,7 +13,7 @@ type DeveloperListProps = {
 
 const SearchItem: FC<DeveloperListProps> = ({ consultant }) => {
   return (
-    <li className="flex items-center justify-between rounded-md border-2 border-black/30 p-2 shadow-lg duration-500 ease-linear hover:bg-orange/50 md:p-4">
+    <Container className="justify-between">
       <Link
         href={`developer/${consultant.id}`}
         className="flex items-center gap-4"
@@ -46,7 +47,7 @@ const SearchItem: FC<DeveloperListProps> = ({ consultant }) => {
           className={"h-10 w-10 md:h-16 md:w-16"}
         />
       </div>
-    </li>
+    </Container>
   );
 };
 
