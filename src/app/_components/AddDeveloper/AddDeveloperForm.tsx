@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { devSchema, type tDevSchema } from "@/utils/zodSchema";
 
-import { useState, type FC, FormEvent } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, type FC, type FormEvent } from "react";
 import toast from "react-hot-toast";
 import { getGithubData } from "./getGithubData";
 
@@ -60,7 +59,7 @@ const AddDeveloperForm: FC<EditDeveloperFormProps> = ({ developer }) => {
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={(event) => void handleSubmit(onSubmit)(event)}>
         <input
           type="text"
           {...register("name")}
