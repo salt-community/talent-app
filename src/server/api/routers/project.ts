@@ -1,8 +1,35 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { projectSchema } from "@/utils/zodSchema";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 export const projectRouter = createTRPCRouter({
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const data = await ctx.db.project.findMany({
+      include: {
+        members: {
+          select: {
+            id: true,
+            Developer: { select: { image: true, id: true } },
+          },
+        },
+      },
+    });
+    return data.map((i) => {
+      const { members, ...rest } = i;
+      return {
+        ...rest,
+        members: members.map((connection) => {
+          return {
+            connectionId: connection.id,
+            developerId: connection.Developer!.id,
+            image: connection.Developer!.image,
+          };
+        }),
+      };
+    });
+  }),
+
   getByDev: protectedProcedure.query(async ({ ctx }) => {
     const projects = await ctx.db.project_developer.findMany({
       where: { Developer: { User: { some: { id: ctx.session.user.id } } } },
@@ -13,23 +40,48 @@ export const projectRouter = createTRPCRouter({
       title: project.title,
     }));
   }),
-  
+
+  getById: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input: { id } }) => {
+      const project = await ctx.db.project.findUnique({ where: { id } });
+      if (!project) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Project does not exist.",
+        });
+      }
+      return project;
+    }),
+
+  update: protectedProcedure
+    .input(z.object({ project: projectSchema, id: z.string().min(1) }))
+    .mutation(async ({ ctx, input: { id, project } }) => {
+      await ctx.db.project.update({ where: { id }, data: project });
+    }),
+
   create: protectedProcedure
     .input(projectSchema)
     .mutation(({ ctx, input: data }) => {
       return ctx.db.project.create({ data });
     }),
 
-  connectToDeveloper: protectedProcedure
+  join: protectedProcedure
     .input(
       z.object({
-        projectId: z.string().min(1),
+        groupId: z.string().min(1),
         developerId: z.string().min(1),
       }),
     )
-    .mutation(async ({ ctx, input: { developerId, projectId } }) => {
+    .mutation(async ({ ctx, input: { developerId, groupId } }) => {
       return await ctx.db.project_developer.create({
-        data: { projectId, developerId },
+        data: { groupId, developerId },
       });
+    }),
+
+  leave: protectedProcedure
+    .input(z.object({ id: z.string().min(1) }))
+    .mutation(async ({ ctx, input: { id } }) => {
+      await ctx.db.project_developer.delete({ where: { id } });
     }),
 });
