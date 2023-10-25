@@ -1,18 +1,29 @@
 "use client";
 import ProjectForm from "@/app/_components/profile/project/ProjectForm";
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 type Props = { params: { id: string } };
 
 const ProjectPage = ({ params: { id } }: Props) => {
+  const router = useRouter();
   const {
     data: project,
     isSuccess,
     isLoading,
     isError,
   } = api.project.getById.useQuery({ id });
-  const { mutateAsync: updateProject } = api.project.update.useMutation();
+  const { mutate: updateProject } = api.project.update.useMutation({
+    onSuccess: () => {
+      router.push("/profile");
+    },
+  });
+  const { mutate: remove } = api.project.remove.useMutation({
+    onSuccess: () => {
+      router.push("/profile");
+    },
+  });
 
   return (
     <div>
@@ -24,6 +35,12 @@ const ProjectPage = ({ params: { id } }: Props) => {
             handleData={(project) => updateProject({ id, project })}
             project={project}
           />
+          <button
+            className="rounded-lg bg-pink p-4 text-center"
+            onClick={() => remove(id)}
+          >
+            Delete
+          </button>
         </>
       )}
       {isError && <p>404</p>}
