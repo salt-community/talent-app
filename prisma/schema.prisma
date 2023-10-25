@@ -68,12 +68,12 @@ model VerificationToken {
 }
 
 model Project {
-    id                String              @id @default(cuid())
-    title             String
-    youtube           String
-    description       String
-    githubLink        String
-    Project_developer Project_developer[]
+    id          String              @id @default(cuid())
+    title       String
+    youtube     String
+    description String
+    githubLink  String
+    members     Project_developer[]
 
     @@map("public.project")
 }
