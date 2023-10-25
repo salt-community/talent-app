@@ -2,6 +2,7 @@ import { type FormEvent, useState } from "react";
 import type { tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
 import TrashIcon from "@/app/assets/icons/TrashIcon";
+import splitSkills from "./helpers/splitSkills";
 
 type Props = {
   data: tSkillsSchema;
@@ -19,7 +20,7 @@ const SkillsForm = ({ data, setData }: Props) => {
       return;
     }
     setSkills((prev) => {
-      const newSkills = [...prev, skill];
+      const newSkills = [...prev, ...splitSkills(skill)];
       setData(newSkills);
       return newSkills;
     });
