@@ -2,7 +2,7 @@ import { api } from "@/trpc/server";
 import Developer from "../_components/profile/DeveloperItem";
 import Project from "../_components/profile/ProjectItem";
 import Link from "next/link";
-import Container from "../_components/container";
+import ItemContainer from "../_components/ItemContainer";
 
 const Profile = async () => {
   const developer = await api.developer.getByUser.query();
@@ -16,9 +16,9 @@ const Profile = async () => {
           {developer ? (
             <Developer developer={developer} />
           ) : (
-            <Container>
+            <ItemContainer>
               <Link href={"/profile/developer"}>Create developer</Link>
-            </Container>
+            </ItemContainer>
           )}
         </ul>
       </div>
@@ -36,16 +36,16 @@ const Profile = async () => {
           )}
           <h2 className="text-xl">Manage projects:</h2>
           <ul className="flex flex-col gap-1">
-            <Container>
+            <ItemContainer>
               <Link href={`/profile/project?id=${developer.id}&do=create`}>
                 Create new project
               </Link>
-            </Container>
-            <Container>
+            </ItemContainer>
+            <ItemContainer>
               <Link href={`/profile/project?id=${developer.id}&do=join`}>
                 Join existing project
               </Link>
-            </Container>
+            </ItemContainer>
           </ul>
         </div>
       )}

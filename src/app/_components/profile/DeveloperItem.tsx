@@ -1,7 +1,7 @@
 import type { RouterOutputs } from "@/trpc/shared";
 import Image from "next/image";
 import Link from "next/link";
-import Container from "../Container";
+import ItemContainer from "../ItemContainer";
 type NullableDeveloper = RouterOutputs["developer"]["getByUser"];
 type Developer = NonNullable<NullableDeveloper>;
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 const Developer = ({ developer: { id, image, name } }: Props) => {
   return (
     <Link href={`/profile/developer/${id}`}>
-      <Container>
+      <ItemContainer>
         <Image
           className="rounded-full"
           src={image}
@@ -20,7 +20,7 @@ const Developer = ({ developer: { id, image, name } }: Props) => {
           height={48}
         />
         <p>{name}</p>
-      </Container>
+      </ItemContainer>
     </Link>
   );
 };

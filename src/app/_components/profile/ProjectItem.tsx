@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Container from "../Container";
+import ItemContainer from "../ItemContainer";
 import type { RouterOutputs } from "@/trpc/shared";
 type Project = RouterOutputs["project"]["getByDev"][number];
 
@@ -9,11 +9,11 @@ type Props = {
 
 const Project = ({ project: { id, title } }: Props) => {
   return (
-    <Container>
+    <ItemContainer>
       <Link href={`/profile/project/${id}`}>
         <p>{title}</p>
       </Link>
-    </Container>
+    </ItemContainer>
   );
 };
 

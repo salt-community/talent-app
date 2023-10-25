@@ -1,6 +1,6 @@
 "use client";
 import { api } from "@/trpc/react";
-import Container from "../../Container";
+import ItemContainer from "../../ItemContainer";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "@/trpc/shared";
@@ -63,7 +63,7 @@ const ProjectItem = ({
   const connectionId = findConnection(project.members, developerId);
   const className = "bg-pink/50 px-2 rounded-md";
   return (
-    <Container key={project.id} className="justify-between">
+    <ItemContainer key={project.id} className="justify-between">
       <p className="select-none">{project.title}</p>
       <div className="flex gap-2">
         <div className="flex flex-wrap gap-1">
@@ -98,7 +98,7 @@ const ProjectItem = ({
           </button>
         )}
       </div>
-    </Container>
+    </ItemContainer>
   );
 };
 export default JoinProject;
