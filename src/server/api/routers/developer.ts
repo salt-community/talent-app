@@ -97,25 +97,24 @@ export const developerRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(devSchema)
-    .mutation(async ({ ctx, input }) => {
+    .input(z.object({ dev: devSchema }))
+    .mutation(async ({ ctx, input: { dev } }) => {
       const id = ctx.session.user.id;
       const lastModified = new Date();
-      const developer = await ctx.db.developer.create({
-        data: { ...input, lastModified, User: { connect: { id } } },
+      const data = await ctx.db.developer.create({
+        data: { ...dev, lastModified, User: { connect: { id } } },
       });
       await seedMeilisearch();
-      return developer;
+      return data;
     }),
 
   update: protectedProcedure
     .input(z.object({ dev: devSchema, id: z.string().min(1) }))
     .mutation(async ({ ctx, input: { dev, id } }) => {
-      const developer = await ctx.db.developer.update({
+      await ctx.db.developer.update({
         where: { id },
         data: dev,
       });
-      return developer;
     }),
 
   getRecentTen: publicProcedure.query(async ({ ctx }) => {
@@ -148,4 +147,10 @@ export const developerRouter = createTRPCRouter({
     }
     return null;
   }),
+
+  delete: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input: id }) => {
+      await ctx.db.developer.delete({ where: { id } });
+    }),
 });
