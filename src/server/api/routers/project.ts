@@ -8,12 +8,12 @@ export const projectRouter = createTRPCRouter({
       where: { Developer: { User: { some: { id: ctx.session.user.id } } } },
       include: { project: true },
     });
-
     return projects.map(({ project }) => ({
       id: project.id,
       title: project.title,
     }));
   }),
+  
   create: protectedProcedure
     .input(projectSchema)
     .mutation(({ ctx, input: data }) => {
