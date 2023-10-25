@@ -61,32 +61,43 @@ const ProjectItem = ({
   developerId,
 }: ProjectItemProps) => {
   const connectionId = findConnection(project.members, developerId);
+  const className = "bg-pink/50 px-2 rounded-md";
   return (
-    <Container key={project.id}>
+    <Container key={project.id} className="justify-between">
       <p className="select-none">{project.title}</p>
-      {project.members.map((dev) => (
-        <Image
-          className="rounded-full"
-          key={dev.connectionId}
-          src={dev.image}
-          alt="developer profile picture"
-          width={48}
-          height={48}
-        />
-      ))}
-      {connectionId ? (
-        <button
-          onClick={() =>
-            leave({
-              id: connectionId,
-            })
-          }
-        >
-          leave
-        </button>
-      ) : (
-        <button onClick={() => join({ groupId: project.id })}>join</button>
-      )}
+      <div className="flex gap-2">
+        <div className="flex flex-wrap gap-1">
+          {project.members.map((dev) => (
+            <Image
+              className="rounded-full"
+              key={dev.connectionId}
+              src={dev.image}
+              alt="developer profile picture"
+              width={48}
+              height={48}
+            />
+          ))}
+        </div>
+        {connectionId ? (
+          <button
+            className={className}
+            onClick={() =>
+              leave({
+                id: connectionId,
+              })
+            }
+          >
+            Leave
+          </button>
+        ) : (
+          <button
+            className={className}
+            onClick={() => join({ groupId: project.id })}
+          >
+            Join
+          </button>
+        )}
+      </div>
     </Container>
   );
 };
