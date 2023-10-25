@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "../SectionHeader";
 
 type Props = { skills: string[] };
 

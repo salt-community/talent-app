@@ -1,9 +1,9 @@
 import Link from "next/link";
-import ContactCard from "@/app/_components/DeveloperContactCard";
+import ContactCard from "@/app/_components/developer/DeveloperContactCard";
 import SectionHeader from "@/app/_components/SectionHeader";
-import Projects from "@/app/_components/DeveloperProjects";
-import Skills from "@/app/_components/DeveloperSkills";
-import TeamMembers from "@/app/_components/DeveloperTeamMembers";
+import Projects from "@/app/_components/developer/DeveloperProjects";
+import Skills from "@/app/_components/developer/DeveloperSkills";
+import TeamMembers from "@/app/_components/developer/DeveloperTeamMembers";
 import { api } from "@/trpc/server";
 
 const DeveloperPage = async ({

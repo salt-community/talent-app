@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Container from "../container";
+import Container from "../Container";
 import type { RouterOutputs } from "@/trpc/shared";
 type Project = RouterOutputs["project"]["getByDev"][number];
 

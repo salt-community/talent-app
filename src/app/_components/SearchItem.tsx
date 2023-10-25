@@ -4,7 +4,7 @@ import Link from "next/link";
 import Github from "./icons/Github";
 import LinkedIn from "./icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
-import Container from "./container";
+import Container from "./Container";
 
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type DeveloperListProps = {

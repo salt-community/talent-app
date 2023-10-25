@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import Image from "next/image";
-import Github from "./icons/Github";
+import Github from "../icons/Github";
 import { mdilEmail, mdilPhone, mdilMapMarker } from "@mdi/light-js";
-import IconTemp from "./icons/IconTemp";
-import LinkedIn from "./icons/LinkedIn";
+import IconTemp from "../icons/IconTemp";
+import LinkedIn from "../icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
 
 type Developer = RouterOutputs["developer"]["getById"];

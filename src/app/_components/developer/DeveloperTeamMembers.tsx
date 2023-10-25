@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SectionHeader from "./SectionHeader";
+import SectionHeader from "../SectionHeader";
 import type { RouterOutputs } from "@/trpc/shared";
 
 type Mob = RouterOutputs["developer"]["getById"]["mobs"][number];
