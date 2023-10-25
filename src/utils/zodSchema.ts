@@ -31,13 +31,14 @@ export const devSchemaPartial = z.object({
 });
 export type tDevSchemaPartial = z.infer<typeof devSchemaPartial>;
 
-export const githubSkillsSchema = z.object({
-  skills: z.array(z.string()).min(1),
+export const githubSchema = z.object({
   gitHubUrl: z.string().url(),
   image: z.string().url(),
 });
+export type tGithubSchema = z.infer<typeof githubSchema>;
 
-export type tGithubSkillsSchema = z.infer<typeof githubSkillsSchema>;
+export const skillsSchema = z.array(z.string()).min(1);
+export type tSkillsSchema = z.infer<typeof skillsSchema>;
 
 export const githubResponseSchema = z.object({
   avatar_url: z.string().url(),
