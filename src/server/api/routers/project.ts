@@ -63,7 +63,8 @@ export const projectRouter = createTRPCRouter({
   create: protectedProcedure
     .input(projectSchema)
     .mutation(({ ctx, input: data }) => {
-      return ctx.db.project.create({ data });
+      const project = ctx.db.project.create({ data });
+      return project;
     }),
 
   join: protectedProcedure
