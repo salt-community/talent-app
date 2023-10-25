@@ -1,13 +1,6 @@
-import seedDevelopers, {
-  clearDatabase,
-  clearUsers,
-} from "@/server/seedDevelopers";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
 const seedData = async () => {
-  // await clearUsers();
-  await clearDatabase();
-  await seedDevelopers();
   await seedMeilisearch();
 };
 

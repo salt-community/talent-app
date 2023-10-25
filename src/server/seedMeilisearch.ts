@@ -11,11 +11,19 @@ const seedMeilisearch = async () => {
     description: c.description,
     id: c.id,
   }));
+  console.log(devs);
   client
-    .index("developers")
-    .addDocuments(devs)
-    .then((res) => console.log(res))
-    .then(() => client.index("developers").updateSettings(settings))
+    .deleteIndex("developers")
+    .then(() => {
+      client
+        .index("developers")
+        .addDocuments(devs)
+        .then((res) => console.log(res))
+        .then(() => client.index("developers").updateSettings(settings))
+        .catch((err: Error) => {
+          console.log(err.message);
+        });
+    })
     .catch((err: Error) => {
       console.log(err.message);
     });
