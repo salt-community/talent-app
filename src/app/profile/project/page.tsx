@@ -9,10 +9,18 @@ import toast from "react-hot-toast";
 
 const ProjectPage = () => {
   const router = useRouter();
-  const { mutateAsync: join } = api.project.join.useMutation();
-  const { mutateAsync: create } = api.project.create.useMutation({
+  const { mutate: join } = api.project.join.useMutation({
     onSuccess: () => {
+      console.log("success");
       router.push("/profile");
+    },
+  });
+  const { mutate: create } = api.project.create.useMutation({
+    onSuccess: ({ id }) => {
+      join({
+        developerId,
+        groupId: id,
+      });
     },
   });
   const searchParams = useSearchParams();
@@ -25,17 +33,7 @@ const ProjectPage = () => {
   }
   const { id: developerId } = validatedSearchParams.data;
   if (validatedSearchParams.data.do === "create") {
-    return (
-      <ProjectForm
-        handleData={async (project) => {
-          const { id: groupId } = await create(project);
-          await join({
-            developerId,
-            groupId,
-          });
-        }}
-      />
-    );
+    return <ProjectForm handleData={create} />;
   }
   if (validatedSearchParams.data.do === "join") {
     return <JoinProject developerId={developerId} />;
