@@ -99,10 +99,11 @@ export const developerRouter = createTRPCRouter({
   create: protectedProcedure
     .input(devSchema)
     .mutation(async ({ ctx, input }) => {
+      console.log("went here");
       const id = ctx.session.user.id;
       const lastModified = new Date();
       const developer = await ctx.db.developer.create({
-        data: { lastModified, ...input, User: { connect: { id } } },
+        data: { ...input, lastModified, User: { connect: { id } } },
       });
       await seedMeilisearch();
       return developer;
