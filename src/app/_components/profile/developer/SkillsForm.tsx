@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import type { tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
+import TrashIcon from "@/app/assets/icons/TrashIcon";
 
 type Props = {
   data: tSkillsSchema;
@@ -13,10 +14,11 @@ const SkillsForm = ({ data, setData }: Props) => {
 
   const handleAddSkill = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!skill) {
+      toast.error("Cannot add empty skill");
+      return;
+    }
     setSkills((prev) => {
-      if (!skill) {
-        toast.error("Cannot add empty skill");
-      }
       const newSkills = [...prev, skill];
       setData(newSkills);
       return newSkills;
@@ -34,7 +36,6 @@ const SkillsForm = ({ data, setData }: Props) => {
 
   return (
     <>
-      <Skills skills={skills} removeSkill={handleRemoveSkill} />
       <form className="flex max-w-md flex-col gap-2" onSubmit={handleAddSkill}>
         <div className="flex gap-2">
           <input
@@ -53,6 +54,7 @@ const SkillsForm = ({ data, setData }: Props) => {
           </button>
         </div>
       </form>
+      <Skills skills={skills} removeSkill={handleRemoveSkill} />
     </>
   );
 };
@@ -62,16 +64,12 @@ const Skills = ({ skills, removeSkill }: SkillsProps) => {
     <ul className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
         <li
+          onClick={() => removeSkill(skill)}
           key={skill + index}
-          className="flex gap-4 rounded-full bg-orange px-4 py-1 text-white"
+          className="group flex select-none items-center gap-2 rounded-full bg-orange px-4 py-1 text-sm text-white"
         >
           <p>{skill}</p>
-          <button
-            className="text-black hover:scale-125"
-            onClick={() => removeSkill(skill)}
-          >
-            x
-          </button>
+          <TrashIcon className="w-6 fill-white group-hover:fill-black" />
         </li>
       ))}
     </ul>
