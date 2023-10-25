@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
-import Developer from "../_components/profile/Developer";
-import Project from "../_components/profile/Project";
+import Developer from "../_components/profile/DeveloperItem";
+import Project from "../_components/profile/ProjectItem";
 import Container from "../_components/Container";
 import Link from "next/link";
 
