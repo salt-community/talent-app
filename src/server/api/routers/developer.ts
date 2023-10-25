@@ -97,8 +97,8 @@ export const developerRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ dev: devSchema }))
-    .mutation(async ({ ctx, input: { dev } }) => {
+    .input(devSchema)
+    .mutation(async ({ ctx, input: dev }) => {
       const id = ctx.session.user.id;
       const lastModified = new Date();
       const data = await ctx.db.developer.create({
