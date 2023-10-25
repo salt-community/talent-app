@@ -9,9 +9,9 @@ const Profile = async () => {
   const projects = await api.project.getByDev.query();
 
   return (
-    <div className="flex gap-2">
-      <div className="w-1/2">
-        <h2 className="text-3xl">Your developer profile:</h2>
+    <div className="flex flex-col gap-2">
+      <div className="md:w-1/2">
+        <h2 className="text-xl">Developer profile:</h2>
         <ul>
           {developer ? (
             <Developer developer={developer} />
@@ -23,14 +23,18 @@ const Profile = async () => {
         </ul>
       </div>
       {developer && (
-        <div className="flex w-1/2 flex-col gap-2">
-          <h2 className="text-3xl">Your projects:</h2>
-          <ul className="flex flex-col gap-1">
-            {projects.map((project) => (
-              <Project key={project.id} project={project} />
-            ))}
-          </ul>
-          <h2 className="text-3xl">Projects:</h2>
+        <div className="flex flex-col gap-2">
+          {projects.length !== 0 && (
+            <>
+              <h2 className="text-xl">Your projects:</h2>
+              <ul className="flex flex-col gap-1">
+                {projects.map((project) => (
+                  <Project key={project.id} project={project} />
+                ))}
+              </ul>
+            </>
+          )}
+          <h2 className="text-xl">Manage projects:</h2>
           <ul className="flex flex-col gap-1">
             <Container>
               <Link href={`/profile/project?id=${developer.id}&do=create`}>
