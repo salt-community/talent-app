@@ -23,15 +23,23 @@ const Profile = async () => {
         </ul>
       </div>
       {developer && (
-        <div className="w-1/2">
+        <div className="flex w-1/2 flex-col gap-2">
           <h2 className="text-3xl">Your projects:</h2>
           <ul className="flex flex-col gap-1">
             {projects.map((project) => (
               <Project key={project.id} project={project} />
             ))}
+          </ul>
+          <h2 className="text-3xl">Projects:</h2>
+          <ul className="flex flex-col gap-1">
             <Container>
-              <Link href={`/profile/project/${developer.id}`}>
+              <Link href={`/profile/project?id=${developer.id}&do=create`}>
                 Create new project
+              </Link>
+            </Container>
+            <Container>
+              <Link href={`/profile/project?id=${developer.id}&do=join`}>
+                Join existing project
               </Link>
             </Container>
           </ul>
