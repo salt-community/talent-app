@@ -56,7 +56,7 @@ export const developerRouter = createTRPCRouter({
           description: project.project.description,
           title: project.project.title,
           youtube: project.project.youtube,
-          id: project.projectId,
+          id: project.groupId,
         })),
         mobs: dev.mobs.map((mob) => {
           if (mob.Mob) {
