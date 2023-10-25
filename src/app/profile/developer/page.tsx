@@ -17,11 +17,7 @@ const DeveloperPage = () => {
 
   return (
     <div>
-      <DeveloperForm
-        handleData={(dev) => {
-          createUser({ dev });
-        }}
-      />
+      <DeveloperForm handleData={createUser} />
     </div>
   );
 };
