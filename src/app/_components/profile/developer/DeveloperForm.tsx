@@ -3,35 +3,31 @@ import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import {
   devSchemaPartial,
-  githubSkillsSchema,
+  githubSchema,
+  skillsSchema,
   type tDevSchema,
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
-import { useState, type FC } from "react";
+import { useRef } from "react";
 import type { RouterInputs } from "@/trpc/shared";
 import emptyData from "./helpers/splitDeveloperData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, placeholders } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
-import SkillsAndGithubForm from "./SkillsAndGithubForm";
+import SkillsForm from "./SkillsForm";
+import GithubForm from "./GithubForm";
 
 type Developer = RouterInputs["developer"]["create"];
 
-type EditDeveloperFormProps = {
+type Props = {
   developer?: tDevSchema;
   handleData: (data: Developer) => Promise<void>;
 };
 
-const DeveloperForm: FC<EditDeveloperFormProps> = ({
-  developer,
-  handleData,
-}) => {
+const DeveloperForm = ({ developer, handleData }: Props) => {
   const { gitHubUrl, skills, image, ...rest } = emptyData(developer);
-  const [skillsGithub, setSkillsGithub] = useState({
-    gitHubUrl,
-    skills,
-    image,
-  });
+  const githubRef = useRef({ gitHubUrl, image });
+  const skillsRef = useRef(skills);
   const {
     register,
     handleSubmit,
@@ -44,42 +40,51 @@ const DeveloperForm: FC<EditDeveloperFormProps> = ({
   const onSubmit: SubmitHandler<tDevSchemaPartial> = async (data) => {
     const newData: tDevSchema = {
       ...data,
-      ...skillsGithub,
+      skills: skillsRef.current,
+      ...githubRef.current,
     };
     await handleData(newData);
   };
-
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (
-    <>
+    <div className="flex flex-col gap-2">
       <form
         id="developer-form"
-        className="flex max-w-md flex-col gap-2"
+        className="flex max-w-md flex-col gap-1"
         onSubmit={(event) => void handleSubmit(onSubmit)(event)}
       >
         {keys.map((key, i) => (
-          <>
+          <div className="flex flex-col" key={key}>
             <input
-              key={key}
               type="text"
               {...register(key)}
               className={className}
               placeholder={placeholders[i]}
             />
             <FormError error={errors[key]} />
-          </>
+          </div>
         ))}
       </form>
-      <SkillsAndGithubForm
-        data={skillsGithub}
-        setData={(data) => setSkillsGithub(data)}
+      <SkillsForm
+        data={skills}
+        setData={(data) => {
+          skillsRef.current = data;
+        }}
       />
-      {githubSkillsSchema.safeParse(skillsGithub).success && (
-        <button type="submit" form="developer-form">
-          Save
-        </button>
-      )}
-    </>
+      <GithubForm
+        data={{ gitHubUrl, image }}
+        setData={(data) => {
+          githubRef.current = { ...githubRef.current, ...data };
+        }}
+      />
+
+      {githubSchema.safeParse(githubRef.current).success &&
+        skillsSchema.safeParse(skillsRef.current).success && (
+          <button type="submit" form="developer-form">
+            Save
+          </button>
+        )}
+    </div>
   );
 };
 
