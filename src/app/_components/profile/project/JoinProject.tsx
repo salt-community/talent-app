@@ -5,6 +5,7 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "@/trpc/shared";
 import findConnection from "@/app/helpers/findMemberInGroup";
+import Link from "next/link";
 
 type Project = RouterOutputs["project"]["getAll"][number];
 type Props = { developerId: string };
@@ -64,7 +65,9 @@ const ProjectItem = ({
   const className = "bg-pink/50 px-2 rounded-md";
   return (
     <ItemContainer key={project.id} className="justify-between">
-      <p className="select-none">{project.title}</p>
+      <Link href={`/profile/project/${project.id}`} className="select-none">
+        {project.title}
+      </Link>
       <div className="flex gap-2">
         <div className="flex flex-wrap gap-1">
           {project.members.map((dev) => (
