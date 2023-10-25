@@ -1,14 +1,12 @@
 "use client";
 import { api } from "@/trpc/react";
 import DeveloperForm from "../../_components/profile/developer/DeveloperForm";
-import type { RouterInputs } from "@/trpc/shared";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-type Developer = RouterInputs["developer"]["create"];
 
 const DeveloperPage = () => {
   const router = useRouter();
-  const { mutateAsync } = api.developer.create.useMutation({
+  const { mutate: createUser } = api.developer.create.useMutation({
     onSuccess: (data) => {
       router.push(`/profile/developer/${data.id}`);
     },
@@ -16,12 +14,14 @@ const DeveloperPage = () => {
       toast.error(error.message);
     },
   });
-  const createUser = async (data: Developer) => {
-    await mutateAsync(data);
-  };
+
   return (
     <div>
-      <DeveloperForm handleData={createUser} />
+      <DeveloperForm
+        handleData={(dev) => {
+          createUser({ dev });
+        }}
+      />
     </div>
   );
 };

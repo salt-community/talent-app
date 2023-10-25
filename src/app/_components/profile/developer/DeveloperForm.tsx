@@ -9,7 +9,6 @@ import {
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
 import { useState } from "react";
-import type { RouterInputs } from "@/trpc/shared";
 import emptyData from "./helpers/splitDeveloperData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, placeholders } from "./helpers/formPlaceholders";
@@ -17,11 +16,9 @@ import FormError from "../../FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
 
-type Developer = RouterInputs["developer"]["create"];
-
 type Props = {
   developer?: tDevSchema;
-  handleData: (data: Developer) => Promise<void>;
+  handleData: (data: tDevSchema) => void;
 };
 
 const DeveloperForm = ({ developer, handleData }: Props) => {
@@ -37,13 +34,13 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
     defaultValues: rest,
     resolver: zodResolver(devSchemaPartial),
   });
-  const onSubmit: SubmitHandler<tDevSchemaPartial> = async (data) => {
+  const onSubmit: SubmitHandler<tDevSchemaPartial> = (data) => {
     const newData: tDevSchema = {
       ...data,
       skills: skillsState,
       ...gitHub,
     };
-    await handleData(newData);
+    handleData(newData);
   };
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (

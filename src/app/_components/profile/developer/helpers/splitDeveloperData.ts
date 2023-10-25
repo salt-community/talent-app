@@ -1,8 +1,6 @@
-import type { RouterInputs } from "@/trpc/shared";
+import type { tDevSchema } from "@/utils/zodSchema";
 
-type Developer = RouterInputs["developer"]["create"];
-
-const emptyData = (data?: Developer): Developer => {
+const emptyData = (data?: tDevSchema): tDevSchema => {
   if (!data) {
     return {
       gitHubUrl: "",
