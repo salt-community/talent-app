@@ -53,3 +53,8 @@ export const projectSchema = z.object({
   githubLink: z.string().url(),
 });
 export type tProjectSchema = z.infer<typeof projectSchema>;
+
+export const projectParams = z.object({
+  id: z.string().min(1),
+  do: z.enum(["create", "join"]),
+});
