@@ -8,7 +8,7 @@ import {
   type tDevSchema,
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
-import { useRef } from "react";
+import { useState } from "react";
 import type { RouterInputs } from "@/trpc/shared";
 import emptyData from "./helpers/splitDeveloperData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,8 +26,8 @@ type Props = {
 
 const DeveloperForm = ({ developer, handleData }: Props) => {
   const { gitHubUrl, skills, image, ...rest } = emptyData(developer);
-  const githubRef = useRef({ gitHubUrl, image });
-  const skillsRef = useRef(skills);
+  const [gitHub, setGitHub] = useState({ gitHubUrl, image });
+  const [skillsState, setSkills] = useState(skills);
   const {
     register,
     handleSubmit,
@@ -40,8 +40,8 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
   const onSubmit: SubmitHandler<tDevSchemaPartial> = async (data) => {
     const newData: tDevSchema = {
       ...data,
-      skills: skillsRef.current,
-      ...githubRef.current,
+      skills: skillsState,
+      ...gitHub,
     };
     await handleData(newData);
   };
@@ -65,22 +65,19 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
           </div>
         ))}
       </form>
-      <SkillsForm
-        data={skills}
-        setData={(data) => {
-          skillsRef.current = data;
-        }}
-      />
+      <SkillsForm data={skills} setData={(data) => setSkills(data)} />
       <GithubForm
         data={{ gitHubUrl, image }}
-        setData={(data) => {
-          githubRef.current = { ...githubRef.current, ...data };
-        }}
+        setData={(data) => setGitHub(data)}
       />
 
-      {githubSchema.safeParse(githubRef.current).success &&
-        skillsSchema.safeParse(skillsRef.current).success && (
-          <button type="submit" form="developer-form">
+      {githubSchema.safeParse(gitHub).success &&
+        skillsSchema.safeParse(skillsState).success && (
+          <button
+            className="rounded-md border-2 border-orange"
+            type="submit"
+            form="developer-form"
+          >
             Save
           </button>
         )}
