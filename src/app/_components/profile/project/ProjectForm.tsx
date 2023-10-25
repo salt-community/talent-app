@@ -11,7 +11,7 @@ type Project = RouterInputs["project"]["create"];
 
 type Props = {
   project?: Project;
-  handleData: (data: Project) => Promise<void>;
+  handleData: (data: Project) => void;
 };
 const ProjectForm = ({ project, handleData }: Props) => {
   const {
@@ -23,12 +23,12 @@ const ProjectForm = ({ project, handleData }: Props) => {
     resolver: zodResolver(projectSchema),
     defaultValues: project,
   });
-  const onSubmit: SubmitHandler<tProjectSchema> = async (data) => {
+  const onSubmit: SubmitHandler<tProjectSchema> = (data) => {
     const yt = getId(data.youtube);
     if (!yt) {
       return toast.error("Incorrect youtube link");
     }
-    await handleData({ ...data, youtube: yt });
+    handleData({ ...data, youtube: yt });
   };
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   const fields = ["title", "youtube", "description", "githubLink"] as const;
