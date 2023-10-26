@@ -30,16 +30,18 @@ const ProjectForm = ({ project, handleData }: Props) => {
     }
     handleData({ ...data, youtube: yt });
   };
-  const className = "h-10 rounded-md border-2 border-black/50 px-2";
   const fields = ["title", "youtube", "description", "githubLink"] as const;
   return (
     <div>
-      <form onSubmit={(event) => void handleSubmit(onSubmit)(event)}>
+      <form
+        className="flex flex-col gap-1"
+        onSubmit={(event) => void handleSubmit(onSubmit)(event)}
+      >
         {fields.map((field) => {
           return (
             <div key={field} className="flex gap-2">
               <input
-                className={className}
+                className={"h-10 rounded-md border-2 border-black/50 px-2"}
                 placeholder={field}
                 {...register(field)}
               />
@@ -47,7 +49,12 @@ const ProjectForm = ({ project, handleData }: Props) => {
             </div>
           );
         })}
-        <button type="submit">Submit</button>
+        <button
+          className="rounded-md border-2 border-black bg-white p-2 text-black hover:bg-orange hover:text-white"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
