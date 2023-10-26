@@ -1,8 +1,6 @@
-import { getServerAuthSession } from "@/server/auth";
 import SearchBar from "./_components/SearchBar";
 
-const Home = async () => {
-  const session = await getServerAuthSession();
+const Home = () => {
   return (
     <>
       <div className="flex w-full flex-col items-center bg-gradient-to-b from-orange to-pink py-20 text-xl font-bold text-white md:text-5xl">
@@ -12,7 +10,7 @@ const Home = async () => {
           <p>TODAY.</p>
         </div>
       </div>
-      {session && <SearchBar />}
+      <SearchBar />
     </>
   );
 };
