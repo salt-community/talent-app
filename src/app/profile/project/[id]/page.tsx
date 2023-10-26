@@ -20,12 +20,14 @@ const ProjectPage = ({ params: { id } }: Props) => {
     api.project.update.useMutation({
       onSuccess: () => {
         router.push("/profile");
+        router.refresh();
       },
     });
   const { mutate: remove, isLoading: removingProject } =
     api.project.remove.useMutation({
       onSuccess: () => {
         router.push("/profile");
+        router.refresh();
       },
     });
 
