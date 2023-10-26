@@ -2,6 +2,7 @@
 import { useState } from "react";
 import SearchResults from "./SearchResults";
 import { useSession } from "next-auth/react";
+import Button from "../Button";
 
 const SearchBar = () => {
   const session = useSession();
@@ -25,9 +26,9 @@ const SearchBar = () => {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search..."
           />
-          <button className="rounded-lg border-2 border-black/30 bg-orange px-4 py-2 text-white">
+          <Button className="px-5 py-5" inverted>
             Search
-          </button>
+          </Button>
         </form>
       )}
       {finalSearch && <SearchResults search={finalSearch} />}
