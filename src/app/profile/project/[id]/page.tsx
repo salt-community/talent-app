@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/app/_components/Button";
 import uiToFullYT from "@/app/_components/helpers/uiToFullYT";
 import ProjectForm from "@/app/_components/profile/project/ProjectForm";
 import { api } from "@/trpc/react";
@@ -12,43 +13,58 @@ const ProjectPage = ({ params: { id } }: Props) => {
   const {
     data: project,
     isSuccess,
-    isLoading,
+    isLoading: gettingProject,
     isError,
   } = api.project.getById.useQuery({ id });
-  const { mutate: updateProject } = api.project.update.useMutation({
-    onSuccess: () => {
-      router.push("/profile");
-    },
-  });
-  const { mutate: remove } = api.project.remove.useMutation({
-    onSuccess: () => {
-      router.push("/profile");
-    },
-  });
+  const { mutate: updateProject, isLoading: updatingProject } =
+    api.project.update.useMutation({
+      onSuccess: () => {
+        router.push("/profile");
+      },
+    });
+  const { mutate: remove, isLoading: removingProject } =
+    api.project.remove.useMutation({
+      onSuccess: () => {
+        router.push("/profile");
+      },
+    });
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {gettingProject && <p>Loading...</p>}
       {isSuccess && (
-        <div className="flex flex-col gap-2 max-w-md">
+        <div
+          className={`flex max-w-md flex-col gap-2 transition-all duration-200 ${
+            removingProject && "opacity-0"
+          }`}
+        >
           <h2 className="text-2xl">Edit project</h2>
           <ProjectForm
             handleData={(project) => updateProject({ id, project })}
             project={{ ...project, youtube: uiToFullYT(project.youtube) }}
-          />
-          <button
-            className="rounded-lg bg-pink p-4 text-center"
+          >
+            <div className="flex gap-2">
+              <Button className="grow" disabled={updatingProject} type="submit">
+                Submit
+              </Button>{" "}
+              <Button
+                className="grow"
+                type="button"
+                onClick={() => {
+                  router.push("/profile");
+                }}
+              >
+                Close
+              </Button>
+            </div>
+          </ProjectForm>
+          <Button
+            disabled={removingProject}
+            className="hover:bg-pink"
             onClick={() => remove(id)}
           >
             Delete
-          </button>
-          <button
-            onClick={() => {
-              router.push("/profile");
-            }}
-          >
-            Close
-          </button>
+          </Button>
         </div>
       )}
       {isError && <p>404</p>}
