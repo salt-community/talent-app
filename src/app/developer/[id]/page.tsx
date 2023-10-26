@@ -23,9 +23,7 @@ const DeveloperPage = async ({
             <SectionHeader title={developer.title} />
             <p>{developer.description}</p>
           </section>
-          {developer.projects.map((project) => (
-            <Projects key={project.id} projects={developer.projects} />
-          ))}
+          <Projects projects={developer.projects} />
           <Skills skills={developer.skills} />
           {developer.mobs.map(
             (mob) => mob && <TeamMembers key={mob.id} mob={mob} />,
