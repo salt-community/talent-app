@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/app/_components/Button";
 import JoinProject from "@/app/_components/profile/project/JoinProject";
 import ProjectForm from "@/app/_components/profile/project/ProjectForm";
 import { api } from "@/trpc/react";
@@ -33,7 +34,23 @@ const ProjectPage = () => {
   }
   const { id: developerId } = validatedSearchParams.data;
   if (validatedSearchParams.data.do === "create") {
-    return <ProjectForm handleData={create} />;
+    return (
+      <div className="flex flex-col gap-2 max-w-md">
+        <h2 className="text-2xl">Create project</h2>
+        <ProjectForm handleData={create}>
+          <div className="flex gap-2">
+            <Button className="grow">Submit</Button>
+            <Button
+              className="grow"
+              onClick={() => router.push("/profile")}
+              type="button"
+            >
+              Cancel
+            </Button>
+          </div>
+        </ProjectForm>
+      </div>
+    );
   }
   if (validatedSearchParams.data.do === "join") {
     return <JoinProject developerId={developerId} />;
