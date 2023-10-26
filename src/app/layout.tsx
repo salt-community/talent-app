@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <body className={`font-sans ${inter.variable} flex h-full flex-col`}>
+    <html lang="en" className="h-screen">
+      <body className={`font-sans ${inter.variable} flex h-screen flex-col`}>
         <TRPCReactProvider headers={headers()}>
           <Toaster />
           <SessionProviderWrapper>
