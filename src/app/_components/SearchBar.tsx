@@ -10,7 +10,7 @@ const SearchBar = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      {session.status === "unauthenticated" && (
+      {session.status === "authenticated" && (
         <form
           className="flex gap-2 pt-4 md:w-1/3"
           onSubmit={(e) => {
