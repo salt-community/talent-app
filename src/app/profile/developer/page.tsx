@@ -28,7 +28,11 @@ const DeveloperPage = () => {
     <>
       <div className="relative max-w-md">
         <DeveloperForm developer={newData} handleData={createUser}>
-          <Button className="py-2" disabled={creatingUser} form="developer-form">
+          <Button
+            className="py-2"
+            disabled={creatingUser}
+            form="developer-form"
+          >
             Create user
           </Button>
         </DeveloperForm>
