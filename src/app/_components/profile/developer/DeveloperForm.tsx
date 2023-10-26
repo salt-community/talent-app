@@ -7,21 +7,25 @@ import {
   type tDevSchema,
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
-import { useRef, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, placeholders } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
-import Button from "../../Button";
 import toast from "react-hot-toast";
 
 type Props = {
   developer: tDevSchema;
   handleData: (data: tDevSchema) => void;
+  children: ReactNode;
 };
 
-const DeveloperForm = ({ developer, handleData: submitValidData }: Props) => {
+const DeveloperForm = ({
+  developer,
+  handleData: submitValidData,
+  children,
+}: Props) => {
   const { gitHubUrl, image, skills, ...rest } = developer;
   const [gitHub, setGitHub] = useState({
     gitHubUrl,
@@ -77,9 +81,7 @@ const DeveloperForm = ({ developer, handleData: submitValidData }: Props) => {
         setData={(data) => setGitHub(data)}
       />
 
-      {githubSchema.safeParse(gitHub).success && (
-        <Button form="developer-form">Save</Button>
-      )}
+      {githubSchema.safeParse(gitHub).success && <>{children}</>}
     </div>
   );
 };
