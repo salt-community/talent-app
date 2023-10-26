@@ -4,15 +4,12 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getId from "@/app/_components/profile/developer/helpers/getYTid";
 import toast from "react-hot-toast";
-import type { RouterInputs } from "@/trpc/shared";
 import FormError from "../../FormError";
 import type { ReactNode } from "react";
 
-type Project = RouterInputs["project"]["create"];
-
 type Props = {
-  project?: Project;
-  handleData: (data: Project) => void;
+  project?: tProjectSchema;
+  handleData: (data: tProjectSchema) => void;
   children: ReactNode;
 };
 const ProjectForm = ({ project, handleData, children }: Props) => {
