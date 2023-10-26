@@ -24,14 +24,15 @@ const DeveloperId = ({ params: { id } }: Props) => {
       toast.error(error.message);
     },
   });
-  const { mutate: remove } = api.developer.delete.useMutation({
-    onSuccess: () => {
-      router.push("/profile");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate: remove, isLoading: deleting } =
+    api.developer.delete.useMutation({
+      onSuccess: () => {
+        router.push("/profile");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
 
   return (
     <>
@@ -42,10 +43,26 @@ const DeveloperId = ({ params: { id } }: Props) => {
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
             developer={developer}
-          />
-          <Button className="hover:bg-pink" onClick={() => remove(id)}>
-            Delete
-          </Button>
+          >
+            <div className="flex gap-2">
+              <Button className="w-1/2 py-2" form="developer-form">
+                Save
+              </Button>
+              <Button
+                className="w-1/2 py-2"
+                onClick={() => router.push("/profile")}
+              >
+                Go back
+              </Button>
+            </div>
+            <Button
+              disabled={deleting}
+              className="py-2 hover:bg-pink"
+              onClick={() => remove(id)}
+            >
+              Delete
+            </Button>
+          </DeveloperForm>
         </div>
       )}
     </>
