@@ -1,18 +1,24 @@
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 type ButtonProps = {
-  small?: boolean;
-  gray?: boolean;
+  inverted?: boolean;
   className?: string;
 } & DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
 
-export function Button({ className = "", ...props }: ButtonProps) {
+export function Button({
+  className = "",
+  inverted = false,
+  ...props
+}: ButtonProps) {
+  const colors = inverted
+    ? "bg-orange hover:bg-gray text-white hover:text-black"
+    : "bg-gray hover:bg-orange text-black hover:text-white";
   return (
     <button
-      className={`rounded-md border-2 border-black bg-white p-2 text-black transition-colors duration-200 hover:bg-orange hover:text-white disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`${colors} ${className} rounded-md border-2 border-black px-2 transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50`}
       {...props}
     ></button>
   );
