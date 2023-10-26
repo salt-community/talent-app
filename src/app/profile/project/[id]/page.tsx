@@ -44,26 +44,30 @@ const ProjectPage = ({ params: { id } }: Props) => {
             project={{ ...project, youtube: uiToFullYT(project.youtube) }}
           >
             <div className="flex gap-2">
-              <Button className="grow" disabled={updatingProject} type="submit">
+              <Button
+                className="w-1/2 py-2"
+                disabled={updatingProject}
+                type="submit"
+              >
                 Submit
               </Button>{" "}
               <Button
-                className="grow"
+                className="w-1/2 py-2"
                 type="button"
                 onClick={() => {
                   router.push("/profile");
                 }}
               >
-                Close
+                Go back
               </Button>
             </div>
           </ProjectForm>
           <Button
             disabled={removingProject}
-            className="hover:bg-pink"
+            className="py-2 hover:bg-pink"
             onClick={() => remove(id)}
           >
-            Delete
+            Delete project
           </Button>
         </div>
       )}
