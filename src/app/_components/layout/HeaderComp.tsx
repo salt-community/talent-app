@@ -1,17 +1,20 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import Login from "./Login";
-import { getServerAuthSession } from "@/server/auth";
+import { useSession } from "next-auth/react";
 
-const Header = async () => {
-  const session = await getServerAuthSession();
+const Header = () => {
+  const session = useSession();
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-12 lg:py-8 ">
       <Link href={"/"}>
         <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
       </Link>
       <div className="flex gap-2">
-        {session && <Link href={"/profile"}>Profile</Link>}
+        {session.status === "authenticated" && (
+          <Link href={"/profile"}>Profile</Link>
+        )}
         <Login />
       </div>
     </header>
