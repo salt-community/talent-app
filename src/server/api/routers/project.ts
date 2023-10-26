@@ -61,10 +61,10 @@ export const projectRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(projectSchema)
-    .mutation(({ ctx, input: data }) => {
-      const project = ctx.db.project.create({ data });
-      return project;
+    .input(z.object({ project: projectSchema, developerId: z.string().min(1) }))
+    .mutation(async ({ ctx, input: { project: data, developerId } }) => {
+      const { id: groupId } = await ctx.db.project.create({ data });
+      await ctx.db.project_developer.create({ data: { groupId, developerId } });
     }),
 
   join: protectedProcedure

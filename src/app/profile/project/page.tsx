@@ -10,20 +10,6 @@ import toast from "react-hot-toast";
 
 const ProjectPage = () => {
   const router = useRouter();
-  const { mutate: join } = api.project.join.useMutation({
-    onSuccess: () => {
-      console.log("success");
-      router.push("/profile");
-    },
-  });
-  const { mutate: create } = api.project.create.useMutation({
-    onSuccess: ({ id }) => {
-      join({
-        developerId,
-        groupId: id,
-      });
-    },
-  });
   const searchParams = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
   const validatedSearchParams = projectParams.safeParse(searchParamsObject);
@@ -33,15 +19,27 @@ const ProjectPage = () => {
     return;
   }
   const { id: developerId } = validatedSearchParams.data;
+  const { mutate: create, isLoading: creatingProject } =
+    api.project.create.useMutation({
+      onSuccess: () => {
+        router.push("/profile");
+        router.refresh();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   if (validatedSearchParams.data.do === "create") {
     return (
       <div className="flex max-w-md flex-col gap-2">
         <h2 className="text-2xl">Create project</h2>
-        <ProjectForm handleData={create}>
+        <ProjectForm handleData={(project) => create({ project, developerId })}>
           <div className="flex gap-2">
-            <Button className="grow">Submit</Button>
+            <Button disabled={creatingProject} className="w-1/2 py-2">
+              Create project
+            </Button>
             <Button
-              className="grow"
+              className="w-1/2 py-2"
               onClick={() => router.push("/profile")}
               type="button"
             >
