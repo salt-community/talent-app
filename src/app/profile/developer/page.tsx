@@ -23,7 +23,7 @@ const DeveloperPage = () => {
     newData.mail = data.user.email ?? "";
   }
   return (
-    <div>
+    <div className="max-w-md">
       <DeveloperForm developer={newData} handleData={createUser} />
     </div>
   );
