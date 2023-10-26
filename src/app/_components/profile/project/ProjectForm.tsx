@@ -6,14 +6,16 @@ import getId from "@/app/_components/profile/developer/helpers/getYTid";
 import toast from "react-hot-toast";
 import type { RouterInputs } from "@/trpc/shared";
 import FormError from "../../FormError";
+import type { ReactNode } from "react";
 
 type Project = RouterInputs["project"]["create"];
 
 type Props = {
   project?: Project;
   handleData: (data: Project) => void;
+  children: ReactNode;
 };
-const ProjectForm = ({ project, handleData }: Props) => {
+const ProjectForm = ({ project, handleData, children }: Props) => {
   const {
     register,
     handleSubmit,
@@ -40,7 +42,7 @@ const ProjectForm = ({ project, handleData }: Props) => {
         return (
           <div key={field} className="flex gap-2">
             <input
-              className={"h-10 rounded-md border-2 border-black/50 px-2 grow"}
+              className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
               placeholder={field}
               {...register(field)}
             />
@@ -48,12 +50,7 @@ const ProjectForm = ({ project, handleData }: Props) => {
           </div>
         );
       })}
-      <button
-        className="rounded-md border-2 border-black bg-white p-2 text-black hover:bg-orange hover:text-white"
-        type="submit"
-      >
-        Submit
-      </button>
+      {children}
     </form>
   );
 };
