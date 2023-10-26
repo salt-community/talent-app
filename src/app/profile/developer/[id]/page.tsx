@@ -38,7 +38,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
       {isLoading && <p>Loading...</p>}
       {isError && <p>404</p>}
       {isSuccess && (
-        <div className="flex flex-col gap-4">
+        <div className="flex max-w-md flex-col gap-4">
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
             developer={developer}
