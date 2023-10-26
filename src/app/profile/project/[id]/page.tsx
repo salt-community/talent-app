@@ -27,10 +27,10 @@ const ProjectPage = ({ params: { id } }: Props) => {
   });
 
   return (
-    <div>
+    <>
       {isLoading && <p>Loading...</p>}
       {isSuccess && (
-        <>
+        <div className="flex flex-col gap-2 max-w-md">
           <h2 className="text-2xl">Edit project</h2>
           <ProjectForm
             handleData={(project) => updateProject({ id, project })}
@@ -42,10 +42,17 @@ const ProjectPage = ({ params: { id } }: Props) => {
           >
             Delete
           </button>
-        </>
+          <button
+            onClick={() => {
+              router.push("/profile");
+            }}
+          >
+            Close
+          </button>
+        </div>
       )}
       {isError && <p>404</p>}
-    </div>
+    </>
   );
 };
 
