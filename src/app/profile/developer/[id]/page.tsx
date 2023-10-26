@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/app/_components/Button";
 import DeveloperForm from "@/app/_components/profile/developer/DeveloperForm";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
@@ -42,12 +43,9 @@ const DeveloperId = ({ params: { id } }: Props) => {
             handleData={(dev) => update({ dev, id })}
             developer={developer}
           />
-          <button
-            className="rounded-lg bg-pink p-4 text-center"
-            onClick={() => remove(id)}
-          >
+          <Button className="hover:bg-pink" onClick={() => remove(id)}>
             Delete
-          </button>
+          </Button>
         </div>
       )}
     </>

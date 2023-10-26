@@ -15,6 +15,7 @@ import { keys, placeholders } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
+import Button from "../../Button";
 
 type Props = {
   developer?: tDevSchema;
@@ -70,13 +71,7 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
 
       {githubSchema.safeParse(gitHub).success &&
         skillsSchema.safeParse(skillsState).success && (
-          <button
-            className="rounded-md border-2 border-orange"
-            type="submit"
-            form="developer-form"
-          >
-            Save
-          </button>
+          <Button form="developer-form">Save</Button>
         )}
     </div>
   );

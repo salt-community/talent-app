@@ -3,6 +3,7 @@ import type { tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
 import TrashIcon from "@/app/assets/icons/TrashIcon";
 import splitSkills from "./helpers/splitSkills";
+import Button from "../../Button";
 
 type Props = {
   data: tSkillsSchema;
@@ -47,12 +48,7 @@ const SkillsForm = ({ data, setData }: Props) => {
             value={skill}
             onChange={(e) => setSkill(e.target.value)}
           />
-          <button
-            className="w-20 rounded-md border-2 border-orange"
-            type="submit"
-          >
-            Add skill
-          </button>
+          <Button className="h-10">Add skill</Button>
         </div>
       </form>
       <Skills skills={skills} removeSkill={handleRemoveSkill} />
@@ -67,7 +63,7 @@ const Skills = ({ skills, removeSkill }: SkillsProps) => {
         <li
           onClick={() => removeSkill(skill)}
           key={skill + index}
-          className="group flex select-none items-center gap-2 rounded-full bg-orange px-4 py-1 text-sm text-white"
+          className="group flex select-none items-center gap-2 rounded-full bg-orange px-4 py-1 text-sm text-white hover:scale-110"
         >
           <p>{skill}</p>
           <TrashIcon className="w-6 fill-white group-hover:fill-black" />
