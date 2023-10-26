@@ -35,7 +35,7 @@ const ProjectPage = () => {
   const { id: developerId } = validatedSearchParams.data;
   if (validatedSearchParams.data.do === "create") {
     return (
-      <div className="flex flex-col gap-2 max-w-md">
+      <div className="flex max-w-md flex-col gap-2">
         <h2 className="text-2xl">Create project</h2>
         <ProjectForm handleData={create}>
           <div className="flex gap-2">
