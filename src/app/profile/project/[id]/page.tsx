@@ -1,4 +1,5 @@
 "use client";
+import uiToFullYT from "@/app/_components/helpers/uiToFullYT";
 import ProjectForm from "@/app/_components/profile/project/ProjectForm";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
@@ -33,7 +34,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           <h2 className="text-2xl">Edit project</h2>
           <ProjectForm
             handleData={(project) => updateProject({ id, project })}
-            project={project}
+            project={{ ...project, youtube: uiToFullYT(project.youtube) }}
           />
           <button
             className="rounded-lg bg-pink p-4 text-center"
