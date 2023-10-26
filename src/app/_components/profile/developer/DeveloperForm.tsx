@@ -9,7 +9,6 @@ import {
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
 import { useState } from "react";
-import emptyData from "./helpers/splitDeveloperData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, placeholders } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
@@ -18,13 +17,16 @@ import GithubForm from "./GithubForm";
 import Button from "../../Button";
 
 type Props = {
-  developer?: tDevSchema;
+  developer: tDevSchema;
   handleData: (data: tDevSchema) => void;
 };
 
 const DeveloperForm = ({ developer, handleData }: Props) => {
-  const { gitHubUrl, skills, image, ...rest } = emptyData(developer);
-  const [gitHub, setGitHub] = useState({ gitHubUrl, image });
+  const { gitHubUrl, image, skills, ...rest } = developer;
+  const [gitHub, setGitHub] = useState({
+    gitHubUrl,
+    image,
+  });
   const [skillsState, setSkills] = useState(skills);
   const {
     register,
@@ -51,13 +53,13 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
         className="flex max-w-md flex-col gap-1"
         onSubmit={(event) => void handleSubmit(onSubmit)(event)}
       >
-        {keys.map((key, i) => (
+        {keys.map((key) => (
           <div className="flex flex-col" key={key}>
             <input
               type="text"
               {...register(key)}
               className={className}
-              placeholder={placeholders[i]}
+              placeholder={placeholders[key]}
             />
             <FormError error={errors[key]} />
           </div>
