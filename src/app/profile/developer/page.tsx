@@ -10,8 +10,8 @@ const DeveloperPage = () => {
   const { data } = useSession();
   const router = useRouter();
   const { mutate: createUser } = api.developer.create.useMutation({
-    onSuccess: (data) => {
-      router.push(`/profile/developer/${data.id}`);
+    onSuccess: () => {
+      router.push("/profile");
     },
     onError: (error) => {
       toast.error(error.message);
