@@ -6,40 +6,28 @@ import toast from "react-hot-toast";
 import type { RouterOutputs } from "@/trpc/shared";
 import findConnection from "@/app/helpers/findMemberInGroup";
 import Link from "next/link";
+import Button from "../../Button";
 
 type Project = RouterOutputs["project"]["getAll"][number];
 type Props = { developerId: string };
 
 const JoinProject = ({ developerId }: Props) => {
-  const { data, isSuccess, refetch } = api.project.getAll.useQuery();
-  const { mutate: join } = api.project.join.useMutation({
-    onSuccess: async () => {
-      await refetch();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-  const { mutate: leave } = api.project.leave.useMutation({
-    onSuccess: async () => {
-      await refetch();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { data: projects, isSuccess, refetch } = api.project.getAll.useQuery();
+
+  const update = async () => {
+    await refetch();
+  };
   return (
     <>
       {!isSuccess ? (
         <p>Loading...</p>
       ) : (
         <ul className="flex flex-col gap-1">
-          {data.map((project) => (
+          {projects.map((project) => (
             <ProjectItem
               key={project.id}
               project={project}
-              join={({ groupId }) => join({ developerId, groupId })}
-              leave={leave}
+              refetch={update}
               developerId={developerId}
             />
           ))}
@@ -51,18 +39,30 @@ const JoinProject = ({ developerId }: Props) => {
 
 type ProjectItemProps = {
   project: Project;
-  leave: ({ id }: { id: string }) => void;
-  join: ({ groupId }: { groupId: string }) => void;
+  refetch: () => Promise<void>;
   developerId: string;
 };
-const ProjectItem = ({
-  project,
-  join,
-  leave,
-  developerId,
-}: ProjectItemProps) => {
+const ProjectItem = ({ project, developerId, refetch }: ProjectItemProps) => {
   const connectionId = findConnection(project.members, developerId);
-  const className = "bg-pink/50 px-2 rounded-md";
+  const { mutate: join, isLoading: joiningProject } =
+    api.project.join.useMutation({
+      onSuccess: async () => {
+        await refetch();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  const { mutate: leave, isLoading: leavingProject } =
+    api.project.leave.useMutation({
+      onSuccess: async () => {
+        await refetch();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+
   return (
     <ItemContainer key={project.id} className="justify-between">
       <Link href={`/profile/project/${project.id}`} className="select-none">
@@ -82,8 +82,8 @@ const ProjectItem = ({
           ))}
         </div>
         {connectionId ? (
-          <button
-            className={className}
+          <Button
+            disabled={leavingProject}
             onClick={() =>
               leave({
                 id: connectionId,
@@ -91,14 +91,14 @@ const ProjectItem = ({
             }
           >
             Leave
-          </button>
+          </Button>
         ) : (
-          <button
-            className={className}
-            onClick={() => join({ groupId: project.id })}
+          <Button
+            disabled={joiningProject}
+            onClick={() => join({ groupId: project.id, developerId })}
           >
             Join
-          </button>
+          </Button>
         )}
       </div>
     </ItemContainer>
