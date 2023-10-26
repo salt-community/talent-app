@@ -4,30 +4,30 @@ import type { SubmitHandler } from "react-hook-form";
 import {
   devSchemaPartial,
   githubSchema,
-  skillsSchema,
   type tDevSchema,
   type tDevSchemaPartial,
 } from "@/utils/zodSchema";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, placeholders } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
 import Button from "../../Button";
+import toast from "react-hot-toast";
 
 type Props = {
   developer: tDevSchema;
   handleData: (data: tDevSchema) => void;
 };
 
-const DeveloperForm = ({ developer, handleData }: Props) => {
+const DeveloperForm = ({ developer, handleData: submitValidData }: Props) => {
   const { gitHubUrl, image, skills, ...rest } = developer;
   const [gitHub, setGitHub] = useState({
     gitHubUrl,
     image,
   });
-  const [skillsState, setSkills] = useState(skills);
+  const skillsRef = useRef(skills);
   const {
     register,
     handleSubmit,
@@ -38,20 +38,23 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
     resolver: zodResolver(devSchemaPartial),
   });
   const onSubmit: SubmitHandler<tDevSchemaPartial> = (data) => {
+    if (skillsRef.current.length === 0) {
+      toast.error("You have no skills!");
+    }
     const newData: tDevSchema = {
       ...data,
-      skills: skillsState,
+      skills: skillsRef.current,
       ...gitHub,
     };
-    handleData(newData);
+    submitValidData(newData);
   };
   const className = "h-10 rounded-md border-2 border-black/50 px-2";
   return (
     <div className="flex flex-col gap-2">
       <form
         id="developer-form"
-        className="flex max-w-md flex-col gap-1"
-        onSubmit={(event) => void handleSubmit(onSubmit)(event)}
+        className="flex flex-col gap-1"
+        onSubmit={(event) => void handleSubmit((e) => onSubmit(e))(event)}
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
@@ -65,16 +68,18 @@ const DeveloperForm = ({ developer, handleData }: Props) => {
           </div>
         ))}
       </form>
-      <SkillsForm data={skills} setData={(data) => setSkills(data)} />
+      <SkillsForm
+        data={skills}
+        setData={(data) => (skillsRef.current = data)}
+      />
       <GithubForm
         data={{ gitHubUrl, image }}
         setData={(data) => setGitHub(data)}
       />
 
-      {githubSchema.safeParse(gitHub).success &&
-        skillsSchema.safeParse(skillsState).success && (
-          <Button form="developer-form">Save</Button>
-        )}
+      {githubSchema.safeParse(gitHub).success && (
+        <Button form="developer-form">Save</Button>
+      )}
     </div>
   );
 };

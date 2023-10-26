@@ -1,9 +1,11 @@
-import { type FormEvent, useState } from "react";
-import type { tSkillsSchema } from "@/utils/zodSchema";
+'use client'
+import { type FormEvent, useState, useEffect } from "react";
+import { skillsSchema, type tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
 import TrashIcon from "@/app/assets/icons/TrashIcon";
 import splitSkills from "./helpers/splitSkills";
 import Button from "../../Button";
+import FormError from "../../FormError";
 
 type Props = {
   data: tSkillsSchema;
@@ -13,6 +15,16 @@ type Props = {
 const SkillsForm = ({ data, setData }: Props) => {
   const [skills, setSkills] = useState<string[]>(data);
   const [skill, setSkill] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const skillSafe = skillsSchema.safeParse(skills);
+    if (!skillSafe.success) {
+      setError("You need some skills!");
+      return;
+    }
+    setError(null);
+  }, [skills]);
 
   const handleAddSkill = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +50,7 @@ const SkillsForm = ({ data, setData }: Props) => {
 
   return (
     <>
-      <form className="flex max-w-md flex-col gap-2" onSubmit={handleAddSkill}>
+      <form className="flex flex-col gap-2" onSubmit={handleAddSkill}>
         <div className="flex gap-2">
           <input
             type="text"
@@ -50,6 +62,7 @@ const SkillsForm = ({ data, setData }: Props) => {
           />
           <Button className="h-10">Add skill</Button>
         </div>
+        {error && <FormError error={{ type: "required", message: error }} />}
       </form>
       <Skills skills={skills} removeSkill={handleRemoveSkill} />
     </>
