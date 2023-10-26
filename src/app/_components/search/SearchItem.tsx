@@ -1,10 +1,10 @@
 import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Github from "./icons/Github";
-import LinkedIn from "./icons/LinkedIn";
+import Github from "../icons/Github";
+import LinkedIn from "../icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
-import ItemContainer from "./ItemContainer";
+import ItemContainer from "../ItemContainer";
 
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type DeveloperListProps = {
