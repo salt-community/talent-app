@@ -5,21 +5,21 @@ export const keys = [
   "city",
   "address",
   "country",
-  "linkedinUrl",
-  "resume",
   "title",
   "description",
+  "resume",
+  "linkedinUrl",
 ] as const;
 
-export const placeholders = [
-  "First and last name",
-  "Phone number",
-  "E-mail address",
-  "City",
-  "Address",
-  "Country of residence",
-  "Link to LinkedIn",
-  "Link to Resume",
-  "Short description about yourself",
-  "E.g Full-stack Java developer",
-];
+export const placeholders = {
+  name: "First and last name",
+  phone: "Phone number",
+  mail: "E-mail address",
+  city: "City",
+  address: "Address",
+  country: "Country of residence",
+  linkedinUrl: "Link to LinkedIn",
+  resume: "Link to Resume",
+  title: "E.g Full-stack Java developer",
+  description: "Short description about yourself",
+};
