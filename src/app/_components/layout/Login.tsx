@@ -1,13 +1,14 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { data: session2 } = useSession();
   const router = useRouter();
   const handleLogin = () => {
     signIn("google", { callbackUrl: "/" }).catch(() =>
-      console.log("Could not log in."),
+      toast.error("Could not log in."),
     );
   };
   const handleLogout = () => {
@@ -15,7 +16,7 @@ const Login = () => {
       .then(() => {
         router.push("/");
       })
-      .catch(() => console.log("Could not log in."));
+      .catch(() => toast.error("Could not log out."));
   };
   const className = "text-black hover:underline";
   return (
