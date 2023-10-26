@@ -7,6 +7,7 @@ export const getGithubData = async (username: string) => {
   const url = `https://api.github.com/users/${username}`;
   const response = await fetch(url);
   const data = (await response.json()) as tGithubResponseSchema;
+  console.log(data);
   const parsedData = githubResponseSchema.safeParse(data);
   if (!parsedData.success) {
     throw new Error("Incorrect github name");
