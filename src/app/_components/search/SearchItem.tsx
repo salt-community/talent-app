@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Github from "../icons/Github";
-import LinkedIn from "../icons/LinkedIn";
+import Github from "../../assets/icons/Github";
+import LinkedIn from "../../assets/icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
 import ItemContainer from "../ItemContainer";
 
