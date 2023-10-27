@@ -14,6 +14,7 @@ const DeveloperPage = () => {
     api.developer.create.useMutation({
       onSuccess: () => {
         router.push("/profile");
+        router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);

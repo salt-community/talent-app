@@ -26,7 +26,8 @@ const DeveloperId = ({ params: { id } }: Props) => {
   });
   const { mutate: remove, isLoading: deleting } =
     api.developer.delete.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await refetch();
         router.push("/profile");
       },
       onError: (error) => {
