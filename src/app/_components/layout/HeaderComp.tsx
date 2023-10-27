@@ -11,6 +11,7 @@ const Header = () => {
       <Link href={"/"}>
         <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
       </Link>
+
       <div className="flex gap-2">
         {session.status === "authenticated" && (
           <Link className="hover:underline" href={"/profile"}>
