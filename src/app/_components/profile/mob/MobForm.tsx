@@ -1,5 +1,5 @@
 "use client";
-import { mobSchema, tMobSchema } from "@/utils/zodSchema";
+import { mobSchema, type tMobSchema } from "@/utils/zodSchema";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormError from "../../FormError";

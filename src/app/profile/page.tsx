@@ -42,7 +42,7 @@ const Profile = async () => {
               <h2 className="text-xl">Your mobs:</h2>
               <ul className="flex flex-col gap-1">
                 {mobs.map((mob) => (
-                  <MobItem mob={mob} />
+                  <MobItem mob={mob} key={mob.id} />
                 ))}
               </ul>
             </>

@@ -1,5 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
-import { mobSchema, projectSchema } from "@/utils/zodSchema";
+import { mobSchema } from "@/utils/zodSchema";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
