@@ -11,10 +11,9 @@ type Props = {
 };
 
 const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
-  const [gitHubUsername, setGitHubUsername] = useState(
-    getGitHubUsername(gitHubUrl) ?? "",
-  );
-  const [isValid, setIsValid] = useState(false);
+  const userName = getGitHubUsername(gitHubUrl) ?? "";
+  const [gitHubUsername, setGitHubUsername] = useState(userName);
+  const [isValid, setIsValid] = useState(Boolean(userName));
 
   const validateGithub = (username: string) => {
     getGithubData(username)
