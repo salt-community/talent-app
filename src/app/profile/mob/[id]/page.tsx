@@ -39,7 +39,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
             removingMob && "opacity-0"
           }`}
         >
-          <h2 className="text-2xl">Edit project</h2>
+          <h2 className="text-2xl">Edit mob</h2>
           <MobForm handleData={(mob) => updateMob({ id, mob })} mob={mob}>
             <div className="flex gap-2">
               <Button
