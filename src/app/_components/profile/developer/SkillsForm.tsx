@@ -49,8 +49,9 @@ const SkillsForm = ({ data, setData }: Props) => {
       toast.error("Cannot add empty skill");
       return;
     }
-    if (skills.find((i) => i === skill)) {
+    if (skills.find((i) => i.toLowerCase() === skill.toLowerCase())) {
       toast.error("Skill already in list");
+      return;
     }
     setSkills((prev) => {
       const newSkills = [...prev, ...splitSkills(skill)];
