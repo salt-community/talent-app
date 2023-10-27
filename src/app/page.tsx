@@ -1,6 +1,11 @@
-import SearchBar from "./_components/search/SearchBar";
+"use client";
+import { useState } from "react";
+import SearchForm from "./_components/search/SearchForm";
+import SearchResults from "./_components/search/SearchResults";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
+
   return (
     <>
       <div className="flex w-full flex-col items-center bg-gradient-to-b from-orange to-pink py-20 text-xl font-bold text-white md:text-5xl">
@@ -10,7 +15,10 @@ const Home = () => {
           <p>TODAY.</p>
         </div>
       </div>
-      <SearchBar />
+      <div className="flex flex-col gap-2">
+        <SearchForm onSearch={(search) => setSearch(search)} />
+        <SearchResults search={search} />
+      </div>
     </>
   );
 };
