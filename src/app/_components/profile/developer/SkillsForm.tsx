@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { type FormEvent, useState, useEffect } from "react";
 import { skillsSchema, type tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
@@ -6,6 +6,22 @@ import TrashIcon from "@/app/assets/icons/TrashIcon";
 import splitSkills from "./helpers/splitSkills";
 import Button from "../../Button";
 import FormError from "../../FormError";
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import CardsWrapper from "./dnd/CardsWrapper";
+import SortableCard from "./dnd/SortableCard";
 
 type Props = {
   data: tSkillsSchema;
@@ -16,6 +32,7 @@ const SkillsForm = ({ data, setData }: Props) => {
   const [skills, setSkills] = useState<string[]>(data);
   const [skill, setSkill] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   useEffect(() => {
     const skillSafe = skillsSchema.safeParse(skills);
@@ -32,6 +49,9 @@ const SkillsForm = ({ data, setData }: Props) => {
       toast.error("Cannot add empty skill");
       return;
     }
+    if (skills.find((i) => i === skill)) {
+      toast.error("Skill already in list");
+    }
     setSkills((prev) => {
       const newSkills = [...prev, ...splitSkills(skill)];
       setData(newSkills);
@@ -40,7 +60,7 @@ const SkillsForm = ({ data, setData }: Props) => {
     setSkill("");
   };
 
-  const handleRemoveSkill = (name: string) => {
+  const removeSkill = (name: string) => {
     setSkills((prev) => {
       const newSkills = prev.filter((skill) => skill !== name);
       setData(newSkills);
@@ -48,6 +68,18 @@ const SkillsForm = ({ data, setData }: Props) => {
     });
   };
 
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+    if (over && active.id !== over.id) {
+      setSkills((items) => {
+        const oldIndex = items.indexOf(active.id.toString());
+        const newIndex = items.indexOf(over.id.toString());
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        setData(newOrder);
+        return newOrder;
+      });
+    }
+  };
   return (
     <>
       <form className="flex flex-col gap-2" onSubmit={handleAddSkill}>
@@ -64,25 +96,33 @@ const SkillsForm = ({ data, setData }: Props) => {
         </div>
         {error && <FormError error={{ type: "required", message: error }} />}
       </form>
-      <Skills skills={skills} removeSkill={handleRemoveSkill} />
+      <DndContext
+        autoScroll={false}
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={skills} strategy={rectSortingStrategy}>
+          <CardsWrapper className={"flex flex-wrap gap-1"}>
+            {skills.map((name, index) => (
+              <SortableCard
+                className="flex cursor-default select-none items-center gap-1 rounded-full bg-orange p-1 text-sm text-white"
+                key={name}
+                name={name}
+                index={index}
+              >
+                <p>{name}</p>
+                <TrashIcon
+                  onClick={() => removeSkill(name)}
+                  className="w-6 cursor-pointer fill-white hover:scale-110 hover:fill-black"
+                />
+              </SortableCard>
+            ))}
+          </CardsWrapper>
+        </SortableContext>
+      </DndContext>
     </>
   );
 };
-type SkillsProps = { skills: string[]; removeSkill: (skill: string) => void };
-const Skills = ({ skills, removeSkill }: SkillsProps) => {
-  return (
-    <ul className="flex flex-wrap gap-2">
-      {skills.map((skill, index) => (
-        <li
-          onClick={() => removeSkill(skill)}
-          key={skill + index}
-          className="group flex select-none items-center gap-2 rounded-full bg-orange px-4 py-1 text-sm text-white hover:scale-110"
-        >
-          <p>{skill}</p>
-          <TrashIcon className="w-6 fill-white group-hover:fill-black" />
-        </li>
-      ))}
-    </ul>
-  );
-};
+
 export default SkillsForm;
