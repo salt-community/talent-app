@@ -59,5 +59,11 @@ export const projectParams = z.object({
   do: z.enum(["create", "join"]),
 });
 
+export const mobSchema = z.object({
+  name: z.string().min(2),
+});
+
+export type tMobSchema = z.infer<typeof mobSchema>;
+
 export const searchDevSchema = z.object({ search: z.string() });
 export type tSearchDevSchema = z.infer<typeof searchDevSchema>;

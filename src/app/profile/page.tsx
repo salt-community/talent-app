@@ -47,6 +47,19 @@ const Profile = async () => {
               </Link>
             </ItemContainer>
           </ul>
+          <h2 className="text-xl">Manage mobs:</h2>
+          <ul className="flex flex-col gap-1">
+            <ItemContainer>
+              <Link href={`/profile/mob?id=${developer.id}&do=create`}>
+                Create new mob
+              </Link>
+            </ItemContainer>
+            <ItemContainer>
+              <Link href={`/profile/mob?id=${developer.id}&do=join`}>
+                Join existing mob
+              </Link>
+            </ItemContainer>
+          </ul>
         </div>
       )}
     </div>
