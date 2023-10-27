@@ -7,23 +7,14 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <>
-      <div
-        className={`flex w-full flex-col items-center bg-gradient-to-b from-orange to-pink duration-500 ease-linear ${
-          search ? "py-2" : "py-20"
-        } text-xl font-bold text-white md:text-5xl`}
-      >
-        <div className="flex flex-col gap-2">
-          <p>TOMORROW&apos;S DEVELOPERS.</p>
-          <p>AVAILABLE.</p>
-          <p>TODAY.</p>
-        </div>
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center rounded-sm bg-gradient-to-b from-orange to-pink p-4 duration-500 ease-linear md:rounded-md">
+        <SearchForm onSearch={(search) => setSearch(search)} />
       </div>
       <div className="flex flex-col gap-2">
-        <SearchForm onSearch={(search) => setSearch(search)} />
         <SearchResults search={search} />
       </div>
-    </>
+    </div>
   );
 };
 

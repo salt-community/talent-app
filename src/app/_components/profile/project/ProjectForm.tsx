@@ -37,7 +37,7 @@ const ProjectForm = ({ project, handleData, children }: Props) => {
     >
       {fields.map((field) => {
         return (
-          <div key={field} className="flex gap-2">
+          <div key={field} className="flex flex-col gap-2">
             <input
               className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
               placeholder={field}

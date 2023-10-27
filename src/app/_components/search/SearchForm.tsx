@@ -19,7 +19,7 @@ const SearchForm = ({ onSearch }: Props) => {
   };
   return (
     <form
-      className="flex gap-2 pt-4 md:w-1/3"
+      className="flex gap-2 md:w-3/5"
       onSubmit={(event) => void handleSubmit(onSubmit)(event)}
     >
       <input
@@ -28,7 +28,7 @@ const SearchForm = ({ onSearch }: Props) => {
         placeholder="Search..."
       />
       <FormError error={errors.search} />
-      <Button className="px-5 py-5" inverted>
+      <Button className="px-2 py-2" inverted>
         Search
       </Button>
     </form>

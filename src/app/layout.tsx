@@ -5,7 +5,6 @@ import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/layout/HeaderComp";
-import Footer from "./_components/layout/Footer";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 
@@ -32,10 +31,9 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <Header />
-            <main className="flex grow flex-col overflow-y-auto p-5">
+            <main className="flex grow flex-col overflow-y-auto p-2">
               {children}
             </main>
-            <Footer />
           </SessionProviderWrapper>
         </TRPCReactProvider>
       </body>
