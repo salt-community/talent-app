@@ -1,8 +1,7 @@
 "use client";
 import Button from "@/app/_components/Button";
+import JoinMob from "@/app/_components/profile/mob/JoinMob";
 import MobForm from "@/app/_components/profile/mob/MobForm";
-import JoinProject from "@/app/_components/profile/project/JoinProject";
-import ProjectForm from "@/app/_components/profile/project/ProjectForm";
 import { api } from "@/trpc/react";
 import { projectParams } from "@/utils/zodSchema";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -20,8 +19,8 @@ const MobPage = () => {
     return;
   }
   const { id: developerId } = validatedSearchParams.data;
-  const { mutate: create, isLoading: creatingProject } =
-    api.project.create.useMutation({
+  const { mutate: create, isLoading: creatingMob } = api.mob.create.useMutation(
+    {
       onSuccess: () => {
         router.push("/profile");
         router.refresh();
@@ -29,14 +28,15 @@ const MobPage = () => {
       onError: (error) => {
         toast.error(error.message);
       },
-    });
+    },
+  );
   if (validatedSearchParams.data.do === "create") {
     return (
       <div className="flex max-w-md flex-col gap-2">
         <h2 className="text-2xl">Create mob</h2>
         <MobForm handleData={(mob) => create({ mob, developerId })}>
           <div className="flex gap-2">
-            <Button disabled={creatingProject} className="w-1/2 py-2">
+            <Button disabled={creatingMob} className="w-1/2 py-2">
               Create mob
             </Button>
             <Button
@@ -52,7 +52,7 @@ const MobPage = () => {
     );
   }
   if (validatedSearchParams.data.do === "join") {
-    return <JoinProject developerId={developerId} />;
+    return <JoinMob developerId={developerId} />;
   }
 };
 

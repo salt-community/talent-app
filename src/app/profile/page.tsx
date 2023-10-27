@@ -3,10 +3,12 @@ import Developer from "../_components/profile/DeveloperItem";
 import Project from "../_components/profile/ProjectItem";
 import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
+import MobItem from "../_components/profile/MobItem";
 
 const Profile = async () => {
   const developer = await api.developer.getByUser.query();
   const projects = await api.project.getByDev.query();
+  const mobs = await api.mob.getByDev.query();
 
   return (
     <div className="flex flex-col gap-2">
@@ -34,6 +36,18 @@ const Profile = async () => {
               </ul>
             </>
           )}
+
+          {mobs.length !== 0 && (
+            <>
+              <h2 className="text-xl">Your mobs:</h2>
+              <ul className="flex flex-col gap-1">
+                {mobs.map((mob) => (
+                  <MobItem mob={mob} />
+                ))}
+              </ul>
+            </>
+          )}
+
           <h2 className="text-xl">Manage projects:</h2>
           <ul className="flex flex-col gap-1">
             <ItemContainer>
