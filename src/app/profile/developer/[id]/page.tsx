@@ -15,15 +15,16 @@ const DeveloperId = ({ params: { id } }: Props) => {
     isError,
     refetch,
   } = api.developer.getById.useQuery({ id });
-  const { mutate: update } = api.developer.update.useMutation({
-    onSuccess: async () => {
-      await refetch();
-      router.push("/profile");
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { mutate: update, isLoading: updating } =
+    api.developer.update.useMutation({
+      onSuccess: async () => {
+        await refetch();
+        router.push("/profile");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   const { mutate: remove, isLoading: deleting } =
     api.developer.delete.useMutation({
       onSuccess: () => {
@@ -46,7 +47,11 @@ const DeveloperId = ({ params: { id } }: Props) => {
             developer={developer}
           >
             <div className="flex gap-2">
-              <Button className="w-1/2 py-2" form="developer-form">
+              <Button
+                disabled={updating}
+                className="w-1/2 py-2"
+                form="developer-form"
+              >
                 Save
               </Button>
               <Button
