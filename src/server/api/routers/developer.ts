@@ -132,19 +132,11 @@ export const developerRouter = createTRPCRouter({
     }));
   }),
 
-  getByUser: protectedProcedure.query(async ({ ctx }) => {
-    const developer = await ctx.db.developer.findFirst({
+  getByUser: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.developer.findFirst({
       where: { User: { every: { id: ctx.session.user.id } } },
+      select: { id: true, image: true, name: true },
     });
-
-    if (developer) {
-      return {
-        id: developer.id,
-        image: developer.image,
-        name: developer.name,
-      };
-    }
-    return null;
   }),
 
   delete: protectedProcedure
