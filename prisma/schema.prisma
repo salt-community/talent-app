@@ -80,8 +80,8 @@ model Project {
 
 model Project_developer {
     id          String     @id @default(cuid())
-    Developer   Developer? @relation(fields: [developerId], references: [id], onDelete: Cascade)
-    developerId String?
+    Developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
+    developerId String
     project     Project    @relation(fields: [groupId], references: [id], onDelete: Cascade)
     groupId     String
 
@@ -113,10 +113,10 @@ model Developer {
 
 model Mob_developer {
     id          String     @id @default(cuid())
-    Developer   Developer? @relation(fields: [developerId], references: [id], onDelete: Cascade)
-    developerId String?
-    Mob         Mob?       @relation(fields: [groupId], references: [id], onDelete: Cascade)
-    groupId     String?
+    Developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
+    developerId String
+    Mob         Mob       @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    groupId     String
 
     @@map("public.mob_developer")
 }
