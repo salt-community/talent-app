@@ -7,7 +7,7 @@ import {
 } from "@/server/api/trpc";
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
-import { devSchema } from "@/utils/zodSchema";
+import { devSchema, searchDevSchema } from "@/utils/zodSchema";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
 export const developerRouter = createTRPCRouter({
@@ -77,8 +77,8 @@ export const developerRouter = createTRPCRouter({
       };
     }),
 
-  getBySearch: protectedProcedure
-    .input(z.object({ search: z.string().min(2) }))
+  getBySearch: publicProcedure
+    .input(searchDevSchema)
     .query(async ({ ctx, input }) => {
       const res = await ctx.msClient.index("developers").search(input.search);
       const searchData = res.hits as SearchResult[];
