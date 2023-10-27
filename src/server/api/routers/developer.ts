@@ -11,7 +11,7 @@ import { devSchema, searchDevSchema } from "@/utils/zodSchema";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
 export const developerRouter = createTRPCRouter({
-  getById: protectedProcedure
+  getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
       const dev = await ctx.db.developer.findUnique({
