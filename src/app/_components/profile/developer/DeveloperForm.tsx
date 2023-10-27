@@ -58,7 +58,7 @@ const DeveloperForm = ({
       <form
         id="developer-form"
         className="flex flex-col gap-1"
-        onSubmit={(event) => void handleSubmit((e) => onSubmit(e))(event)}
+        onSubmit={(event) => void handleSubmit(onSubmit)(event)}
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
