@@ -31,7 +31,7 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <Header />
-            <main className="flex grow flex-col overflow-y-auto p-2">
+            <main className="flex grow flex-col overflow-y-auto">
               {children}
             </main>
           </SessionProviderWrapper>
