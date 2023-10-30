@@ -14,7 +14,6 @@ const SearchForm = ({ onSearch }: Props) => {
   } = useForm<tSearchDevSchema>({ resolver: zodResolver(searchDevSchema) });
 
   const onSubmit: SubmitHandler<tSearchDevSchema> = ({ search }) => {
-    console.log(search);
     onSearch(search);
   };
   return (
@@ -23,7 +22,7 @@ const SearchForm = ({ onSearch }: Props) => {
       onSubmit={(event) => void handleSubmit(onSubmit)(event)}
     >
       <input
-        className="min-w-0 grow rounded-md border-2 border-black/50 px-2"
+        className="min-w-0 w-3/4 rounded-md border-2 border-black/50 px-2"
         {...register("search")}
         placeholder="Search..."
       />
