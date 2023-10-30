@@ -49,12 +49,17 @@ const SkillsForm = ({ data, setData }: Props) => {
       toast.error("Cannot add empty skill");
       return;
     }
-    if (skills.find((i) => i.toLowerCase() === skill.toLowerCase())) {
-      toast.error("Skill already in list");
-      return;
+    const validatedNewSkills: string[] = [];
+    const newSkills = splitSkills(skill);
+    for (const newSkill of newSkills) {
+      if (skills.find((i) => i.toLowerCase() === newSkill.toLowerCase())) {
+        toast.error(`${newSkill} already in list`);
+        continue;
+      }
+      validatedNewSkills.push(newSkill);
     }
     setSkills((prev) => {
-      const newSkills = [...prev, ...splitSkills(skill)];
+      const newSkills = [...prev, ...validatedNewSkills];
       setData(newSkills);
       return newSkills;
     });
@@ -84,8 +89,13 @@ const SkillsForm = ({ data, setData }: Props) => {
   return (
     <>
       <form className="flex flex-col gap-2" onSubmit={handleAddSkill}>
+        <label htmlFor="skills">
+          Add one or more skills separated by whitespace. Compound words should
+          be join with a dash -. Example: React-Native, not React Native.
+        </label>
         <div className="flex gap-2">
           <input
+            id="skills"
             type="text"
             name="skills"
             className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
