@@ -21,8 +21,8 @@ const ProjectSlider = ({ projects }: Props) => {
                 <li key={i.id}>
                   <button
                     onClick={() => setProject(i)}
-                    className={`h-5 w-5 rounded-full ${
-                      i.id === project.id ? "bg-orange" : "bg-black"
+                    className={`h-5 w-5 rounded-full border-4 border-orange ${
+                      i.id === project.id ? "bg-black" : "bg-orange"
                     }`}
                   ></button>
                 </li>
