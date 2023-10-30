@@ -15,7 +15,7 @@ const Skills = ({ skills }: Props) => {
           .map((skill, index) => {
             return (
               <li key={skill + index}>
-                <p className="rounded-full bg-orange px-4 py-1 text-sm text-white">
+                <p className="rounded-full bg-orange px-4 py-1 text-sm text-white shadow-md">
                   {skill}
                 </p>
               </li>
