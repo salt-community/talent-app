@@ -22,9 +22,14 @@ const Skills = ({ skills }: Props) => {
             );
           })}
         <li>
-          <button className="text-sm underline underline-offset-2" onClick={() => setMore((p) => !p)}>
-            {more ? "Show less" : "Show more"}
-          </button>
+          {skills.length > 4 && (
+            <button
+              className="text-sm underline underline-offset-2"
+              onClick={() => setMore((p) => !p)}
+            >
+              {more ? "Show less" : "Show more"}
+            </button>
+          )}
         </li>
       </ul>
     </div>
