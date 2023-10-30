@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import type { tGithubSchema } from "@/utils/zodSchema";
 import Button from "../../Button";
 import FormError from "../../FormError";
+import CheckIcon from "@/app/assets/icons/CheckIcon";
 
 type Props = {
   data: tGithubSchema;
@@ -36,8 +37,10 @@ const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
         validateGithub(gitHubUsername);
       }}
     >
-      <div className="flex gap-2">
+      <label htmlFor="github-input">GitHub Username</label>
+      <div className="relative flex items-center gap-2">
         <input
+          id="github-input"
           type="text"
           value={gitHubUsername}
           onChange={(e) => {
@@ -47,6 +50,10 @@ const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
           className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
           placeholder={"GitHub username"}
         />
+        {isValid && (
+          <CheckIcon className="absolute right-5 w-8 fill-green-600" />
+        )}
+
         {!isValid && <Button className="h-10">Validate</Button>}
       </div>
       {!isValid && (
