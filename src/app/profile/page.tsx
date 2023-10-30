@@ -18,9 +18,9 @@ const Profile = async () => {
           {developer ? (
             <Developer developer={developer} />
           ) : (
-            <ItemContainer>
-              <Link href={"/profile/developer"}>Create developer</Link>
-            </ItemContainer>
+            <Link href={"/profile/developer"}>
+              <ItemContainer>Create developer</ItemContainer>
+            </Link>
           )}
         </ul>
       </div>
@@ -50,29 +50,21 @@ const Profile = async () => {
 
           <h2 className="text-xl">Manage projects:</h2>
           <ul className="flex flex-col gap-1">
-            <ItemContainer>
-              <Link href={`/profile/project?id=${developer.id}&do=create`}>
-                Create new project
-              </Link>
-            </ItemContainer>
-            <ItemContainer>
-              <Link href={`/profile/project?id=${developer.id}&do=join`}>
-                Join existing project
-              </Link>
-            </ItemContainer>
+            <Link href={`/profile/project?id=${developer.id}&do=create`}>
+              <ItemContainer>Create new project</ItemContainer>
+            </Link>
+            <Link href={`/profile/project?id=${developer.id}&do=join`}>
+              <ItemContainer>Join existing project</ItemContainer>
+            </Link>
           </ul>
           <h2 className="text-xl">Manage mobs:</h2>
           <ul className="flex flex-col gap-1">
-            <ItemContainer>
-              <Link href={`/profile/mob?id=${developer.id}&do=create`}>
-                Create new mob
-              </Link>
-            </ItemContainer>
-            <ItemContainer>
-              <Link href={`/profile/mob?id=${developer.id}&do=join`}>
-                Join existing mob
-              </Link>
-            </ItemContainer>
+            <Link href={`/profile/mob?id=${developer.id}&do=create`}>
+              <ItemContainer>Create new mob</ItemContainer>
+            </Link>
+            <Link href={`/profile/mob?id=${developer.id}&do=join`}>
+              <ItemContainer>Join existing mob</ItemContainer>
+            </Link>
           </ul>
         </div>
       )}

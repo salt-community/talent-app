@@ -9,11 +9,11 @@ type Props = {
 
 const MobItem = ({ mob: { id, name } }: Props) => {
   return (
-    <ItemContainer>
-      <Link href={`/profile/mob/${id}`}>
+    <Link href={`/profile/mob/${id}`}>
+      <ItemContainer>
         <p>{name}</p>
-      </Link>
-    </ItemContainer>
+      </ItemContainer>
+    </Link>
   );
 };
 
