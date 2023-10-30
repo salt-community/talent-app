@@ -13,7 +13,7 @@ type TeamMembersProps = {
 const TeamMembers: FC<TeamMembersProps> = ({ mob }) => {
   return (
     <div className="flex flex-col gap-4">
-      <SectionHeader title="Team members" />
+      <SectionHeader title='Team members' />
       <ul className="flex gap-6">
         {mob?.members.map(
           (developer) =>
