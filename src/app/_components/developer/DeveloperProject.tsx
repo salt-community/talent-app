@@ -1,16 +1,13 @@
-import type { FC } from "react";
 import SectionHeader from "../SectionHeader";
-
 import type { RouterOutputs } from "@/trpc/shared";
-
 type Project = RouterOutputs["developer"]["getById"]["projects"][number];
 
-type RecentProjectProps = {
-  projects: Project[];
+type Props = {
+  project: Project;
 };
 
-const Projects: FC<RecentProjectProps> = ({ projects }) => {
-  return projects.map((project) => (
+const DeveloperProject = ({ project }: Props) => {
+  return (
     <div key={project.id} className="flex flex-col gap-4">
       <SectionHeader title={project.title} />
       <div className="flex flex-col gap-4 md:flex-row">
@@ -23,7 +20,7 @@ const Projects: FC<RecentProjectProps> = ({ projects }) => {
         <p>{project.description}</p>
       </div>
     </div>
-  ));
+  );
 };
 
-export default Projects;
+export default DeveloperProject;
