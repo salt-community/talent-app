@@ -22,7 +22,7 @@ export const formInfo = {
   resume: {
     placeholder: "Link to Resume",
     label:
-      "Link to resume. Tip: provide link to shared pdf on your salt dropbox.",
+      "Link to resume. Tip: provide link to shared pdf on your salt google drive.",
   },
   title: {
     placeholder: "E.g Full-stack Java developer",
