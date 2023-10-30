@@ -29,7 +29,6 @@ const DeveloperPage = async ({
           )}
         </div>
       </div>
-
       <Link
         href={"/"}
         className="top-15 fixed left-2 flex w-10 justify-center rounded-full bg-gray/60"
