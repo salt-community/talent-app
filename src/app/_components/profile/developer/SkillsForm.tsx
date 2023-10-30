@@ -101,7 +101,7 @@ const SkillsForm = ({ data, setData }: Props) => {
             id="skills"
             type="text"
             name="skills"
-            className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
+            className={"h-10 grow w-3/5 rounded-md border-2 border-black/50 px-2"}
             placeholder={"Your skills"}
             value={skill}
             onChange={(e) => setSkill(e.target.value)}
