@@ -14,7 +14,7 @@ const Header = () => {
 
       <div className="flex gap-2">
         {session.status === "authenticated" && (
-          <Link className="hover:underline" href={"/profile"}>
+          <Link className="hover:underline font-semibold" href={"/profile"}>
             Profile
           </Link>
         )}
