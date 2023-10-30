@@ -18,7 +18,7 @@ const Login = () => {
       })
       .catch(() => toast.error("Could not log out."));
   };
-  const className = "text-black hover:underline";
+  const className = "text-black hover:underline font-semibold";
   return (
     <>
       {!session2 && (
