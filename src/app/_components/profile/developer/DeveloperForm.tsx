@@ -9,7 +9,7 @@ import {
 } from "@/utils/zodSchema";
 import { type ReactNode, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { keys, placeholders } from "./helpers/formPlaceholders";
+import { keys, formInfo } from "./helpers/formPlaceholders";
 import FormError from "../../FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
@@ -62,11 +62,13 @@ const DeveloperForm = ({
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
+            <label htmlFor={`${key}-input`}>{formInfo[key].label}</label>
             <input
+              id={`${key}-input`}
               type="text"
               {...register(key)}
               className={className}
-              placeholder={placeholders[key]}
+              placeholder={formInfo[key].placeholder}
             />
             <FormError error={errors[key]} />
           </div>
