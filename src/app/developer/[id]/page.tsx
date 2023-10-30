@@ -5,6 +5,7 @@ import Skills from "@/app/_components/developer/DeveloperSkills";
 import TeamMembers from "@/app/_components/developer/DeveloperTeamMembers";
 import { api } from "@/trpc/server";
 import ProjectSlider from "@/app/_components/developer/ProjectSlider";
+import BackIcon from "@/app/assets/icons/BackIcon";
 
 const DeveloperPage = async ({
   params: { id },
@@ -21,8 +22,8 @@ const DeveloperPage = async ({
             <SectionHeader title={developer.title} />
             <p>{developer.description}</p>
           </section>
-          <ProjectSlider projects={developer.projects} />
           <Skills skills={developer.skills} />
+          <ProjectSlider projects={developer.projects} />
           {developer.mobs.map(
             (mob) => mob && <TeamMembers key={mob.id} mob={mob} />,
           )}
@@ -31,9 +32,9 @@ const DeveloperPage = async ({
 
       <Link
         href={"/"}
-        className="fixed bottom-5 right-5 rounded-md border-2 border-black bg-white p-2 text-black hover:bg-orange hover:text-white"
+        className="top-15 fixed left-2 flex w-10 justify-center rounded-full bg-gray/60"
       >
-        go back
+        <BackIcon className="h-8 " />
       </Link>
     </div>
   );
