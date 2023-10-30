@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import Github from "../../assets/icons/Github";
-import LinkedIn from "../../assets/icons/LinkedIn";
 import type { RouterOutputs } from "@/trpc/shared";
 import ItemContainer from "../ItemContainer";
 
@@ -14,7 +12,7 @@ const SearchItem = ({ developer }: Props) => {
   return (
     <Link href={`developer/${developer.id}`}>
       <ItemContainer className="justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Image
             src={developer.image}
             alt="Image"
@@ -25,11 +23,11 @@ const SearchItem = ({ developer }: Props) => {
           <h2 className="shrink-0 grow text-sm font-bold md:text-2xl">
             {developer.name}
           </h2>
+          <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-xs">
+            {developer.title}
+          </p>
         </div>
-        <p className="hidden overflow-hidden overflow-ellipsis whitespace-nowrap md:block">
-          {developer.title}
-        </p>
-        <ul className="hidden grow gap-4 lg:flex">
+        <ul className="hidden gap-4 lg:flex">
           {developer.skills.slice(0, 4).map((skill, index) => (
             <li
               className="shrink-0 rounded-full bg-orange px-4 py-1 text-sm text-white"
@@ -39,16 +37,6 @@ const SearchItem = ({ developer }: Props) => {
             </li>
           ))}
         </ul>
-        <div className="flex items-center">
-          <Github
-            url={developer.gitHubUrl}
-            className={"h-10 w-10 md:h-16 md:w-16"}
-          />
-          <LinkedIn
-            url={developer.linkedinUrl}
-            className={"h-10 w-10 md:h-16 md:w-16"}
-          />
-        </div>
       </ItemContainer>
     </Link>
   );
