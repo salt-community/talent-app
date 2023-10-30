@@ -11,7 +11,7 @@ const Profile = async () => {
   const mobs = await api.mob.getByDev.query();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-2">
       <div className="md:w-1/2">
         <h2 className="text-xl">Developer profile:</h2>
         <ul>
