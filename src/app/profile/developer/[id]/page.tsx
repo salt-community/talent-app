@@ -35,7 +35,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
         toast.error(error.message);
       },
     });
-    const className = "flex justify-center w-full h-full items-center font-bold bg-black text-white ";
+    const className = "flex justify-center w-full h-full items-center font-bold text-black ";
   return (
     <>
       {isLoading && <p className={className}>Loading...</p>}
