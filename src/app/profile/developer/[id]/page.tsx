@@ -35,13 +35,13 @@ const DeveloperId = ({ params: { id } }: Props) => {
         toast.error(error.message);
       },
     });
-
+    const className = "flex justify-center w-full h-full items-center font-bold bg-black text-white ";
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>404</p>}
+      {isLoading && <p className={className}>Loading...</p>}
+      {isError && <p className={className}>404 not found</p>}
       {isSuccess && (
-        <div className="flex max-w-md flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 p-8">
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
             developer={developer}
