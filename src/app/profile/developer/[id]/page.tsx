@@ -63,7 +63,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
             </div>
             <Button
               disabled={deleting}
-              className="py-2 hover:bg-pink"
+              className="py-2 hover:bg-pink/60"
               onClick={() => remove(id)}
             >
               Delete

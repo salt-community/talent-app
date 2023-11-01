@@ -31,9 +31,9 @@ const DeveloperPage = async ({
       </div>
       <Link
         href={"/"}
-        className="top-15 fixed left-2 flex w-10 justify-center rounded-full bg-gray/60"
+        className="top-15 fixed left-2 flex w-10 justify-center rounded-full bg-black active:bg-slate-400"
       >
-        <BackIcon className="h-8 " />
+        <BackIcon className="h-10 border border-slate-400 rounded-full " />
       </Link>
     </div>
   );
