@@ -62,7 +62,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           </MobForm>
           <Button
             disabled={removingMob}
-            className="py-2 hover:bg-pink"
+            className="py-2 hover:bg-pink/60"
             onClick={() => remove(id)}
           >
             Delete Mob
