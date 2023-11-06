@@ -84,7 +84,15 @@ export const developerRouter = createTRPCRouter({
       const searchData = res.hits as SearchResult[];
       const devs = await ctx.db.developer.findMany({
         where: { id: { in: searchData.map((i) => i.id) } },
-      });
+      }); 
+      console.log(devs)
+      devs.sort(
+        (a, b) =>
+          searchData.findIndex((i) => i.id === a.id) -
+          searchData.findIndex((i) => i.id === b.id),
+      );
+      console.log(devs)
+
       return devs.map((dev) => ({
         id: dev.id,
         image: dev.image,
