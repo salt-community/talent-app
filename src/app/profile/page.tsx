@@ -25,10 +25,10 @@ const Profile = async () => {
         </ul>
       </div>
       {developer && (
-        <div className="flex flex-col gap-2 w-full md:w-4/5 lg:w-3/5">
+        <div className="flex flex-col gap-3 w-full md:w-4/5 lg:w-3/5">
           {projects.length !== 0 && (
             <>
-              <h2 className="text-xl pt-4 leading-5">Your projects:</h2>
+              <h2 className="text-xl pt-4">Your projects:</h2>
               <ul className="flex flex-col gap-1 font-medium">
                 {projects.map((project) => (
                   <Project key={project.id} project={project} />
@@ -39,7 +39,7 @@ const Profile = async () => {
 
           {mobs.length !== 0 && (
             <>
-              <h2 className="text-xl pt-4 leading-5">Your mobs:</h2>
+              <h2 className="text-xl pt-4">Your mobs:</h2>
               <ul className="flex flex-col gap-1 font-medium">
                 {mobs.map((mob) => (
                   <MobItem mob={mob} key={mob.id} />
@@ -48,7 +48,7 @@ const Profile = async () => {
             </>
           )}
 
-          <h2 className="text-xl pt-4 leading-5">Manage projects:</h2>
+          <h2 className="text-xl pt-4">Manage projects:</h2>
           <ul className="flex flex-col gap-1 font-medium">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
               <ItemContainer>Create new project</ItemContainer>
@@ -57,7 +57,7 @@ const Profile = async () => {
               <ItemContainer>Join existing project</ItemContainer>
             </Link>
           </ul>
-          <h2 className="text-xl pt-4 leading-5">Manage mobs:</h2>
+          <h2 className="text-xl pt-4">Manage mobs:</h2>
           <ul className="flex flex-col gap-1 font-medium">
             <Link href={`/profile/mob?id=${developer.id}&do=create`}>
               <ItemContainer>Create new mob</ItemContainer>

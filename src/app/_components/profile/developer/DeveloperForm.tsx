@@ -52,7 +52,7 @@ const DeveloperForm = ({
     };
     submitValidData(newData);
   };
-  const className = "h-10 rounded-md border-2 border-black/50 px-2";
+  const className = "h-10 rounded-md border-2 border-black/50 px-2 bg-black/10";
   return (
     <div className="flex flex-col gap-2 lg:px-48">
       <form
@@ -67,7 +67,7 @@ const DeveloperForm = ({
               id={`${key}-input`}
               type="text"
               {...register(key)}
-              className={className + ' bg-slate-200 black'}
+              className={className}
               placeholder={formInfo[key].placeholder}
             />
             <FormError error={errors[key]} />
