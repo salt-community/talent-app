@@ -24,9 +24,11 @@ const seedMeilisearch = async () => {
       .index("developers")
       .updateSearchableAttributes(["skills", "title", "description", "name"]);
 
+    await client.index("developers").updateSettings(settings);
+
     const updatedSettings = await client.index("developers").getSettings();
     console.log(updatedSettings);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.log(err);
   }
 };
