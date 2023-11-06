@@ -88,21 +88,24 @@ const SkillsForm = ({ data, setData }: Props) => {
   };
   return (
     <>
-      <form className="flex flex-col gap-2" onSubmit={handleAddSkill}>
-        <label htmlFor="skills">
-          Add one or more skills separated by whitespace. Compound words should
-          be joined with a dash (-). Example: React-Native, not React Native.
-          <span className="bg-pink px-1 text-blac">
-            Sort your skills so that the four most important are shown first.
-          </span>
+      <form
+        className="flex flex-col gap-1 md:pt-6 lg:pt-4 "
+        onSubmit={handleAddSkill}
+      >
+        <label htmlFor="skills" className="font-xs mt-4 text-center">
+          Add your skills separated by whitespace. Compound words must be
+          joined with a dash. <p className="mt-2">For example: React-Native.
+            </p>
         </label>
         <div className="flex gap-2">
           <input
             id="skills"
             type="text"
             name="skills"
-            className={"h-10 grow w-3/5 rounded-md border-2 border-black/50 px-2"}
-            placeholder={"Your skills"}
+            className={
+              "h-10 w-3/5 grow rounded-md border-2 border-black/50 px-2 placeholder:text-sm"
+            }
+            placeholder={"Skills in order of importance"}
             value={skill}
             onChange={(e) => setSkill(e.target.value)}
           />

@@ -34,7 +34,7 @@ const ContactCard = ({ developer }: ContactCardProps) => {
         </div>
 
         {open && (
-          <div className="flex flex-col gap-2 text-sm">
+          <div className="flex flex-col gap-2 text-sm bg-black/10 p-2 border-black/30 rounded-md shadow-md border">
             <div className="flex gap-1">
               <IconTemp path={mdilPhone} />
               <p>{developer.phone}</p>
@@ -58,7 +58,7 @@ const ContactCard = ({ developer }: ContactCardProps) => {
             </div>
           </div>
         )}
-        <button className="self-end" onClick={() => setOpen((p) => !p)}>
+        <button className="self-end border p-2 rounded-md border-black/30 active:bg-black/30 bg-black/10" onClick={() => setOpen((p) => !p)}>
           {open ? "Close" : "Contact"}
         </button>
       </div>

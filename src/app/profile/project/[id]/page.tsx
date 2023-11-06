@@ -66,7 +66,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           </ProjectForm>
           <Button
             disabled={removingProject}
-            className="py-2 hover:bg-pink"
+            className="py-2 hover:bg-pink/60"
             onClick={() => remove(id)}
           >
             Delete project

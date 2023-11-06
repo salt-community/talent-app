@@ -19,7 +19,7 @@ const TeamMembers: FC<TeamMembersProps> = ({ mob }) => {
           (developer) =>
             developer && (
               <li
-                className="gap-2 rounded-md p-2 text-center duration-300 ease-in-out hover:translate-y-[-2%] hover:bg-orange/20"
+                className="gap-2 rounded-md p-2 text-center duration-300 ease-in-out hover:translate-y-[-2%] hover:bg-orange/20 active:bg-orange"
                 key={developer.id}
               >
                 <Link

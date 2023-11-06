@@ -29,10 +29,10 @@ const ProjectPage = ({ params: { id } }: Props) => {
       },
     },
   );
-
+  const className = "flex justify-center w-full h-full items-center font-bold text-black ";
   return (
     <>
-      {gettingMob && <p>Loading...</p>}
+      {gettingMob && <p className={className}>Loading...</p>}
       {isSuccess && (
         <div
           className={`flex max-w-md flex-col gap-2 transition-all duration-200 ${
@@ -62,7 +62,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           </MobForm>
           <Button
             disabled={removingMob}
-            className="py-2 hover:bg-pink"
+            className="py-2 hover:bg-pink/60"
             onClick={() => remove(id)}
           >
             Delete Mob

@@ -52,9 +52,9 @@ const DeveloperForm = ({
     };
     submitValidData(newData);
   };
-  const className = "h-10 rounded-md border-2 border-black/50 px-2";
+  const className = "h-10 rounded-md border-2 border-black/50 px-2 bg-black/10";
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 lg:px-48">
       <form
         id="developer-form"
         className="flex flex-col gap-1"
@@ -62,7 +62,7 @@ const DeveloperForm = ({
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
-            <label htmlFor={`${key}-input`}>{formInfo[key].label}</label>
+            <label className="font-semibold pt-2" htmlFor={`${key}-input`}>{formInfo[key].label}</label>
             <input
               id={`${key}-input`}
               type="text"

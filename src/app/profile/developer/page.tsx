@@ -27,7 +27,7 @@ const DeveloperPage = () => {
   }
   return (
     <>
-      <div className="relative max-w-md">
+      <div className="relative max-w-md ">
         <DeveloperForm developer={newData} handleData={createUser}>
           <Button
             className="py-2"
@@ -44,3 +44,4 @@ const DeveloperPage = () => {
 };
 
 export default DeveloperPage;
+  

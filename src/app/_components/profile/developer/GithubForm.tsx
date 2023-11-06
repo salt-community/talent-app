@@ -37,7 +37,7 @@ const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
         validateGithub(gitHubUsername);
       }}
     >
-      <label htmlFor="github-input">GitHub Username</label>
+      <label className="font-semibold pt-2" htmlFor="github-input">GitHub Username</label>
       <div className="relative flex items-center gap-2">
         <input
           id="github-input"
