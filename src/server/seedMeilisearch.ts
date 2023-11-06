@@ -3,30 +3,34 @@ import settings from "./meilisearchSettings";
 import { db } from "./db";
 
 const seedMeilisearch = async () => {
-  const data = await db.developer.findMany();
-  const devs = data.map((c) => ({
-    title: c.title,
-    skills: c.skills,
-    name: c.name,
-    description: c.description,
-    id: c.id,
-  }));
-  console.log(devs);
-  client
-    .deleteIndex("developers")
-    .then(() => {
-      client
-        .index("developers")
-        .addDocuments(devs)
-        .then((res) => console.log(res))
-        .then(() => client.index("developers").updateSettings(settings))
-        .catch((err: Error) => {
-          console.log(err.message);
-        });
-    })
-    .catch((err: Error) => {
-      console.log(err.message);
-    });
+  try {
+    const data = await db.developer.findMany();
+    const devs = data.map((c) => ({
+      skills: c.skills,
+      title: c.title,
+      name: c.name,
+      description: c.description,
+      id: c.id,
+    }));
+
+    await client.deleteIndex("developers");
+
+    const addDocumentsResult = await client
+      .index("developers")
+      .addDocuments(devs);
+    console.log(addDocumentsResult);
+
+    await client
+      .index("developers")
+      .updateSearchableAttributes(["skills", "title", "description", "name"]);
+
+    await client.index("developers").updateSettings(settings);
+
+    const updatedSettings = await client.index("developers").getSettings();
+    console.log(updatedSettings);
+  } catch (err: unknown) {
+    console.log(err);
+  }
 };
 
 export default seedMeilisearch;
