@@ -9,12 +9,21 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between px-4 py-4 md:px-12 lg:py-8 ">
       <Link href={"/"}>
-        <Image src="/logoBlack.png" alt="salt logo" width={130} height={30} />
+        <Image
+          className="w-20 md:w-auto"
+          src="/logoBlack.png"
+          alt="salt logo"
+          width={130}
+          height={30}
+        />
       </Link>
 
       <div className="flex gap-2">
         {session.status === "authenticated" && (
-          <Link className="hover:underline font-semibold duration-200 bg-orange/20 active:bg-orange p-2 rounded-md" href={"/profile"}>
+          <Link
+            className="rounded-md bg-orange/20 p-2 font-semibold duration-200 hover:underline active:bg-orange"
+            href={"/profile"}
+          >
             Profile
           </Link>
         )}
