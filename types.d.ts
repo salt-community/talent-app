@@ -1,3 +1,5 @@
+import type svgPaths from "@/app/assets/icons/svgPaths";
+
 export type SearchResult = {
   skills: string[];
   title: string;
@@ -6,3 +8,5 @@ export type SearchResult = {
   image: string;
   id: string;
 };
+
+export type tIcon = keyof typeof svgPaths;
