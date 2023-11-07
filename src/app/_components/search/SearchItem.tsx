@@ -31,12 +31,12 @@ const SearchItem = ({ developer }: Props) => {
                   <p className="whitespace-nowrap">{skill}</p>
                 </li>
               ))}
+              {developer.skills.length - 4 > 0 && (
+                <li className="flex items-center rounded-sm bg-orange px-1 text-[0.6rem] text-white md:rounded-full md:p-1.5">
+                  +{developer.skills.length - 4}
+                </li>
+              )}
             </ul>
-            {developer.skills.length - 4 > 0 && (
-              <p className="flex items-center rounded-full bg-orange px-1 text-[0.6rem] text-white md:hidden">
-                +{developer.skills.length - 4}
-              </p>
-            )}
           </div>
         </div>
         <p className="hidden overflow-hidden overflow-ellipsis whitespace-nowrap text-xs md:flex">
