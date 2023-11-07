@@ -41,7 +41,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
       {isLoading && <p className={className}>Loading...</p>}
       {isError && <p className={className}>404 not found</p>}
       {isSuccess && (
-        <div className="flex w-full flex-col gap-4 p-8">
+        <main className="flex w-full flex-col gap-4 p-2">
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
             developer={developer}
@@ -69,7 +69,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
               Delete
             </Button>
           </DeveloperForm>
-        </div>
+        </main>
       )}
     </>
   );

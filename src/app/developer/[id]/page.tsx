@@ -15,7 +15,7 @@ const DeveloperPage = async ({
 }) => {
   const developer = await api.developer.getById.query({ id });
   return (
-    <div className="relative flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
+    <main className="relative flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
       <Link href={"/"} className="sticky left-0 top-0 z-10 w-10">
         <Icon
           icon="arrowLeft"
@@ -36,7 +36,7 @@ const DeveloperPage = async ({
         </div>
       </div>
       <Contact developer={developer} />
-    </div>
+    </main>
   );
 };
 

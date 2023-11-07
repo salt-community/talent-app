@@ -18,7 +18,7 @@ const JoinMob = ({ developerId }: Props) => {
     await refetch();
   };
   return (
-    <>
+    <main className="flex flex-col gap-2 p-2">
       {!isSuccess ? (
         <p>Loading...</p>
       ) : (
@@ -33,7 +33,7 @@ const JoinMob = ({ developerId }: Props) => {
           ))}
         </ul>
       )}
-    </>
+    </main>
   );
 };
 
@@ -62,23 +62,11 @@ const MobItem = ({ mob, developerId, refetch }: MobItemProps) => {
   });
 
   return (
-    <ItemContainer key={mob.id} className="justify-between">
-      <Link href={`/profile/mob/${mob.id}`} className="select-none">
-        {mob.name}
-      </Link>
-      <div className="flex gap-2">
-        <div className="flex flex-wrap gap-1">
-          {mob.members.map((dev) => (
-            <Image
-              className="rounded-full"
-              key={dev.connectionId}
-              src={dev.image}
-              alt="developer profile picture"
-              width={48}
-              height={48}
-            />
-          ))}
-        </div>
+    <ItemContainer key={mob.id} className="flex-col justify-normal">
+      <div className="flex w-full justify-between">
+        <Link href={`/profile/mob/${mob.id}`} className="select-none">
+          {mob.name}
+        </Link>
         {connectionId ? (
           <Button
             disabled={leavingMob}
@@ -99,6 +87,19 @@ const MobItem = ({ mob, developerId, refetch }: MobItemProps) => {
           </Button>
         )}
       </div>
+      <ul className="flex w-full gap-1">
+        {mob.members.map((dev) => (
+          <li key={dev.connectionId}>
+            <Image
+              className="rounded-full"
+              src={dev.image}
+              alt="developer profile picture"
+              width={48}
+              height={48}
+            />
+          </li>
+        ))}
+      </ul>
     </ItemContainer>
   );
 };

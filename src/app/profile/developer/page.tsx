@@ -26,7 +26,7 @@ const DeveloperPage = () => {
     newData.mail = data.user.email ?? "";
   }
   return (
-    <>
+    <main className="flex flex-col gap-2">
       <div className="relative max-w-md ">
         <DeveloperForm developer={newData} handleData={createUser}>
           <Button
@@ -39,9 +39,8 @@ const DeveloperPage = () => {
         </DeveloperForm>
       </div>
       <Button className="absolute bottom-2 right-2 py-2">Go back</Button>
-    </>
+    </main>
   );
 };
 
 export default DeveloperPage;
-  

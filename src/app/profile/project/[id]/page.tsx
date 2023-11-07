@@ -35,11 +35,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
     <>
       {gettingProject && <p>Loading...</p>}
       {isSuccess && (
-        <div
-          className={`flex max-w-md flex-col gap-2 transition-all duration-200 ${
-            removingProject && "opacity-0"
-          }`}
-        >
+        <main className="flex max-w-md flex-col gap-2 p-2">
           <h2 className="text-2xl">Edit project</h2>
           <ProjectForm
             handleData={(project) => updateProject({ id, project })}
@@ -71,7 +67,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           >
             Delete project
           </Button>
-        </div>
+        </main>
       )}
       {isError && <p>404</p>}
     </>
