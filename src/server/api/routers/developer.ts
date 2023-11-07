@@ -41,7 +41,12 @@ export const developerRouter = createTRPCRouter({
           projects: {
             include: {
               project: {
-                select: { description: true, title: true, youtube: true },
+                select: {
+                  description: true,
+                  title: true,
+                  youtube: true,
+                  githubLink: true,
+                },
               },
             },
           },
@@ -50,6 +55,15 @@ export const developerRouter = createTRPCRouter({
       if (!dev) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
+      const mobs = dev.mobs.map(({ Mob: { id, name, members } }) => ({
+        id,
+        name,
+        members: members.map(({ Developer: { id, image, name } }) => ({
+          id,
+          name,
+          image,
+        })),
+      }));
       return {
         ...dev,
         projects: dev.projects.map((project) => ({
@@ -57,32 +71,56 @@ export const developerRouter = createTRPCRouter({
           title: project.project.title,
           youtube: project.project.youtube,
           id: project.groupId,
+          githublink: project.project.githubLink,
         })),
-        mobs: dev.mobs.map((mob) => {
-          if (mob.Mob) {
-            return {
-              id: mob.Mob.id,
-              name: mob.Mob.name,
-              members: mob.Mob.members.map((member) => {
-                if (member.Developer)
-                  return {
-                    id: member.Developer.id,
-                    name: member.Developer.name,
-                    image: member.Developer.image,
-                  };
-              }),
-            };
-          }
-        }),
+        mobs,
       };
     }),
 
   getBySearch: publicProcedure
     .input(searchDevSchema)
-    .query(async ({ ctx, input }) => {
-      const res = await ctx.msClient.index("developers").search(input.search);
-      const searchData = res.hits as SearchResult[];
-      return searchData
+    .query(async ({ ctx, input: { search } }) => {
+      if (search === "") {
+        console.log("Only 10");
+        const data = await ctx.db.developer.findMany({
+          orderBy: { lastModified: "desc" },
+          take: 8,
+        });
+        return data.map(({ skills, title, description, name, image, id }) => ({
+          skills,
+          title,
+          description,
+          name,
+          image,
+          id,
+        }));
+      }
+      try {
+        const res = await ctx.msClient.index("developers").search(search);
+        const searchData = res.hits as SearchResult[];
+        return searchData;
+      } catch (error) {
+        console.log(error);
+        const mode = "insensitive";
+        const data = await ctx.db.developer.findMany({
+          where: {
+            OR: [
+              { description: { contains: search, mode } },
+              { name: { contains: search, mode } },
+              { title: { contains: search, mode } },
+              { skills: { has: search } },
+            ],
+          },
+        });
+        return data.map(({ skills, title, description, name, image, id }) => ({
+          skills,
+          title,
+          description,
+          name,
+          image,
+          id,
+        }));
+      }
     }),
 
   create: protectedProcedure
@@ -99,27 +137,13 @@ export const developerRouter = createTRPCRouter({
   update: protectedProcedure
     .input(z.object({ dev: devSchema, id: z.string().min(1) }))
     .mutation(async ({ ctx, input: { dev, id } }) => {
+      const lastModified = new Date();
       await ctx.db.developer.update({
         where: { id },
-        data: dev,
+        data: { ...dev, lastModified },
       });
+      await seedMeilisearch();
     }),
-
-  getRecentTen: publicProcedure.query(async ({ ctx }) => {
-    const data = await ctx.db.developer.findMany({
-      orderBy: { lastModified: "asc" },
-      take: 10,
-    });
-    return data.map((dev) => ({
-      id: dev.id,
-      image: dev.image,
-      name: dev.name,
-      title: dev.title,
-      skills: dev.skills,
-      gitHubUrl: dev.gitHubUrl,
-      linkedinUrl: dev.linkedinUrl,
-    }));
-  }),
 
   getByUser: protectedProcedure.query(({ ctx }) => {
     return ctx.db.developer.findFirst({
@@ -132,5 +156,6 @@ export const developerRouter = createTRPCRouter({
     .input(z.string())
     .mutation(async ({ ctx, input: id }) => {
       await ctx.db.developer.delete({ where: { id } });
+      await seedMeilisearch();
     }),
 });
