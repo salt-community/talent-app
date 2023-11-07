@@ -93,7 +93,6 @@ const DeveloperForm = ({
         data={{ gitHubUrl, image }}
         setData={(data) => setGitHub(data)}
       />
-
       {githubSchema.safeParse(gitHub).success && <>{children}</>}
     </div>
   );
