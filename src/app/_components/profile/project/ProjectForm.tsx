@@ -32,19 +32,28 @@ const ProjectForm = ({ project, handleData, children }: Props) => {
   const fields = ["title", "youtube", "description", "githubLink"] as const;
   return (
     <form
-      className="flex flex-col gap-1"
+      className="flex flex-col gap-2"
       onSubmit={(event) => void handleSubmit(onSubmit)(event)}
     >
       {fields.map((field) => {
         return (
-          <div key={field} className="flex flex-col gap-2">
-            <input
-              className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
-              placeholder={field}
-              {...register(field)}
-            />
+          <>
+            {field === "description" ? (
+              <textarea
+                className={"h-32 grow rounded-md border-2 border-black/50 px-2"}
+                rows={6}
+                placeholder={field}
+                {...register(field)}
+              />
+            ) : (
+              <input
+                className={"h-10 grow rounded-md border-2 border-black/50 px-2"}
+                placeholder={field}
+                {...register(field)}
+              />
+            )}
             <FormError error={errors[field]} />
-          </div>
+          </>
         );
       })}
       {children}
