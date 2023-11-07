@@ -11,6 +11,7 @@ const seedMeilisearch = async () => {
       name: c.name,
       description: c.description,
       id: c.id,
+      image: c.image,
     }));
 
     await client.deleteIndex("developers");
