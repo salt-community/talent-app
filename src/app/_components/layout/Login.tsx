@@ -3,7 +3,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const Login = () => {
+const Login = ({className}:{className:string}) => {
   const { data: session2 } = useSession();
   const router = useRouter();
   const handleLogin = () => {
@@ -18,7 +18,6 @@ const Login = () => {
       })
       .catch(() => toast.error("Could not log out."));
   };
-  const className = "hover:underline font-semibold duration-200 bg-orange/20 active:bg-orange p-2 rounded-md";
   return (
     <>
       {!session2 && (
