@@ -4,8 +4,14 @@ import Project from "../_components/profile/ProjectItem";
 import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
 import MobItem from "../_components/profile/MobItem";
+import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
 
 const Profile = async () => {
+  const session = await getServerAuthSession();
+  if (!session || !session.user) {
+    redirect("/api/auth/signin");
+  }
   const developer = await api.developer.getByUser.query();
   const projects = await api.project.getByDev.query();
   const mobs = await api.mob.getByDev.query();
