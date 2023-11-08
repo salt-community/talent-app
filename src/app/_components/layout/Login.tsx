@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Login = ({className}:{className:string}) => {
-  const { data: session2 } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const handleLogin = () => {
-    signIn("google", { callbackUrl: "/" }).catch(() =>
+    signIn().catch(() =>
       toast.error("Could not log in."),
     );
   };
@@ -20,12 +20,12 @@ const Login = ({className}:{className:string}) => {
   };
   return (
     <>
-      {!session2 && (
+      {!session && (
         <button className={className} onClick={handleLogin}>
           Sign In
         </button>
       )}
-      {session2 && (
+      {session && (
         <button className={className} onClick={handleLogout}>
           Sign Out
         </button>
