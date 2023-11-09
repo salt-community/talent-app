@@ -81,7 +81,6 @@ export const developerRouter = createTRPCRouter({
     .input(searchDevSchema)
     .query(async ({ ctx, input: { search } }) => {
       if (search === "") {
-        console.log("Only 10");
         const data = await ctx.db.developer.findMany({
           orderBy: { lastModified: "desc" },
           take: 8,
