@@ -12,11 +12,7 @@ type Mob = RouterOutputs["mob"]["getAll"][number];
 type Props = { developerId: string };
 
 const JoinMob = ({ developerId }: Props) => {
-  const { data: mobs, isSuccess, refetch } = api.mob.getAll.useQuery();
-
-  const update = async () => {
-    await refetch();
-  };
+  const { data: mobs, isSuccess } = api.mob.getAll.useQuery();
   return (
     <main className="flex flex-col gap-2 p-2">
       {!isSuccess ? (
@@ -24,12 +20,7 @@ const JoinMob = ({ developerId }: Props) => {
       ) : (
         <ul className="flex flex-col gap-1">
           {mobs.map((mob) => (
-            <MobItem
-              key={mob.id}
-              mob={mob}
-              refetch={update}
-              developerId={developerId}
-            />
+            <MobItem key={mob.id} mob={mob} developerId={developerId} />
           ))}
         </ul>
       )}
@@ -39,14 +30,14 @@ const JoinMob = ({ developerId }: Props) => {
 
 type MobItemProps = {
   mob: Mob;
-  refetch: () => Promise<void>;
   developerId: string;
 };
-const MobItem = ({ mob, developerId, refetch }: MobItemProps) => {
+const MobItem = ({ mob, developerId }: MobItemProps) => {
+  const utils = api.useContext();
   const connectionId = findConnection(mob.members, developerId);
   const { mutate: join, isLoading: joiningMob } = api.mob.join.useMutation({
     onSuccess: async () => {
-      await refetch();
+      await utils.mob.invalidate();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -54,7 +45,7 @@ const MobItem = ({ mob, developerId, refetch }: MobItemProps) => {
   });
   const { mutate: leave, isLoading: leavingMob } = api.mob.leave.useMutation({
     onSuccess: async () => {
-      await refetch();
+      await utils.mob.invalidate();
     },
     onError: (error) => {
       toast.error(error.message);

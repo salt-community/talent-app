@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 const ProjectPage = () => {
   const router = useRouter();
+  const utils = api.useContext();
   const searchParams = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
   const validatedSearchParams = projectParams.safeParse(searchParamsObject);
@@ -21,9 +22,9 @@ const ProjectPage = () => {
   const { id: developerId } = validatedSearchParams.data;
   const { mutate: create, isLoading: creatingProject } =
     api.project.create.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.project.invalidate();
         router.push("/profile");
-        router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);

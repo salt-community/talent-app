@@ -8,6 +8,7 @@ type Props = { params: { id: string } };
 
 const ProjectPage = ({ params: { id } }: Props) => {
   const router = useRouter();
+  const utils = api.useContext();
   const {
     data: mob,
     isSuccess,
@@ -16,27 +17,26 @@ const ProjectPage = ({ params: { id } }: Props) => {
   } = api.mob.getById.useQuery({ id });
   const { mutate: updateMob, isLoading: updatingMob } =
     api.mob.update.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.mob.invalidate();
         router.push("/profile");
-        router.refresh();
       },
     });
   const { mutate: remove, isLoading: removingMob } = api.mob.remove.useMutation(
     {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.mob.invalidate();
         router.push("/profile");
-        router.refresh();
       },
     },
   );
-  const className = "flex justify-center w-full h-full items-center font-bold text-black ";
+  const className =
+    "flex justify-center w-full h-full items-center font-bold text-black ";
   return (
     <>
       {gettingMob && <p className={className}>Loading...</p>}
       {isSuccess && (
-        <main
-          className='flex max-w-md flex-col gap-2 p-2'
-        >
+        <main className="flex max-w-md flex-col gap-2 p-2">
           <h2 className="text-2xl">Edit mob</h2>
           <MobForm handleData={(mob) => updateMob({ id, mob })} mob={mob}>
             <div className="flex gap-2">

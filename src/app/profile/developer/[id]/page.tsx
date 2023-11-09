@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 type Props = { params: { id: string } };
 const DeveloperId = ({ params: { id } }: Props) => {
   const router = useRouter();
+  const utils = api.useContext();
   const { data: session } = useSession();
   checkIfAuth(session);
   const {
@@ -17,12 +18,11 @@ const DeveloperId = ({ params: { id } }: Props) => {
     isLoading,
     isSuccess,
     isError,
-    refetch,
   } = api.developer.getById.useQuery({ id });
   const { mutate: update, isLoading: updating } =
     api.developer.update.useMutation({
       onSuccess: async () => {
-        await refetch();
+        await utils.developer.invalidate();
         router.push("/profile");
       },
       onError: (error) => {
@@ -31,9 +31,9 @@ const DeveloperId = ({ params: { id } }: Props) => {
     });
   const { mutate: remove, isLoading: deleting } =
     api.developer.delete.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.developer.invalidate();
         router.push("/profile");
-        router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);

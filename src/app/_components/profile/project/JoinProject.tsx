@@ -12,11 +12,7 @@ type Project = RouterOutputs["project"]["getAll"][number];
 type Props = { developerId: string };
 
 const JoinProject = ({ developerId }: Props) => {
-  const { data: projects, isSuccess, refetch } = api.project.getAll.useQuery();
-
-  const update = async () => {
-    await refetch();
-  };
+  const { data: projects, isSuccess } = api.project.getAll.useQuery();
   return (
     <main className="p-2">
       {!isSuccess ? (
@@ -27,7 +23,6 @@ const JoinProject = ({ developerId }: Props) => {
             <ProjectItem
               key={project.id}
               project={project}
-              refetch={update}
               developerId={developerId}
             />
           ))}
@@ -39,15 +34,15 @@ const JoinProject = ({ developerId }: Props) => {
 
 type ProjectItemProps = {
   project: Project;
-  refetch: () => Promise<void>;
   developerId: string;
 };
-const ProjectItem = ({ project, developerId, refetch }: ProjectItemProps) => {
+const ProjectItem = ({ project, developerId }: ProjectItemProps) => {
+  const utils = api.useContext();
   const connectionId = findConnection(project.members, developerId);
   const { mutate: join, isLoading: joiningProject } =
     api.project.join.useMutation({
       onSuccess: async () => {
-        await refetch();
+        await utils.project.invalidate();
       },
       onError: (error) => {
         toast.error(error.message);
@@ -56,7 +51,7 @@ const ProjectItem = ({ project, developerId, refetch }: ProjectItemProps) => {
   const { mutate: leave, isLoading: leavingProject } =
     api.project.leave.useMutation({
       onSuccess: async () => {
-        await refetch();
+        await utils.project.invalidate();
       },
       onError: (error) => {
         toast.error(error.message);

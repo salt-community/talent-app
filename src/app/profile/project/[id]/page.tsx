@@ -9,6 +9,7 @@ import React from "react";
 type Props = { params: { id: string } };
 
 const ProjectPage = ({ params: { id } }: Props) => {
+  const utils = api.useContext();
   const router = useRouter();
   const {
     data: project,
@@ -18,16 +19,16 @@ const ProjectPage = ({ params: { id } }: Props) => {
   } = api.project.getById.useQuery({ id });
   const { mutate: updateProject, isLoading: updatingProject } =
     api.project.update.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.project.invalidate();
         router.push("/profile");
-        router.refresh();
       },
     });
   const { mutate: remove, isLoading: removingProject } =
     api.project.remove.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.project.invalidate();
         router.push("/profile");
-        router.refresh();
       },
     });
 

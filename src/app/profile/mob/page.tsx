@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 const MobPage = () => {
   const router = useRouter();
+  const utils = api.useContext();
   const searchParams = useSearchParams();
   const searchParamsObject = Object.fromEntries(searchParams);
   const validatedSearchParams = projectParams.safeParse(searchParamsObject);
@@ -21,9 +22,9 @@ const MobPage = () => {
   const { id: developerId } = validatedSearchParams.data;
   const { mutate: create, isLoading: creatingMob } = api.mob.create.useMutation(
     {
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.mob.invalidate();
         router.push("/profile");
-        router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);

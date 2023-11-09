@@ -5,6 +5,7 @@ import Button from "../Button";
 type Props = { developerId: string };
 
 const AddToCart = ({ developerId }: Props) => {
+  const utils = api.useContext();
   const {
     data: cart,
     isSuccess: haveCart,
@@ -12,10 +13,16 @@ const AddToCart = ({ developerId }: Props) => {
     refetch,
   } = api.cart.getAll.useQuery();
   const { mutate: add, isLoading: adding } = api.cart.add.useMutation({
-    onSuccess: () => refetch(),
+    onSuccess: async () => {
+      await refetch();
+      await utils.cart.invalidate();
+    },
   });
   const { mutate: remove, isLoading: removing } = api.cart.remove.useMutation({
-    onSuccess: () => refetch(),
+    onSuccess: async () => {
+      await refetch();
+      await utils.cart.invalidate();
+    },
   });
   return (
     <>

@@ -11,12 +11,13 @@ import Link from "next/link";
 
 const DeveloperPage = () => {
   const { data } = useSession();
+  const utils = api.useContext();
   const router = useRouter();
   const { mutate: createUser, isLoading: creatingUser } =
     api.developer.create.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await utils.developer.invalidate();
         router.push("/profile");
-        router.refresh();
       },
       onError: (error) => {
         toast.error(error.message);
