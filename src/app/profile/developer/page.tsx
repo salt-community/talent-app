@@ -35,17 +35,11 @@ const DeveloperPage = () => {
           className="h-10 w-10 rounded-full bg-black fill-white"
         />
       </Link>
-      <div className="max-w-md ">
-        <DeveloperForm developer={newData} handleData={createUser}>
-          <Button
-            className="py-2"
-            disabled={creatingUser}
-            form="developer-form"
-          >
-            Create user
-          </Button>
-        </DeveloperForm>
-      </div>
+      <DeveloperForm developer={newData} handleData={createUser}>
+        <Button className="py-2" disabled={creatingUser} form="developer-form">
+          Create user
+        </Button>
+      </DeveloperForm>
     </main>
   );
 };
