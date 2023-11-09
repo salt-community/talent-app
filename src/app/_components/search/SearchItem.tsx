@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { RouterOutputs } from "@/trpc/shared";
 import ItemContainer from "../ItemContainer";
+import LogLink from "./LogLink";
 
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 const SearchItem = ({ developer }: Props) => {
   return (
-    <Link href={`developer/${developer.id}`}>
+    <LogLink developerId={developer.id}>
       <ItemContainer>
         <Image
           src={developer.image}
@@ -43,7 +43,7 @@ const SearchItem = ({ developer }: Props) => {
           {developer.title}
         </p>
       </ItemContainer>
-    </Link>
+    </LogLink>
   );
 };
 
