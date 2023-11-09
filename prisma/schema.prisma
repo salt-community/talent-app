@@ -140,10 +140,10 @@ model Mob {
 }
 
 model CartItem {
-    developer   Developer @relation(fields: [developerId], references: [id])
+    developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
     developerId String    @id
     comment     String?
-    User        User?     @relation(fields: [userId], references: [id])
+    User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String?
 
     @@unique([developerId, userId])
