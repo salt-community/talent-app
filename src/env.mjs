@@ -43,6 +43,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_FF_CONTACT: z.enum(["ON", "OFF"]).optional(),
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
 
@@ -61,6 +62,7 @@ export const env = createEnv({
     NEXT_MEILISEARCH_KEY: process.env.NEXT_MEILISEARCH_KEY,
     EMAIL_SERVER: process.env.EMAIL_SERVER,
     EMAIL_FROM: process.env.EMAIL_FROM,
+    NEXT_PUBLIC_FF_CONTACT: process.env.NEXT_PUBLIC_FF_CONTACT,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
