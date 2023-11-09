@@ -1,13 +1,9 @@
-import type { FC } from "react"
+type Props = {
+  title: string;
+};
 
-type SectionHeaderProps = {
-  title: string
-}
+const SectionHeader = ({ title }: Props) => {
+  return <h2 className="text-xl font-bold md:text-3xl">{title}</h2>;
+};
 
-const SectionHeader: FC<SectionHeaderProps> = ({title}) => {
-  return (
-    <h2 className='text-xl font-bold md:text-3xl'>{title}</h2>
-  )
-}
-
-export default SectionHeader
+export default SectionHeader;

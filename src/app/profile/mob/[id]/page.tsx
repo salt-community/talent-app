@@ -34,10 +34,8 @@ const ProjectPage = ({ params: { id } }: Props) => {
     <>
       {gettingMob && <p className={className}>Loading...</p>}
       {isSuccess && (
-        <div
-          className={`flex max-w-md flex-col gap-2 transition-all duration-200 ${
-            removingMob && "opacity-0"
-          }`}
+        <main
+          className='flex max-w-md flex-col gap-2 p-2'
         >
           <h2 className="text-2xl">Edit mob</h2>
           <MobForm handleData={(mob) => updateMob({ id, mob })} mob={mob}>
@@ -67,7 +65,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
           >
             Delete Mob
           </Button>
-        </div>
+        </main>
       )}
       {isError && <p>404</p>}
     </>

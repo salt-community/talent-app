@@ -18,7 +18,7 @@ const JoinProject = ({ developerId }: Props) => {
     await refetch();
   };
   return (
-    <>
+    <main className="p-2">
       {!isSuccess ? (
         <p>Loading...</p>
       ) : (
@@ -33,7 +33,7 @@ const JoinProject = ({ developerId }: Props) => {
           ))}
         </ul>
       )}
-    </>
+    </main>
   );
 };
 
@@ -64,23 +64,11 @@ const ProjectItem = ({ project, developerId, refetch }: ProjectItemProps) => {
     });
 
   return (
-    <ItemContainer key={project.id} className="justify-between">
-      <Link href={`/profile/project/${project.id}`} className="select-none">
-        {project.title}
-      </Link>
-      <div className="flex gap-2">
-        <div className="flex flex-wrap gap-1">
-          {project.members.map((dev) => (
-            <Image
-              className="rounded-full"
-              key={dev.connectionId}
-              src={dev.image}
-              alt="developer profile picture"
-              width={48}
-              height={48}
-            />
-          ))}
-        </div>
+    <ItemContainer key={project.id} className="flex-col justify-normal">
+      <div className="flex w-full justify-between">
+        <Link href={`/profile/project/${project.id}`} className="select-none">
+          {project.title}
+        </Link>
         {connectionId ? (
           <Button
             disabled={leavingProject}
@@ -101,6 +89,19 @@ const ProjectItem = ({ project, developerId, refetch }: ProjectItemProps) => {
           </Button>
         )}
       </div>
+      <ul className="flex w-full gap-1">
+        {project.members.map((dev) => (
+          <li key={dev.connectionId}>
+            <Image
+              className="h-10 w-10 rounded-full"
+              src={dev.image}
+              alt="developer profile picture"
+              width={32}
+              height={32}
+            />
+          </li>
+        ))}
+      </ul>
     </ItemContainer>
   );
 };

@@ -32,7 +32,7 @@ const MobPage = () => {
   );
   if (validatedSearchParams.data.do === "create") {
     return (
-      <div className="flex max-w-md flex-col gap-2">
+      <main className="flex max-w-md flex-col gap-2 p-2">
         <h2 className="text-2xl">Create mob</h2>
         <MobForm handleData={(mob) => create({ mob, developerId })}>
           <div className="flex gap-2">
@@ -48,7 +48,7 @@ const MobPage = () => {
             </Button>
           </div>
         </MobForm>
-      </div>
+      </main>
     );
   }
   if (validatedSearchParams.data.do === "join") {

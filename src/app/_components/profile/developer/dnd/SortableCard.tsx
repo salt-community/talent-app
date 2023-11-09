@@ -1,4 +1,4 @@
-import DragIcon from "@/app/assets/icons/DragIcon";
+import Icon from "@/app/assets/icons/Icon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { ReactNode } from "react";
@@ -34,7 +34,7 @@ const SortableCard = (props: Props) => {
       {...attributes}
     >
       <div ref={setActivatorNodeRef} {...listeners}>
-        <DragIcon className="h-6 fill-black cursor-grab" />
+        <Icon icon="dragVH" className="h-6 cursor-grab fill-black" />
       </div>
       {props.children}
     </li>

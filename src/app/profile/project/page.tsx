@@ -31,7 +31,7 @@ const ProjectPage = () => {
     });
   if (validatedSearchParams.data.do === "create") {
     return (
-      <div className="flex max-w-md flex-col gap-2">
+      <main className="flex max-w-md flex-col gap-2 p-2">
         <h2 className="text-2xl">Create project</h2>
         <ProjectForm handleData={(project) => create({ project, developerId })}>
           <div className="flex gap-2">
@@ -47,7 +47,7 @@ const ProjectPage = () => {
             </Button>
           </div>
         </ProjectForm>
-      </div>
+      </main>
     );
   }
   if (validatedSearchParams.data.do === "join") {

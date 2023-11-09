@@ -4,10 +4,12 @@ import {
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import GoogleProvider, { type GoogleProfile } from "next-auth/providers/google";
+import Email from "next-auth/providers/email";
 
 import { env } from "@/env.mjs";
 import { db } from "@/server/db";
+import type { UserRole } from "types";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -19,15 +21,16 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      role: UserRole;
       // ...other properties
-      // role: UserRole;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    role: UserRole;
+    id: string;
+  }
 }
 
 /**
@@ -42,6 +45,7 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        role: user.role,
       },
     }),
   },
@@ -50,6 +54,13 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.NEXT_GOOGLE_CLIENT_ID,
       clientSecret: env.NEXT_GOOGLE_SECRET,
+      profile(profile: GoogleProfile) {
+        return { id: profile.sub, role: "SALTIE" };
+      },
+    }),
+    Email({
+      server: env.EMAIL_SERVER,
+      from: env.EMAIL_FROM,
     }),
     /**
      * ...add more providers here.

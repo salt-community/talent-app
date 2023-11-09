@@ -4,17 +4,20 @@ import Project from "../_components/profile/ProjectItem";
 import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
 import MobItem from "../_components/profile/MobItem";
+import checkIfAuth from "@/utils/redirectIfNotAuth";
+import { getServerAuthSession } from "@/server/auth";
 
 const Profile = async () => {
+  checkIfAuth(await getServerAuthSession());
   const developer = await api.developer.getByUser.query();
   const projects = await api.project.getByDev.query();
   const mobs = await api.mob.getByDev.query();
 
   return (
-    <div className="flex flex-col gap-2 p-4 items-center font-semibold">
-      <div className="w-full gap-2 md:w-4/5 lg:w-3/5">
-        <h2 className="text-xl pt-4">Developer profile:</h2>
-        <ul className="font-medium">
+    <main className="flex flex-col items-center gap-2 p-2 font-semibold">
+      <div className="flex w-full flex-col gap-3 md:w-4/5 lg:w-3/5">
+        <h2 className="pt-4 text-xl">Developer profile:</h2>
+        <ul className="w-full font-medium">
           {developer ? (
             <Developer developer={developer} />
           ) : (
@@ -24,11 +27,12 @@ const Profile = async () => {
           )}
         </ul>
       </div>
+
       {developer && (
-        <div className="flex flex-col gap-3 w-full md:w-4/5 lg:w-3/5">
+        <div className="flex w-full flex-col gap-3 md:w-4/5 lg:w-3/5">
           {projects.length !== 0 && (
             <>
-              <h2 className="text-xl pt-4">Your projects:</h2>
+              <h2 className="pt-4 text-xl">Your projects:</h2>
               <ul className="flex flex-col gap-1 font-medium">
                 {projects.map((project) => (
                   <Project key={project.id} project={project} />
@@ -39,7 +43,7 @@ const Profile = async () => {
 
           {mobs.length !== 0 && (
             <>
-              <h2 className="text-xl pt-4">Your mobs:</h2>
+              <h2 className="pt-4 text-xl">Your mobs:</h2>
               <ul className="flex flex-col gap-1 font-medium">
                 {mobs.map((mob) => (
                   <MobItem mob={mob} key={mob.id} />
@@ -48,7 +52,7 @@ const Profile = async () => {
             </>
           )}
 
-          <h2 className="text-xl pt-4">Manage projects:</h2>
+          <h2 className="pt-4 text-xl">Manage projects:</h2>
           <ul className="flex flex-col gap-1 font-medium">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
               <ItemContainer>Create new project</ItemContainer>
@@ -57,7 +61,7 @@ const Profile = async () => {
               <ItemContainer>Join existing project</ItemContainer>
             </Link>
           </ul>
-          <h2 className="text-xl pt-4">Manage mobs:</h2>
+          <h2 className="pt-4 text-xl">Manage mobs:</h2>
           <ul className="flex flex-col gap-1 font-medium">
             <Link href={`/profile/mob?id=${developer.id}&do=create`}>
               <ItemContainer>Create new mob</ItemContainer>
@@ -68,7 +72,7 @@ const Profile = async () => {
           </ul>
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

@@ -62,14 +62,25 @@ const DeveloperForm = ({
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
-            <label className="font-semibold pt-2" htmlFor={`${key}-input`}>{formInfo[key].label}</label>
-            <input
-              id={`${key}-input`}
-              type="text"
-              {...register(key)}
-              className={className}
-              placeholder={formInfo[key].placeholder}
-            />
+            <label className="pt-2 font-semibold" htmlFor={`${key}-input`}>
+              {formInfo[key].label}
+            </label>
+            {key === "description" ? (
+              <textarea
+                id={`${key}-input`}
+                rows={6}
+                {...register(key)}
+                className={`${className} h-32`}
+                placeholder={formInfo[key].placeholder}
+              />
+            ) : (
+              <input
+                id={`${key}-input`}
+                {...register(key)}
+                className={className}
+                placeholder={formInfo[key].placeholder}
+              />
+            )}
             <FormError error={errors[key]} />
           </div>
         ))}
@@ -82,7 +93,6 @@ const DeveloperForm = ({
         data={{ gitHubUrl, image }}
         setData={(data) => setGitHub(data)}
       />
-
       {githubSchema.safeParse(gitHub).success && <>{children}</>}
     </div>
   );

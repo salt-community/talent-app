@@ -31,9 +31,7 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <Header />
-            <main className="flex grow flex-col overflow-y-auto">
-              {children}
-            </main>
+            {children}
           </SessionProviderWrapper>
         </TRPCReactProvider>
       </body>

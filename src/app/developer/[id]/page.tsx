@@ -1,41 +1,51 @@
 import Link from "next/link";
-import ContactCard from "@/app/_components/developer/DeveloperContactCard";
+import UserCard from "@/app/_components/developer/UserCard";
 import SectionHeader from "@/app/_components/SectionHeader";
 import Skills from "@/app/_components/developer/DeveloperSkills";
-import TeamMembers from "@/app/_components/developer/DeveloperTeamMembers";
+import TeamMembers from "@/app/_components/developer/Team";
 import { api } from "@/trpc/server";
-import ProjectSlider from "@/app/_components/developer/ProjectSlider";
-import BackIcon from "@/app/assets/icons/BackIcon";
-
+import Projects from "@/app/_components/developer/Projects";
+import Contact from "@/app/_components/developer/Contact";
+import Icon from "@/app/assets/icons/Icon";
+import { env } from "@/env.mjs";
+import AddToCart from "@/app/_components/developer/AddToCart";
+import { getServerAuthSession } from "@/server/auth";
 const DeveloperPage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
   const developer = await api.developer.getById.query({ id });
+  const session = await getServerAuthSession();
+
   return (
-    <div className="flex grow justify-center bg-gradient-to-b from-orange to-pink px-10 ">
-      <div className="flex flex-col gap-4 py-6 md:w-[95%] md:flex-row md:py-0">
-        <ContactCard developer={developer} />
-        <div className="flex flex-col gap-12 rounded-md bg-gray p-4 text-xl md:w-3/4 md:rounded-none md:px-10">
+    <main className="flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
+      <div className="sticky top-0 flex w-full items-center justify-between">
+        <Link href={"/"} className="z-10 w-10">
+          <Icon
+            icon="arrowLeft"
+            className="h-10 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
+          />
+        </Link>
+        {session && session.user.role === "CLIENT" && (
+          <AddToCart developerId={id} />
+        )}
+      </div>
+      <div className="flex flex-col gap-4 pb-5 md:flex-row md:py-0">
+        <UserCard developer={developer} />
+        <div className="flex w-full flex-col gap-5 rounded-md bg-gray p-4 md:w-3/4 md:rounded-none md:px-10">
           <section className="flex flex-col gap-4">
             <SectionHeader title={developer.title} />
             <p>{developer.description}</p>
           </section>
+          <hr />
           <Skills skills={developer.skills} />
-          <ProjectSlider projects={developer.projects} />
-          {developer.mobs.map(
-            (mob) => mob && <TeamMembers key={mob.id} mob={mob} />,
-          )}
+          <Projects projects={developer.projects} />
+          <TeamMembers mobs={developer.mobs} />
         </div>
       </div>
-      <Link
-        href={"/"}
-        className="top-15 fixed left-2 flex w-10 justify-center rounded-full bg-black active:bg-black/30"
-      >
-        <BackIcon className="h-10 border border-black/30 rounded-full fill-white" />
-      </Link>
-    </div>
+      {env.NEXT_PUBLIC_FF_CONTACT === "ON" && <Contact developer={developer} />}
+    </main>
   );
 };
 

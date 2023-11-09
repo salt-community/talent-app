@@ -2,7 +2,6 @@
 import { type FormEvent, useState, useEffect } from "react";
 import { skillsSchema, type tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
-import TrashIcon from "@/app/assets/icons/TrashIcon";
 import splitSkills from "./helpers/splitSkills";
 import Button from "../../Button";
 import FormError from "../../FormError";
@@ -22,6 +21,7 @@ import {
 } from "@dnd-kit/sortable";
 import CardsWrapper from "./dnd/CardsWrapper";
 import SortableCard from "./dnd/SortableCard";
+import Icon from "@/app/assets/icons/Icon";
 
 type Props = {
   data: tSkillsSchema;
@@ -93,9 +93,8 @@ const SkillsForm = ({ data, setData }: Props) => {
         onSubmit={handleAddSkill}
       >
         <label htmlFor="skills" className="font-xs mt-4 text-center">
-          Add your skills separated by whitespace. Compound words must be
-          joined with a dash. <p className="mt-2">For example: React-Native.
-            </p>
+          Add your skills separated by whitespace. Compound words must be joined
+          with a dash. <p className="mt-2">For example: React-Native.</p>
         </label>
         <div className="flex gap-2">
           <input
@@ -129,7 +128,8 @@ const SkillsForm = ({ data, setData }: Props) => {
                 index={index}
               >
                 <p>{name}</p>
-                <TrashIcon
+                <Icon
+                  icon="delete"
                   onClick={() => removeSkill(name)}
                   className="w-6 cursor-pointer fill-white hover:scale-110 hover:fill-black"
                 />
