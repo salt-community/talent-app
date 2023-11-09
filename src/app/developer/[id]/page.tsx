@@ -7,22 +7,31 @@ import { api } from "@/trpc/server";
 import Projects from "@/app/_components/developer/Projects";
 import Contact from "@/app/_components/developer/Contact";
 import Icon from "@/app/assets/icons/Icon";
-
+import { env } from "@/env.mjs";
+import AddToCart from "@/app/_components/developer/AddToCart";
+import { getServerAuthSession } from "@/server/auth";
 const DeveloperPage = async ({
   params: { id },
 }: {
   params: { id: string };
 }) => {
   const developer = await api.developer.getById.query({ id });
+  const session = await getServerAuthSession();
+
   return (
-    <main className="relative flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
-      <Link href={"/"} className="sticky left-0 top-0 z-10 w-10">
-        <Icon
-          icon="arrowLeft"
-          className="h-10 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
-        />
-      </Link>
-      <div className="flex flex-col gap-4 pb-5 md:w-[95%] md:flex-row md:py-0">
+    <main className="flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
+      <div className="sticky top-0 flex w-full items-center justify-between">
+        <Link href={"/"} className="z-10 w-10">
+          <Icon
+            icon="arrowLeft"
+            className="h-10 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
+          />
+        </Link>
+        {session && session.user.role === "CLIENT" && (
+          <AddToCart developerId={id} />
+        )}
+      </div>
+      <div className="flex flex-col gap-4 pb-5 md:flex-row md:py-0">
         <UserCard developer={developer} />
         <div className="flex w-full flex-col gap-5 rounded-md bg-gray p-4 md:w-3/4 md:rounded-none md:px-10">
           <section className="flex flex-col gap-4">
@@ -35,7 +44,7 @@ const DeveloperPage = async ({
           <TeamMembers mobs={developer.mobs} />
         </div>
       </div>
-      <Contact developer={developer} />
+      {env.NEXT_PUBLIC_FF_CONTACT === "ON" && <Contact developer={developer} />}
     </main>
   );
 };
