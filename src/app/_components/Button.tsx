@@ -9,16 +9,18 @@ type ButtonProps = {
 >;
 
 export function Button({
-  className = "",
+  className: inClass = "",
   inverted = false,
   ...props
 }: ButtonProps) {
-  const colors = inverted
-    ? "bg-orange hover:bg-gray text-white hover:text-black"
-    : "bg-gray hover:bg-orange text-black hover:text-white";
+  const className = {
+    colors: inverted
+      ? "bg-orange md:hover:bg-gray text-white md:hover:text-black"
+      : "bg-gray md:hover:bg-orange text-black md:hover:text-white",
+  };
   return (
     <button
-      className={`${colors} ${className} rounded-md border-2 border-black px-2 transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50`}
+      className={`${className.colors} ${inClass} rounded-md border-2 border-black px-2 transition-colors duration-200 active:bg-orange disabled:cursor-not-allowed disabled:opacity-50`}
       {...props}
     ></button>
   );
