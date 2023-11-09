@@ -8,19 +8,19 @@ import Icon from "@/app/assets/icons/Icon";
 const Header = () => {
   const { data: session } = useSession();
   const className =
-    "hover:underline font-semibold duration-200 bg-orange/20 active:bg-orange px-2 py-1 rounded-md";
+    " font-secondary flex items-center tracking-wide text-white text-sm bg-orange hover:bg-hoverGray px-4 py-[8px] rounded-sm lg:h-9 lg:px-6 lg:text-md";
   return (
-    <header className="flex items-center justify-between px-5 py-3 md:px-12 lg:py-8 ">
+    <header className=" mx-auto flex h-14 w-screen items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
         <Image
-          className="w-20 md:w-auto"
+          className="w-20 lg:w-auto"
           src="/logoBlack.png"
           alt="salt logo"
           width={130}
           height={30}
         />
       </Link>
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         {!!session && session.user.role === "SALTIE" && (
           <Link className={className} href={"/profile"}>
             Profile

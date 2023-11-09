@@ -6,7 +6,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        primary: "Roboto",
+        secondary: "Poppins",
+      },
+      screens: {
+        xs: "320px",
+        sm: "640px",
+        md: "768px",
+        lg: "960px",
+        xl: "1200px",
       },
       colors: {
         orange: "#ff7961",
@@ -14,6 +22,7 @@ export default {
         gray: "#f8f8f8",
         white: "#ffffff",
         pink: "#f35c7e",
+        hoverGray: "#353535",
       },
     },
   },
