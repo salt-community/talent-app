@@ -51,17 +51,19 @@ enum Role {
 }
 
 model User {
-    id            String     @id @default(cuid())
+    id            String        @id @default(cuid())
     name          String?
-    email         String?    @unique
+    email         String?       @unique
     emailVerified DateTime?
     image         String?
-    role          Role       @default(CLIENT)
+    role          Role          @default(CLIENT)
     accounts      Account[]
     sessions      Session[]
     cartItems     CartItem[]
-    developer     Developer? @relation(fields: [developerId], references: [id], onDelete: Cascade)
+    developer     Developer?    @relation(fields: [developerId], references: [id], onDelete: Cascade)
     developerId   String?
+    LogClickDev   LogClickDev[]
+    LogSearch     LogSearch[]
 
     @@map("public.user")
 }
@@ -117,6 +119,7 @@ model Developer {
     User         User[]
     cartId       String?
     CartItem     CartItem[]
+    LogClickDev  LogClickDev[]
 
     @@map("public.developer")
 }
@@ -148,4 +151,21 @@ model CartItem {
 
     @@unique([developerId, userId])
     @@map("public.cartItem")
+}
+
+model LogClickDev {
+    id          String    @id @default(cuid())
+    User        User      @relation(fields: [userId], references: [id])
+    userId      String
+    developer   Developer @relation(fields: [developerId], references: [id])
+    developerId String
+    date        DateTime  @default(now())
+}
+
+model LogSearch {
+    id     String   @id @default(cuid())
+    User   User     @relation(fields: [userId], references: [id])
+    userId String
+    search String
+    date   DateTime @default(now())
 }
