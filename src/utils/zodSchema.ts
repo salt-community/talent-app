@@ -67,3 +67,10 @@ export type tMobSchema = z.infer<typeof mobSchema>;
 
 export const searchDevSchema = z.object({ search: z.string() });
 export type tSearchDevSchema = z.infer<typeof searchDevSchema>;
+
+export const cartItem = z.object({
+  developerId: z.string().min(1),
+  comment: z.string().optional(),
+});
+
+export type tCartItem = z.infer<typeof cartItem>;
