@@ -94,6 +94,10 @@ export const developerRouter = createTRPCRouter({
           id,
         }));
       }
+      if (ctx.session && ctx.session.user.role === "CLIENT") {
+        const userId = ctx.session.user.id;
+        await ctx.db.logSearch.create({ data: { userId, search } });
+      }
       try {
         const res = await ctx.msClient.index("developers").search(search);
         const searchData = res.hits as SearchResult[];
