@@ -10,3 +10,4 @@ export type SearchResult = {
 };
 
 export type tIcon = keyof typeof svgPaths;
+export type UserRole = "SALTIE" | "CLIENT" | "ADMIN";
