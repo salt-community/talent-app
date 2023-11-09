@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Login from "./Login";
 import { useSession } from "next-auth/react";
+import Icon from "@/app/assets/icons/Icon";
 
 const Header = () => {
-  const session = useSession();
+  const { data: session } = useSession();
   const className =
     "hover:underline font-semibold duration-200 bg-orange/20 active:bg-orange px-2 py-1 rounded-md";
   return (
@@ -20,9 +21,17 @@ const Header = () => {
         />
       </Link>
       <div className="flex gap-2">
-        {session.status === "authenticated" && (
+        {!!session && session.user.role === "SALTIE" && (
           <Link className={className} href={"/profile"}>
             Profile
+          </Link>
+        )}
+        {!!session && session.user.role === "CLIENT" && (
+          <Link href={"/cart"}>
+            <Icon
+              icon="cart"
+              className="h-10 w-10 fill-black active:fill-orange"
+            />
           </Link>
         )}
         <Login className={className} />
