@@ -2,12 +2,16 @@
 import Button from "@/app/_components/Button";
 import DeveloperForm from "@/app/_components/profile/developer/DeveloperForm";
 import { api } from "@/trpc/react";
+import checkIfAuth from "@/utils/redirectIfNotAuth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 type Props = { params: { id: string } };
 const DeveloperId = ({ params: { id } }: Props) => {
   const router = useRouter();
+  const { data: session } = useSession();
+  checkIfAuth(session);
   const {
     data: developer,
     isLoading,
@@ -35,7 +39,8 @@ const DeveloperId = ({ params: { id } }: Props) => {
         toast.error(error.message);
       },
     });
-    const className = "flex justify-center w-full h-full items-center font-bold text-black ";
+  const className =
+    "flex justify-center w-full h-full items-center font-bold text-black ";
   return (
     <>
       {isLoading && <p className={className}>Loading...</p>}
