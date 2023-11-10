@@ -29,11 +29,12 @@ const Header = () => {
             />
           </Link>
         )}
-        {!!session && (session.user.role === "SALTIE" || "ADMIN") && (
-          <Link className={className} href={"/profile"}>
-            Profile
-          </Link>
-        )}
+        {!!session &&
+          (session.user.role === "SALTIE" || session.user.role === "ADMIN") && (
+            <Link className={className} href={"/profile"}>
+              Profile
+            </Link>
+          )}
         {!!session && session.user.role === "CLIENT" && (
           <Link href={"/cart"}>
             <Icon
