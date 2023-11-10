@@ -1,14 +1,10 @@
 import "@/styles/globals.css";
-
-import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/layout/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
-
-
 
 export const metadata = {
   title: "Salt Talent Pool",
