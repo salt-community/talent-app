@@ -1,18 +1,19 @@
 import { api } from "@/trpc/server";
 import { getServerAuthSession } from "@/server/auth";
-import { redirect } from "next/navigation";
 import type { RouterOutputs } from "@/trpc/shared";
 import Users from "../_components/admin/Users";
 
 const Admin = async () => {
   const session = await getServerAuthSession();
-  if (!session) {
-    redirect("/api/auth/signin");
+  if (session && session.user.role !== "ADMIN") {
+    <main className="flex grow items-center justify-center">
+      <p>You are not allowed here {session.user.role}!</p>
+    </main>;
   }
-  if (session.user.role !== "ADMIN") {
+  if (!session) {
     return (
       <main className="flex grow items-center justify-center">
-        <p>You are not allowed here {session.user.role}!</p>
+        <p>You are not allowed here!</p>
       </main>
     );
   }
