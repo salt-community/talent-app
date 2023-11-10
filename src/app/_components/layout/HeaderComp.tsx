@@ -13,7 +13,7 @@ const Header = () => {
     <header className="  mx-auto flex h-14 w-screen items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
         <Image
-          className="mt-1 w-20 p-2 lg:w-[140px]"
+          className="w-20 p-2 lg:w-[140px]"
           src="/logoBlack.png"
           alt="salt logo"
           width={130}
