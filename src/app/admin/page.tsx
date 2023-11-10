@@ -32,25 +32,33 @@ const Admin = async () => {
 type Clicks = RouterOutputs["log"]["getClicks"][number];
 type ClickedProps = { clicks: Clicks[] };
 const ClickedTable = ({ clicks }: ClickedProps) => {
+  const className = "border text-xs md:text-base";
   return (
     <section className="flex flex-col">
       <h2>Clicked on developers</h2>
-      <table className="border-collapse border">
+      <table>
         <thead>
           <tr>
-            <td className="w-1/4 border">Date</td>
-            <td className="w-1/4 border">Name</td>
-            <td className="w-1/4 border">Mail</td>
-            <td className="w-1/4 border">Developer</td>
+            <td className={className}>Date</td>
+            <td className={className}>Mail</td>
+            <td className={className}>Developer</td>
           </tr>
         </thead>
         <tbody>
           {clicks.map((i) => (
-            <tr key={i.id} className="border">
-              <td className="borde w-1/4">{i.date.toDateString()}</td>
-              <td className="borde w-1/4">{i.User.name ?? "N/A"}</td>
-              <td className="borde w-1/4">{i.User.email}</td>
-              <td className="borde w-1/4">{i.developer.name}</td>
+            <tr key={i.id}>
+              <td className={className}>
+                {i.date.toLocaleTimeString("sv-SE", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                })}
+              </td>
+              <td className={className}>{i.User.email}</td>
+              <td className={className}>{i.developer.name}</td>
             </tr>
           ))}
         </tbody>
@@ -62,25 +70,33 @@ const ClickedTable = ({ clicks }: ClickedProps) => {
 type Search = RouterOutputs["log"]["getSearch"][number];
 type SearchedProps = { searches: Search[] };
 const SearchTable = ({ searches }: SearchedProps) => {
+  const className = "border text-xs md:text-base";
   return (
     <section className="flex flex-col">
       <h2>Searches</h2>
-      <table className="border-collapse border">
+      <table>
         <thead>
           <tr>
-            <td className="w-1/4 border">Date</td>
-            <td className="w-1/4 border">Name</td>
-            <td className="w-1/4 border">Mail</td>
-            <td className="w-1/4 border">Search</td>
+            <td className={className}>Date</td>
+            <td className={className}>Mail</td>
+            <td className={className}>Search</td>
           </tr>
         </thead>
         <tbody>
           {searches.map((i) => (
-            <tr key={i.id} className="border">
-              <td className="w-1/4 border">{i.date.toDateString()}</td>
-              <td className="w-1/4 border">{i.User.name ?? "N/A"}</td>
-              <td className="w-1/4 border">{i.User.email}</td>
-              <td className="w-1/4 border">{i.search}</td>
+            <tr key={i.id}>
+              <td className={className}>
+                {i.date.toLocaleTimeString("sv-SE", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                })}
+              </td>
+              <td className={className}>{i.User.email}</td>
+              <td className={className}>{i.search}</td>
             </tr>
           ))}
         </tbody>
