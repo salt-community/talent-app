@@ -77,3 +77,6 @@ export type tCartItem = z.infer<typeof cartItem>;
 
 export const zRole = z.object({ role: z.enum(["SALTIE", "CLIENT", "ADMIN"]) });
 export type tRole = z.infer<typeof zRole>;
+
+export const zMail = z.object({ email: z.string().email() });
+export type tMail = z.infer<typeof zMail>;
