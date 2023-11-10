@@ -10,17 +10,14 @@ const AddToCart = ({ developerId }: Props) => {
     data: cart,
     isSuccess: haveCart,
     isLoading: noCart,
-    refetch,
   } = api.cart.getAll.useQuery();
   const { mutate: add, isLoading: adding } = api.cart.add.useMutation({
     onSuccess: async () => {
-      await refetch();
       await utils.cart.invalidate();
     },
   });
   const { mutate: remove, isLoading: removing } = api.cart.remove.useMutation({
     onSuccess: async () => {
-      await refetch();
       await utils.cart.invalidate();
     },
   });
