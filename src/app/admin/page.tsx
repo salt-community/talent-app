@@ -1,8 +1,8 @@
 import { api } from "@/trpc/server";
-import EditUserRole from "../_components/admin/EditUserRoles";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 import type { RouterOutputs } from "@/trpc/shared";
+import Users from "../_components/admin/Users";
 
 const Admin = async () => {
   const session = await getServerAuthSession();
@@ -24,14 +24,7 @@ const Admin = async () => {
     <main className="flex flex-col gap-2 p-5">
       <ClickedTable clicks={clicks} />
       <SearchTable searches={searches} />
-      <section>
-        <h2>Users</h2>
-        <ul className="flex flex-col gap-1">
-          {users.map((user) => (
-            <EditUserRole key={user.id} user={user} />
-          ))}
-        </ul>
-      </section>
+      <Users users={users} />
     </main>
   );
 };
