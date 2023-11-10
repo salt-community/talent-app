@@ -21,7 +21,7 @@ const EditUserRole = ({ user }: Props) => {
     defaultValues: { role: user.role },
   });
   return (
-    <li className="flex border">
+    <li className="flex justify-between border px-2">
       <p>{user.email}</p>
       <form
         onSubmit={(event) =>
@@ -30,12 +30,12 @@ const EditUserRole = ({ user }: Props) => {
           )(event)
         }
       >
+        {isDirty && <button className="px-5">Save</button>}
         <select {...register("role")}>
           <option>SALTIE</option>
           <option>CLIENT</option>
           <option>ADMIN</option>
         </select>
-        {isDirty && <button>Save</button>}
       </form>
     </li>
   );
