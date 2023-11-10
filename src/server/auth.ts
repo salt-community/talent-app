@@ -60,6 +60,7 @@ export const authOptions: NextAuthOptions = {
           role: "SALTIE",
           email: profile.email,
           name: profile.name,
+          image: profile.picture
         };
       },
     }),
