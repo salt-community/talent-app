@@ -21,7 +21,15 @@ const Header = () => {
         />
       </Link>
       <div className="flex gap-4">
-        {!!session && session.user.role === "SALTIE" && (
+        {!!session && session.user.role === "ADMIN" && (
+          <Link href={"/admin"}>
+            <Icon
+              icon="admin"
+              className="h-10 w-10 fill-black active:fill-orange"
+            />
+          </Link>
+        )}
+        {!!session && (session.user.role === "SALTIE" || "ADMIN") && (
           <Link className={className} href={"/profile"}>
             Profile
           </Link>
