@@ -15,9 +15,9 @@ const SearchItem = ({ developer }: Props) => {
         <Image
           src={developer.image}
           alt="Image"
-          width={48}
-          height={48}
-          className="w-20 rounded-full border-none mr-1"
+          width={256}
+          height={256}
+          className="w-20 rounded-full border-none"
         />
         <div className="flex grow flex-col">
           <h2 className="text-xl font-normal lg:text-2xl">{developer.name}</h2>
