@@ -7,7 +7,7 @@ type Props = { skills: string[] };
 const Skills = ({ skills }: Props) => {
   const [more, setMore] = useState(false);
   return (
-    <div className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       <SectionHeader title="Skills" />
       <ul className="flex flex-wrap gap-4">
         {skills
@@ -32,7 +32,7 @@ const Skills = ({ skills }: Props) => {
           )}
         </li>
       </ul>
-    </div>
+    </section>
   );
 };
 
