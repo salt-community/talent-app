@@ -21,9 +21,10 @@ const EditUserRole = ({ user }: Props) => {
     defaultValues: { role: user.role },
   });
   return (
-    <li className="flex justify-between border px-2">
-      <p>{user.email}</p>
+    <li className="flex items-center justify-between border px-1">
+      <p className="text-xs">{user.email}</p>
       <form
+        className="text-xs"
         onSubmit={(event) =>
           void handleSubmit(({ role }) =>
             update({ id: user.id, zRole: { role } }),
