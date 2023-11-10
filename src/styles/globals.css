@@ -1,9 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&family=Roboto:wght@300;400;500&display=swap");
 
-body {
-  font-family: Roboto;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+}
