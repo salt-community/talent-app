@@ -1,7 +1,16 @@
 import { api } from "@/trpc/server";
 import EditUserRole from "../_components/admin/EditUserRoles";
+import { getServerAuthSession } from "@/server/auth";
 
 const Admin = async () => {
+  const session = await getServerAuthSession();
+  if (!session || (session && session.user.role !== "ADMIN")) {
+    return (
+      <main className="flex grow items-center justify-center">
+        <p>You are not allowed here!</p>
+      </main>
+    );
+  }
   const clicks = await api.log.getClicks.query();
   const search = await api.log.getSearch.query();
   const users = await api.users.getAll.query();
