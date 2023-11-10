@@ -155,16 +155,16 @@ model CartItem {
 
 model LogClickDev {
     id          String    @id @default(cuid())
-    User        User      @relation(fields: [userId], references: [id])
+    User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String
-    developer   Developer @relation(fields: [developerId], references: [id])
+    developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
     developerId String
     date        DateTime  @default(now())
 }
 
 model LogSearch {
     id     String   @id @default(cuid())
-    User   User     @relation(fields: [userId], references: [id])
+    User   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId String
     search String
     date   DateTime @default(now())
