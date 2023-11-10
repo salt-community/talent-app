@@ -17,29 +17,27 @@ const SearchItem = ({ developer }: Props) => {
           alt="Image"
           width={48}
           height={48}
-          className="rounded-full border-2 border-black"
+          className="w-20 rounded-full border-none mr-1"
         />
         <div className="flex grow flex-col">
           <h2 className="text-xl font-normal lg:text-2xl">{developer.name}</h2>
-          <div className="flex justify-between">
-            <ul className="flex flex-wrap md:gap-2">
+            <ul className="flex flex-wrap gap-1">
               {developer.skills.slice(0, 4).map((skill, index) => (
                 <li
-                  className="lg:text-md flex items-center px-1 text-sm text-black/40 md:rounded-full md:p-1.5"
+                  className="lg:text-md flex items-center text-sm text-black/50 md:rounded-full"
                   key={skill + index}
                 >
                   <p className="whitespace-nowrap">{skill}</p>
                 </li>
               ))}
               {developer.skills.length - 4 > 0 && (
-                <li className="flex items-center rounded-sm px-1 text-[0.6rem] text-sm text-black/40 md:p-1.5">
+                <li className="flex items-center rounded-sm text-[0.6rem] text-sm text-black/40">
                   +{developer.skills.length - 4}
                 </li>
               )}
             </ul>
-          </div>
         </div>
-        <p className="hidden overflow-hidden overflow-ellipsis whitespace-nowrap text-xs md:flex">
+        <p className="hidden overflow-hidden overflow-ellipsis whitespace-nowrap text-md md:flex">
           {developer.title}
         </p>
       </ItemContainer>
