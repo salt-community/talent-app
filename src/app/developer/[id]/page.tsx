@@ -31,21 +31,38 @@ const DeveloperPage = async ({
           <AddToCart developerId={id} />
         )}
       </div>
-      <div className="flex flex-col gap-4 pb-5 md:flex-row md:py-0">
+      <div className="flex grow flex-col gap-4 pb-5 md:flex-row md:py-0">
         <UserCard developer={developer} />
-        <div className="flex w-full flex-col gap-5 rounded-md bg-gray p-4 md:w-3/4 md:rounded-none md:px-10">
-          <section className="flex flex-col gap-4">
-            <SectionHeader title={developer.title} />
-            <p>{developer.description}</p>
-          </section>
-          <hr />
-          <Skills skills={developer.skills} />
-          <Projects projects={developer.projects} />
-          <TeamMembers mobs={developer.mobs} />
+        <div className="flex flex-col gap-5 rounded-md bg-gray p-5 md:w-3/4 md:rounded-none md:px-10">
+          <Bio {...developer} />
+          {session ? (
+            <>
+              <Skills skills={developer.skills} />
+              <Projects projects={developer.projects} />
+              <TeamMembers mobs={developer.mobs} />
+            </>
+          ) : (
+            <div>
+              <Link className="underline" href="/login">
+                Sign in
+              </Link>
+              <span className="ml-1">to see more...</span>
+            </div>
+          )}
         </div>
       </div>
       {env.NEXT_PUBLIC_FF_CONTACT === "ON" && <Contact developer={developer} />}
     </main>
+  );
+};
+
+type BioProps = { title: string; description: string };
+const Bio = ({ title, description }: BioProps) => {
+  return (
+    <section className="flex flex-col gap-4">
+      <SectionHeader title={title} />
+      <p>{description}</p>
+    </section>
   );
 };
 
