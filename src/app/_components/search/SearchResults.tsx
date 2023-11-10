@@ -7,12 +7,13 @@ type Props = {
 };
 
 const SearchResults = ({ search }: Props) => {
-  const { data, isSuccess, isLoading, isError } = api.developer.getBySearch.useQuery({
-    search,
-  });
+  const { data, isSuccess, isLoading, isError } =
+    api.developer.getBySearch.useQuery({
+      search,
+    });
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-2 px-4">
       {isSuccess && data.length === 0 && <p>No results found...</p>}
       {isSuccess &&
         data.length !== 0 &&

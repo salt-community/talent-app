@@ -8,10 +8,7 @@ import Header from "./_components/layout/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+
 
 export const metadata = {
   title: "Salt Talent Pool",
@@ -26,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-screen">
-      <body className={`font-sans ${inter.variable} flex h-screen flex-col`}>
+      <body className={`flex h-screen flex-col`}>
         <TRPCReactProvider headers={headers()}>
           <Toaster />
           <SessionProviderWrapper>

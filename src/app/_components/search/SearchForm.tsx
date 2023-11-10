@@ -18,18 +18,18 @@ const SearchForm = ({ onSearch }: Props) => {
   };
   return (
     <form
-      className="flex grow gap-2 rounded-md border-2 border-black/50 bg-white md:w-3/5"
+      className="mx-auto flex gap-2 rounded-sm bg-white md:w-3/5 lg:w-[400px] "
       onSubmit={(event) => void handleSubmit(onSubmit)(event)}
     >
       <input
-        className="min-w-0 grow px-2 outline-none"
+        className=" placeholder:font-primary placeholder-gray-400 grow px-2 py-1 outline-none placeholder:translate-x-2 placeholder:text-sm placeholder:font-light"
         {...register("search")}
-        placeholder="Search..."
+        placeholder="Search"
       />
       <FormError error={errors.search} />
       <button type="submit">
         <Icon
-          className="h-8 w-8 fill-black/30 md:hover:fill-black"
+          className="h-6 w-8 fill-black/25 hover:fill-orange"
           icon="search"
         />
       </button>
