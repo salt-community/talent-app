@@ -4,6 +4,7 @@ import { projectRouter } from "./routers/project";
 import { mobRouter } from "./routers/mob";
 import { cartRouter } from "./routers/cart";
 import { logRouter } from "./routers/log";
+import { usersRouter } from "./routers/users";
 
 /**
  * This is the primary router for your server.
@@ -16,6 +17,7 @@ export const appRouter = createTRPCRouter({
   mob: mobRouter,
   cart: cartRouter,
   log: logRouter,
+  users: usersRouter,
 });
 
 // export type definition of API
