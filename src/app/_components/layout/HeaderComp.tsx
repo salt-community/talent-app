@@ -8,7 +8,7 @@ import Icon from "@/app/assets/icons/Icon";
 const Header = () => {
   const { data: session } = useSession();
   const className =
-    " font-secondary flex items-center tracking-wide text-white text-sm bg-orange hover:bg-hoverGray px-4 py-[8px] rounded-sm lg:h-9 lg:px-6 lg:text-md";
+    " font-secondary flex items-center tracking-wide text-white text-sm bg-orange hover:bg-hoverGray px-4 py-[8px] xs:px-2 xs:py-[6px] rounded-sm  lg:h-9 lg:px-6 lg:text-md";
   return (
     <header className=" mx-auto flex h-14 w-screen items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
