@@ -55,7 +55,12 @@ export const authOptions: NextAuthOptions = {
       clientId: env.NEXT_GOOGLE_CLIENT_ID,
       clientSecret: env.NEXT_GOOGLE_SECRET,
       profile(profile: GoogleProfile) {
-        return { id: profile.sub, role: "SALTIE" };
+        return {
+          id: profile.sub,
+          role: "SALTIE",
+          email: profile.email,
+          name: profile.name,
+        };
       },
     }),
     Email({
