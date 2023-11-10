@@ -74,3 +74,6 @@ export const cartItem = z.object({
 });
 
 export type tCartItem = z.infer<typeof cartItem>;
+
+export const zRole = z.object({ role: z.enum(["SALTIE", "CLIENT", "ADMIN"]) });
+export type tRole = z.infer<typeof zRole>;
