@@ -8,12 +8,12 @@ import Icon from "@/app/assets/icons/Icon";
 const Header = () => {
   const { data: session } = useSession();
   const className =
-    " font-secondary flex items-center tracking-wide text-white text-sm bg-orange hover:bg-hoverGray px-4 py-[8px] xs:px-2 xs:py-[6px] rounded-sm  lg:h-9 lg:px-6 lg:text-md";
+    "font-secondary flex items-center tracking-wide text-white text-sm bg-orange hover:bg-hoverGray px-4 py-[6px] xs:px-2 xs:py-[6px] rounded-sm lg:h-9 lg:px-6 lg:text-md";
   return (
-    <header className=" mx-auto flex h-14 w-screen items-center justify-between bg-white px-[10px] py-5">
+    <header className="  mx-auto flex h-14 w-screen items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
         <Image
-          className="w-20 lg:w-auto"
+          className="mt-1 w-20 p-2 lg:w-[140px]"
           src="/logoBlack.png"
           alt="salt logo"
           width={130}
