@@ -13,7 +13,7 @@ const SearchResults = ({ search }: Props) => {
     });
 
   return (
-    <ul className="flex flex-col gap-2 px-4">
+    <ul className="flex flex-col gap-4 px-4">
       {isSuccess && data.length === 0 && <p>No results found...</p>}
       {isSuccess &&
         data.length !== 0 &&
