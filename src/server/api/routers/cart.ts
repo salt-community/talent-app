@@ -24,6 +24,16 @@ export const cartRouter = createTRPCRouter({
     }));
   }),
 
+  getByDevId: protectedProcedure
+    .input(z.object({ developerId: z.string().min(1) }))
+    .query(async ({ ctx, input: { developerId } }) => {
+      const userId = ctx.session.user.id;
+      const inCart = await ctx.db.cartItem.findUnique({
+        where: { developerId_userId: { developerId, userId } },
+      });
+      return !!inCart;
+    }),
+
   remove: protectedProcedure
     .input(z.object({ developerId: z.string().min(1) }))
     .mutation(async ({ ctx, input: { developerId } }) => {
