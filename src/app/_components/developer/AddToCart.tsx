@@ -7,24 +7,25 @@ type Props = { developerId: string };
 const AddToCart = ({ developerId }: Props) => {
   const utils = api.useContext();
   const {
-    data: cart,
-    isSuccess: haveCart,
-    isLoading: noCart,
-  } = api.cart.getAll.useQuery();
+    data: inCart,
+    isSuccess: gotCart,
+    refetch,
+  } = api.cart.getByDevId.useQuery({ developerId });
   const { mutate: add, isLoading: adding } = api.cart.add.useMutation({
     onSuccess: async () => {
-      await utils.cart.invalidate();
+      await refetch();
+      await utils.cart.getAll.invalidate();
     },
   });
   const { mutate: remove, isLoading: removing } = api.cart.remove.useMutation({
     onSuccess: async () => {
-      await utils.cart.invalidate();
+      await refetch();
+      await utils.cart.getAll.invalidate();
     },
   });
   return (
     <>
-      {noCart && <p>Loading...</p>}
-      {haveCart && cart.some((i) => i.developerId === developerId) ? (
+      {gotCart && inCart ? (
         <Button disabled={removing} onClick={() => remove({ developerId })}>
           Remove from cart
         </Button>
