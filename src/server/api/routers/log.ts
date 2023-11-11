@@ -1,12 +1,18 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 
 export const logRouter = createTRPCRouter({
   logClick: protectedProcedure
     .input(z.object({ developerId: z.string().min(1) }))
-    .mutation(async ({ ctx, input: { developerId } }) => {
+    .mutation(({ ctx, input: { developerId } }) => {
       const userId = ctx.session.user.id;
-      await ctx.db.logClickDev.create({ data: { developerId, userId } });
+      ctx.db.logClickDev.create({ data: { developerId, userId } }).catch(() => {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Could not log",
+        });
+      });
     }),
 
   getClicks: protectedProcedure.query(async ({ ctx }) => {
