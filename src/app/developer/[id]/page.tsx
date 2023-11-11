@@ -17,7 +17,6 @@ const DeveloperPage = async ({
 }) => {
   const developer = await api.developer.getById.query({ id });
   const session = await getServerAuthSession();
-
   return (
     <main className="flex grow flex-col justify-center bg-gradient-to-b from-orange to-pink px-5">
       <div className="sticky top-0 flex w-full items-center justify-between">
