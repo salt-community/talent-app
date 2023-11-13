@@ -10,14 +10,11 @@ import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
-  const {
-    data: developer,
-    isSuccess,
-  } = api.developer.getById.useQuery({ id });
+  const { data: developer, isSuccess } = api.developer.getById.useQuery({ id });
   const { data: session } = useSession();
   return (
     <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5 md:pt-0">
-      <div className="flex w-full flex-col gap-5 rounded-md bg-gray p-5 md:max-w-5xl md:rounded-none items-center">
+      <div className="flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl md:rounded-none">
         <Link href={"/"} className="absolute left-2 top-16 z-10 w-10">
           <Icon
             icon="arrowLeft"
@@ -26,7 +23,7 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
         </Link>
         {isSuccess && <UserCard developer={developer} />}
       </div>
-      <div className="relative w-full flex flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl md:rounded-none">
+      <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl md:rounded-none">
         {isSuccess && <Bio {...developer} />}
         {session ? (
           <>
@@ -42,8 +39,8 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
             <span className="ml-1">to see more...</span>
           </div>
         )}
-        {session && isSuccess && <Contact developer={developer} />}
       </div>
+      {session && isSuccess && <Contact developer={developer} />}
     </main>
   );
 };

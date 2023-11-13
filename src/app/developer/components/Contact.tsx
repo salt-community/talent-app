@@ -10,12 +10,12 @@ const Contact = ({ developer }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`sticky bottom-0 flex flex-col rounded-t-md border-t bg-white transition-[height] duration-500 ease-in-out ${
-        open ? "h-96" : "h-8"
+      className={`sticky bottom-0 flex w-full max-w-5xl flex-col items-center rounded-t-md border-t border-t-black/30 bg-white transition-[height] duration-500 ease-in-out ${
+        open ? "h-60" : "h-8"
       }`}
     >
       <div
-        className="flex h-8 cursor-pointer items-center justify-center"
+        className="flex h-8 w-full cursor-pointer items-center justify-center"
         onClick={(e) => {
           e.stopPropagation();
           setOpen((prev) => !prev);
@@ -28,18 +28,15 @@ const Contact = ({ developer }: Props) => {
         {!open && <p>Contact</p>}
       </div>
       {open && (
-        <>
+        <div className="flex grow flex-col justify-center gap-2">
           <div className="flex gap-1">
             <Icon icon="phone" className="w-6 fill-black" />
             <p>{developer.phone}</p>
           </div>
           <div className="flex items-center gap-1">
             <Icon icon="mail" className="w-6 fill-black" />
-            <a
-              className="text-orange underline"
-              href={`mailto: ${developer.mail}`}
-            >
-              email me
+            <a className="text-orange" href={`mailto: ${developer.mail}`}>
+              Email me
             </a>
           </div>
           <div className="flex items-center gap-1">
@@ -55,9 +52,9 @@ const Contact = ({ developer }: Props) => {
             className="flex items-center gap-1"
           >
             <Icon icon="resume" className="w-6 fill-black" />
-            <p>Resume</p>
+            <p className="text-orange">Resume</p>
           </a>
-        </>
+        </div>
       )}
     </div>
   );
