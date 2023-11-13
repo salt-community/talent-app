@@ -11,7 +11,7 @@ const Profile = async () => {
   const mobs = await api.mob.getByDev.query();
 
   return (
-    <main className="flex flex-col items-center gap-2 p-2 font-semibold">
+    <main className="flex flex-col font-light bg-gradient-to-b from-orange to-pink items-center gap-2 p-2">
       <div className="flex w-full flex-col gap-3 md:w-4/5 lg:w-3/5">
         <h2 className="pt-4 text-xl">Developer profile:</h2>
         <ul className="w-full font-medium">
@@ -29,7 +29,7 @@ const Profile = async () => {
         <div className="flex w-full flex-col gap-3 md:w-4/5 lg:w-3/5">
           {projects.length !== 0 && (
             <>
-              <h2 className="pt-4 text-xl">Your projects:</h2>
+              <h2 className="pt-2 text-xl">Your projects:</h2>
               <ul className="flex flex-col gap-1 font-medium">
                 {projects.map((project) => (
                   <Project key={project.id} project={project} />
@@ -50,7 +50,7 @@ const Profile = async () => {
           )}
 
           <h2 className="pt-4 text-xl">Manage projects:</h2>
-          <ul className="flex flex-col gap-1 font-medium">
+          <ul className="flex flex-col gap-3 font-medium">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
               <ItemContainer>Create new project</ItemContainer>
             </Link>
@@ -59,7 +59,7 @@ const Profile = async () => {
             </Link>
           </ul>
           <h2 className="pt-4 text-xl">Manage mobs:</h2>
-          <ul className="flex flex-col gap-1 font-medium">
+          <ul className="flex flex-col gap-3 font-medium">
             <Link href={`/profile/mob?id=${developer.id}&do=create`}>
               <ItemContainer>Create new mob</ItemContainer>
             </Link>
