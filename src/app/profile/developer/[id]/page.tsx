@@ -54,6 +54,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
             <div className="flex gap-2">
               <Button
                 disabled={updating}
+                callToAction
                 className="w-1/2 py-2"
                 form="developer-form"
               >
