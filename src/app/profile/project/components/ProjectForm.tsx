@@ -2,7 +2,7 @@
 import { projectSchema, type tProjectSchema } from "@/utils/zodSchema";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import getId from "@/app/profile/components/developer/helpers/getYTid";
+import getId from "@/app/profile/developer/components/helpers/getYTid";
 import toast from "react-hot-toast";
 import FormError from "../../../_components/FormError";
 import type { ReactNode } from "react";

@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/app/_components/Button";
-import JoinProject from "@/app/profile/components/project/JoinProject";
-import ProjectForm from "@/app/profile/components/project/ProjectForm";
+import JoinProject from "@/app/profile/project/components/JoinProject";
+import ProjectForm from "@/app/profile/project/components/ProjectForm";
 import { api } from "@/trpc/react";
 import { projectParams } from "@/utils/zodSchema";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/app/_components/Button";
-import DeveloperForm from "@/app/profile/components/developer/DeveloperForm";
+import DeveloperForm from "@/app/profile/developer/components/DeveloperForm";
 import { api } from "@/trpc/react";
 import checkIfAuth from "@/utils/redirectIfNotAuth";
 import { useSession } from "next-auth/react";
