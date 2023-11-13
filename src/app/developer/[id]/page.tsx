@@ -9,9 +9,12 @@ import Projects from "@/app/developer/components/Projects";
 import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
+import Button from "@/app/_components/Button";
+import { useRouter } from "next/navigation";
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: developer, isSuccess } = api.developer.getById.useQuery({ id });
   const { data: session } = useSession();
+  const router = useRouter();
   return (
     <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
       <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
@@ -32,11 +35,12 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
             {isSuccess && <TeamMembers mobs={developer.mobs} />}
           </>
         ) : (
-          <div>
-            <Link className="underline" href="/login">
-              Sign in
-            </Link>
-            <span className="ml-1">to see more...</span>
+          <div className="mb-2">
+            <span className="ml-1 font-medium text-lg">To see more...</span>
+            <Button callToAction onClick={() => router.push("/login")}>
+              Sign In
+            </Button>
+
           </div>
         )}
       </div>
