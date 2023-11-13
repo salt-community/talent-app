@@ -2,15 +2,22 @@
 import Link from "next/link";
 import UserCard from "@/app/developer/components/UserCard";
 import SectionHeader from "@/app/developer/components/SectionHeader";
-import Skills from "@/app/developer/components/DeveloperSkills";
+import Skills from "@/app/developer/components/Skills";
 import TeamMembers from "@/app/developer/components/Team";
 import { api } from "@/trpc/react";
 import Projects from "@/app/developer/components/Projects";
 import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
+import UserCardShimmer from "../components/shimmer/UserCardShimmer";
+import DeveloperCardShimmer from "../components/shimmer/DeveloperCardShimmer";
+
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
-  const { data: developer, isSuccess } = api.developer.getById.useQuery({ id });
+  const {
+    data: developer,
+    isSuccess,
+    isLoading,
+  } = api.developer.getById.useQuery({ id });
   const { data: session } = useSession();
   return (
     <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
@@ -22,9 +29,11 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
           />
         </Link>
         {isSuccess && <UserCard developer={developer} />}
+        {isLoading && <UserCardShimmer />}
       </div>
       <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
         {isSuccess && <Bio {...developer} />}
+        {isLoading && <DeveloperCardShimmer />}
         {session ? (
           <>
             {isSuccess && <Skills skills={developer.skills} />}
