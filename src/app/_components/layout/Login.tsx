@@ -1,30 +1,27 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Button from "../Button";
 
-const Login = ({ className }: { className: string }) => {
+const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
   return (
     <>
       {!session && (
         <>
-          <Link className={className} href={"/login"}>
+          <Button callToAction onClick={() => router.push("/login")}>
             Client Sign In
-          </Link>
-          <button className={className} onClick={() => void signIn("google")}>
+          </Button>
+          <Button callToAction onClick={() => void signIn("google")}>
             Salt Sign In
-          </button>
+          </Button>
         </>
       )}
       {session && (
-        <button
-          className={className}
-          onClick={() => void signOut().then(() => router.push("/"))}
-        >
+        <Button onClick={() => void signOut({ callbackUrl: "/" })}>
           Sign Out
-        </button>
+        </Button>
       )}
     </>
   );
