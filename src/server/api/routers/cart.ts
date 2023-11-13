@@ -16,12 +16,15 @@ export const cartRouter = createTRPCRouter({
       where: { userId },
       include: { developer: { select: { image: true, name: true } } },
     });
-    return cart.map(({ comment, developerId, developer: { image, name } }) => ({
-      developerId,
-      comment,
-      image,
-      name,
-    }));
+    return cart.map(
+      ({ id, comment, developerId, developer: { image, name } }) => ({
+        id,
+        developerId,
+        comment,
+        image,
+        name,
+      }),
+    );
   }),
 
   getByDevId: protectedProcedure
