@@ -9,13 +9,13 @@ const Skills = ({ skills }: Props) => {
   return (
     <section className="flex flex-col gap-4">
       <SectionHeader title="Skills" />
-      <ul className="flex flex-wrap gap-4">
+      <ul className="flex flex-wrap gap-3">
         {skills
           .filter((_, i) => more || i < 4)
           .map((skill, index) => {
             return (
               <li key={skill + index}>
-                <p className="rounded-full bg-orange px-4 py-1 text-sm text-white shadow-md">
+                <p className="text-black/70 text-sm bg-orange/10 rounded-full px-2 py-1">
                   {skill}
                 </p>
               </li>

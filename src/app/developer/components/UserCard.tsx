@@ -22,7 +22,7 @@ const UserCard = ({ developer }: Props) => {
         width={100}
         height={100}
       />
-      <h1 className="font-semibold">{developer.name}</h1>
+      <h1 className="text-center text-2xl font-semibold">{developer.name}</h1>
       <div className="flex gap-2">
         <a href={developer.gitHubUrl} target="_blank">
           <Icon icon="github" className="h-8 w-8 fill-black" />

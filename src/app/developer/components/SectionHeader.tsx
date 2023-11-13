@@ -3,7 +3,7 @@ type Props = {
 };
 
 const SectionHeader = ({ title }: Props) => {
-  return <h2 className="text-xl font-bold md:text-3xl">{title}</h2>;
+  return <h2 className="text-xl font-medium md:text-3xl">{title}</h2>;
 };
 
 export default SectionHeader;
