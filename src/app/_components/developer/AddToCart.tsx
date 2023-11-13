@@ -30,7 +30,7 @@ const AddToCart = ({ developerId }: Props) => {
           Remove from cart
         </Button>
       ) : (
-        <Button disabled={adding} onClick={() => add({ developerId })}>
+        <Button callToAction disabled={adding} onClick={() => add({ developerId })}>
           Add to cart
         </Button>
       )}
