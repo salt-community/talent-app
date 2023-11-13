@@ -28,7 +28,7 @@ const LoginPage = () => {
         <label htmlFor="email">Email address</label>
         <input id="email" className="border p-1" {...register("email")} />
         <FormError error={errors.email} />
-        <Button>Login</Button>
+        <Button callToAction>Login</Button>
       </form>
     </main>
   );
