@@ -13,17 +13,17 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: developer, isSuccess } = api.developer.getById.useQuery({ id });
   const { data: session } = useSession();
   return (
-    <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5 md:pt-0">
-      <div className="flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl md:rounded-none">
-        <Link href={"/"} className="absolute left-2 top-16 z-10 w-10">
+    <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
+      <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
+        <Link href={"/"} className="absolute left-2 top-2 w-10">
           <Icon
             icon="arrowLeft"
-            className="h-10 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
+            className="h-10 w-14 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
           />
         </Link>
         {isSuccess && <UserCard developer={developer} />}
       </div>
-      <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl md:rounded-none">
+      <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
         {isSuccess && <Bio {...developer} />}
         {session ? (
           <>
