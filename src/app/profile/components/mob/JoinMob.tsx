@@ -1,12 +1,12 @@
 "use client";
 import { api } from "@/trpc/react";
-import ItemContainer from "../../ItemContainer";
+import ItemContainer from "../../../_components/ItemContainer";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "@/trpc/shared";
 import findConnection from "@/app/helpers/findMemberInGroup";
 import Link from "next/link";
-import Button from "../../Button";
+import Button from "../../../_components/Button";
 
 type Mob = RouterOutputs["mob"]["getAll"][number];
 type Props = { developerId: string };

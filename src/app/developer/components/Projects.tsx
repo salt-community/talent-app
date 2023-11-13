@@ -1,5 +1,5 @@
 import type { RouterOutputs } from "@/trpc/shared";
-import SectionHeader from "../SectionHeader";
+import SectionHeader from "./SectionHeader";
 import Icon from "@/app/assets/icons/Icon";
 type Project = RouterOutputs["developer"]["getById"]["projects"][number];
 

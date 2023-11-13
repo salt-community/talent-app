@@ -1,7 +1,7 @@
 import type { RouterOutputs } from "@/trpc/shared";
 import Image from "next/image";
 import Link from "next/link";
-import ItemContainer from "../ItemContainer";
+import ItemContainer from "../../_components/ItemContainer";
 type NullableDeveloper = RouterOutputs["developer"]["getByUser"];
 type Developer = NonNullable<NullableDeveloper>;
 type Props = {

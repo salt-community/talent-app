@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Button from "../Button";
+import Button from "./Button";
 
 const Login = () => {
   const { data: session } = useSession();

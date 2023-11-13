@@ -2,8 +2,8 @@ import { useState } from "react";
 import { getGitHubUsername, getGithubData } from "./helpers/getGithubData";
 import toast from "react-hot-toast";
 import type { tGithubSchema } from "@/utils/zodSchema";
-import Button from "../../Button";
-import FormError from "../../FormError";
+import Button from "../../../_components/Button";
+import FormError from "../../../_components/FormError";
 import Icon from "@/app/assets/icons/Icon";
 
 type Props = {

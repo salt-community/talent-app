@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/app/_components/Button";
-import JoinMob from "@/app/_components/profile/mob/JoinMob";
-import MobForm from "@/app/_components/profile/mob/MobForm";
+import JoinMob from "@/app/profile/components/mob/JoinMob";
+import MobForm from "@/app/profile/components/mob/MobForm";
 import { api } from "@/trpc/react";
 import { projectParams } from "@/utils/zodSchema";
 import { useRouter, useSearchParams } from "next/navigation";

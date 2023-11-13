@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/app/_components/Button";
-import uiToFullYT from "@/app/_components/helpers/uiToFullYT";
-import ProjectForm from "@/app/_components/profile/project/ProjectForm";
+import uiToFullYT from "@/app/profile/helpers/uiToFullYT";
+import ProjectForm from "@/app/profile/components/project/ProjectForm";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 import React from "react";

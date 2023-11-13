@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/app/_components/Button";
-import MobForm from "@/app/_components/profile/mob/MobForm";
+import MobForm from "@/app/profile/components/mob/MobForm";
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
 

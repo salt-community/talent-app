@@ -5,7 +5,7 @@ import Login from "./Login";
 import { useSession } from "next-auth/react";
 import Icon from "@/app/assets/icons/Icon";
 import { useRouter } from "next/navigation";
-import Button from "../Button";
+import Button from "./Button";
 
 const Header = () => {
   const { data: session } = useSession();

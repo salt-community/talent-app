@@ -1,10 +1,10 @@
 "use client";
 import { api } from "@/trpc/react";
-import DeveloperForm from "../../_components/profile/developer/DeveloperForm";
+import DeveloperForm from "../components/developer/DeveloperForm";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-import defaultDeveloperData from "@/app/_components/profile/developer/helpers/defaultDeveloperData";
+import defaultDeveloperData from "@/app/profile/components/developer/helpers/defaultDeveloperData";
 import Button from "@/app/_components/Button";
 import Icon from "@/app/assets/icons/Icon";
 import Link from "next/link";

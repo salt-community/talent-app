@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { RouterOutputs } from "@/trpc/shared";
-import ItemContainer from "../ItemContainer";
+import ItemContainer from "../../_components/ItemContainer";
 type Mob = RouterOutputs["mob"]["getByDev"][number];
 
 type Props = {

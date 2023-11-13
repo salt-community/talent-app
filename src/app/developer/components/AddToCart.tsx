@@ -1,6 +1,6 @@
 "use client";
 import { api } from "@/trpc/react";
-import Button from "../Button";
+import Button from "../../_components/Button";
 
 type Props = { developerId: string };
 

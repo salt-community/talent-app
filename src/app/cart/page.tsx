@@ -2,7 +2,7 @@ import { api } from "@/trpc/server";
 import ItemContainer from "../_components/ItemContainer";
 import Image from "next/image";
 import Link from "next/link";
-import RemoveFromCart from "../_components/cart/RemoveFromCart";
+import RemoveFromCart from "./components/RemoveFromCart";
 
 const Cart = async () => {
   const cart = await api.cart.getAll.query();

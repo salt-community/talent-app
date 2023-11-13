@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
-import UserCard from "@/app/_components/developer/UserCard";
-import SectionHeader from "@/app/_components/SectionHeader";
-import Skills from "@/app/_components/developer/DeveloperSkills";
-import TeamMembers from "@/app/_components/developer/Team";
+import UserCard from "@/app/developer/components/UserCard";
+import SectionHeader from "@/app/developer/components/SectionHeader";
+import Skills from "@/app/developer/components/DeveloperSkills";
+import TeamMembers from "@/app/developer/components/Team";
 import { api } from "@/trpc/react";
-import Projects from "@/app/_components/developer/Projects";
-import Contact from "@/app/_components/developer/Contact";
+import Projects from "@/app/developer/components/Projects";
+import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {

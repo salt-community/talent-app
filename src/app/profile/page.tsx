@@ -1,9 +1,9 @@
 import { api } from "@/trpc/server";
-import Developer from "../_components/profile/DeveloperItem";
-import Project from "../_components/profile/ProjectItem";
+import Developer from "./components/DeveloperItem";
+import Project from "./components/ProjectItem";
 import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
-import MobItem from "../_components/profile/MobItem";
+import MobItem from "./components/MobItem";
 
 const Profile = async () => {
   const developer = await api.developer.getByUser.query();

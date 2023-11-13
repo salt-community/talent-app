@@ -3,8 +3,8 @@ import { type FormEvent, useState, useEffect } from "react";
 import { skillsSchema, type tSkillsSchema } from "@/utils/zodSchema";
 import toast from "react-hot-toast";
 import splitSkills from "./helpers/splitSkills";
-import Button from "../../Button";
-import FormError from "../../FormError";
+import Button from "../../../_components/Button";
+import FormError from "../../../_components/FormError";
 import {
   DndContext,
   closestCenter,

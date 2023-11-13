@@ -2,7 +2,7 @@
 import { mobSchema, type tMobSchema } from "@/utils/zodSchema";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormError from "../../FormError";
+import FormError from "../../../_components/FormError";
 import type { ReactNode } from "react";
 
 type Props = {

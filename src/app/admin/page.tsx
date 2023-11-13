@@ -1,7 +1,7 @@
 import { api } from "@/trpc/server";
 import { getServerAuthSession } from "@/server/auth";
 import type { RouterOutputs } from "@/trpc/shared";
-import Users from "../_components/admin/Users";
+import Users from "./components/Users";
 
 const Admin = async () => {
   const session = await getServerAuthSession();

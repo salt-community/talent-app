@@ -10,7 +10,7 @@ import {
 import { type ReactNode, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keys, formInfo } from "./helpers/formPlaceholders";
-import FormError from "../../FormError";
+import FormError from "../../../_components/FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
 import toast from "react-hot-toast";
