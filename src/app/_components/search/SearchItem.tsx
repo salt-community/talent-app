@@ -24,14 +24,14 @@ const SearchItem = ({ developer }: Props) => {
             <ul className="flex flex-wrap gap-1">
               {developer.skills.slice(0, 4).map((skill, index) => (
                 <li
-                  className="lg:text-md flex items-center text-sm text-black/50"
+                  className="lg:text-md flex items-center text-xs text-black/70 px-2 bg-orange/10 rounded-full"
                   key={skill + index}
                 >
                   <p className="whitespace-nowrap">{skill}</p>
                 </li>
               ))}
               {developer.skills.length - 4 > 0 && (
-                <li className="text-[0.6rem] text-sm text-black/40">
+                <li className="text-[0.6rem] text-sm text-black/70 px-2 bg-orange/10 rounded-full">
                   +{developer.skills.length - 4}
                 </li>
               )}
