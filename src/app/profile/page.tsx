@@ -17,7 +17,7 @@ const Profile = async () => {
           <Developer developer={developer} />
         ) : (
           <Link href={"/profile/developer"}>
-            <ItemContainer>Create developer</ItemContainer>
+            <ItemContainer className="px-5">Create developer</ItemContainer>
           </Link>
         )}
       </Section>
@@ -35,18 +35,20 @@ const Profile = async () => {
           </Section>
           <Section title="Manage projects">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
-              <ItemContainer>Create new project</ItemContainer>
+              <ItemContainer className="px-5">Create new project</ItemContainer>
             </Link>
             <Link href={`/profile/project?id=${developer.id}&do=join`}>
-              <ItemContainer>Join existing project</ItemContainer>
+              <ItemContainer className="px-5">
+                Join existing project
+              </ItemContainer>
             </Link>
           </Section>
           <Section title="Manage mobs">
             <Link href={`/profile/mob?id=${developer.id}&do=create`}>
-              <ItemContainer>Create new mob</ItemContainer>
+              <ItemContainer className="px-5">Create new mob</ItemContainer>
             </Link>
             <Link href={`/profile/mob?id=${developer.id}&do=join`}>
-              <ItemContainer>Join existing mob</ItemContainer>
+              <ItemContainer className="px-5">Join existing mob</ItemContainer>
             </Link>
           </Section>
         </>
@@ -56,17 +58,15 @@ const Profile = async () => {
 };
 
 type SectionProps = {
-  title: string;
-  children: React.ReactNode;
+  title?: string;
+  children?: React.ReactNode;
 };
 
 const Section = ({ title, children }: SectionProps) => {
   return (
     <div className="flex w-full flex-col gap-3 md:w-4/5 lg:w-3/5">
       {title && <h2 className="pt-2 text-xl">{title}</h2>}
-      {children && (
-        <ul className="flex flex-col gap-1 font-medium">{children}</ul>
-      )}
+      <ul className="flex flex-col gap-1 font-medium">{children}</ul>
     </div>
   );
 };
