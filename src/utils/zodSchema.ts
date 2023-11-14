@@ -14,6 +14,7 @@ export const devSchema = z.object({
   skills: z.array(z.string()).min(1),
   gitHubUrl: z.string().url(),
   image: z.string().url(),
+  locationPref: z.array(z.string()),
 });
 export type tDevSchema = z.infer<typeof devSchema>;
 
