@@ -10,18 +10,21 @@ type Props = {
 
 const Developer = ({ developer: { id, image, name } }: Props) => {
   return (
-    <Link href={`/profile/developer/${id}`}>
-      <ItemContainer>
+    <ItemContainer>
+      <Link
+        className="flex h-full w-full items-center gap-2 px-5"
+        href={`/profile/developer/${id}`}
+      >
         <Image
-          className="rounded-full"
+          className="h-20 w-20 rounded-full"
           src={image}
           alt="profile picture"
-          width={48}
-          height={48}
+          width={256}
+          height={256}
         />
         <p>{name}</p>
-      </ItemContainer>
-    </Link>
+      </Link>
+    </ItemContainer>
   );
 };
 
