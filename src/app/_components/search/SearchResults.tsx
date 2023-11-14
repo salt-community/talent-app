@@ -1,35 +1,30 @@
+"use client";
 import { api } from "@/trpc/react";
-import SearchItem from "./SearchItem";
 import SearchItemShimmer from "./SearchItemShimmer";
+import SearchItem from "./SearchItem";
 
 type Props = {
   search: string;
 };
 
 const SearchResults = ({ search }: Props) => {
-  const { data, isSuccess, isLoading, isError } =
-    api.developer.getBySearch.useQuery({
-      search,
-    });
-
+  const {
+    data: developers,
+    isSuccess: gotDevs,
+    isLoading: gettingDevs,
+    isError: errorDevs,
+  } = api.developer.getBySearch.useQuery({
+    search,
+  });
   return (
     <ul className="flex flex-col gap-4 px-4">
-      {isSuccess && data.length === 0 && <p>No results found...</p>}
-      {isSuccess &&
-        data.length !== 0 &&
-        data.map((developer) => (
-          <SearchItem key={developer.id} developer={developer} />
+      {gotDevs && developers.length === 0 && <p>No results found...</p>}
+      {gotDevs &&
+        developers.map((developer) => (
+          <SearchItem key={developer.id} developer={developer} inCart={false} />
         ))}
-      {isLoading && (
-        <>
-          <SearchItemShimmer />
-          <SearchItemShimmer />
-          <SearchItemShimmer />
-          <SearchItemShimmer />
-          <SearchItemShimmer />
-        </>
-      )}
-      {isError && <p>404</p>}
+      {gettingDevs && <SearchItemShimmer />}
+      {errorDevs && <p>404</p>}
     </ul>
   );
 };
