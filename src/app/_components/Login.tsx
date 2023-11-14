@@ -10,10 +10,18 @@ const Login = () => {
     <>
       {!session && (
         <>
-          <Button callToAction onClick={() => router.push("/login")}>
+          <Button
+            data-cy="client-sign-in"
+            callToAction
+            onClick={() => router.push("/login")}
+          >
             Client Sign In
           </Button>
-          <Button callToAction onClick={() => void signIn("google")}>
+          <Button
+            data-cy="salt-sign-in"
+            callToAction
+            onClick={() => void signIn("google")}
+          >
             Salt Sign In
           </Button>
         </>

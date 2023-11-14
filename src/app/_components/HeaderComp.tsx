@@ -9,7 +9,7 @@ import Button from "./Button";
 
 const Header = () => {
   const { data: session } = useSession();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <header className="flex h-14 items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
@@ -19,6 +19,7 @@ const Header = () => {
           alt="salt logo"
           width={130}
           height={30}
+          data-cy="logo"
         />
       </Link>
       <div className="flex gap-4">
@@ -32,9 +33,7 @@ const Header = () => {
         )}
         {!!session &&
           (session.user.role === "SALTIE" || session.user.role === "ADMIN") && (
-            <Button onClick={() => router.push('/profile')}>
-              Profile
-            </Button>
+            <Button onClick={() => router.push("/profile")}>Profile</Button>
           )}
         {!!session && session.user.role === "CLIENT" && (
           <Link href={"/cart"}>

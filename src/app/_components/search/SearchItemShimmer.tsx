@@ -5,11 +5,12 @@ const SearchItemShimmer = () => {
     <>
       {Array(10)
         .fill(1)
-        .map(() => {
+        .map((_, index) => {
           const width = Math.floor(Math.random() * 11) + 1;
           return (
             <li
-              key={crypto.randomUUID()}
+              data-cy="loading-shimmer"
+              key={`shimmer-${index}`}
               className="flex h-28 animate-pulse items-center gap-4 rounded-sm bg-gray p-2 drop-shadow-md duration-500 lg:px-9"
             >
               <div className="h-20 w-20 shrink-0 rounded-full bg-black/10 p-2"></div>

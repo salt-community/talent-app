@@ -22,12 +22,13 @@ const SearchForm = ({ onSearch }: Props) => {
       onSubmit={(event) => void handleSubmit(onSubmit)(event)}
     >
       <input
-        className=" placeholder:font-primary placeholder-gray-400 grow px-2 py-1 outline-none placeholder:translate-x-2 placeholder:text-sm placeholder:font-light"
+        data-cy="searchbar"
+        className=" placeholder-gray-400 grow px-2 py-1 outline-none placeholder:translate-x-2 placeholder:font-primary placeholder:text-sm placeholder:font-light"
         {...register("search")}
         placeholder="Search"
       />
       <FormError error={errors.search} />
-      <button type="submit">
+      <button data-cy="search-submit" type="submit">
         <Icon
           className="h-6 w-8 fill-black/25 hover:fill-orange"
           icon="search"

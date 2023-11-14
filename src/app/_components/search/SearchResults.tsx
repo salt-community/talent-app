@@ -17,8 +17,10 @@ const SearchResults = ({ search }: Props) => {
     search,
   });
   return (
-    <ul className="flex flex-col gap-4 px-4">
-      {gotDevs && developers.length === 0 && <p>No results found...</p>}
+    <ul data-cy="dev-list" className="flex flex-col gap-4 px-4">
+      {gotDevs && developers.length === 0 && (
+        <p data-cy="no-listings">No results found...</p>
+      )}
       {gotDevs &&
         developers.map((developer) => (
           <SearchItem key={developer.id} developer={developer} inCart={false} />
