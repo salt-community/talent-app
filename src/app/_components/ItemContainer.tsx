@@ -1,11 +1,14 @@
-import React from "react";
+import type { DetailedHTMLProps, LiHTMLAttributes } from "react";
 
-type Props = { children: React.ReactNode; className?: string };
+type Props = {
+  children: React.ReactNode;
+} & DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
 
-const ItemContainer = ({ children, className }: Props) => {
+const ItemContainer = ({ children, className, ...props }: Props) => {
   return (
     <li
-      className={`flex h-28 items-center gap-4 rounded-sm bg-gray p-2 drop-shadow-md lg:px-9 ${className}`}
+      className={`flex h-28 items-center rounded-sm bg-gray drop-shadow-md ${className}`}
+      {...props}
     >
       {children}
     </li>
