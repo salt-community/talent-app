@@ -16,7 +16,11 @@ const LogLink = ({ children, developerId }: Props) => {
     }
   };
   return (
-    <Link onClick={handleClick} href={`/developer/${developerId}`}>
+    <Link
+      data-cy="developer"
+      onClick={handleClick}
+      href={`/developer/${developerId}`}
+    >
       {children}
     </Link>
   );

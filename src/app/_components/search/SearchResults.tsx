@@ -13,8 +13,10 @@ const SearchResults = ({ search }: Props) => {
     });
 
   return (
-    <ul className="flex flex-col gap-4 px-4">
-      {isSuccess && data.length === 0 && <p>No results found...</p>}
+    <ul data-cy="dev-list" className="flex flex-col gap-4 px-4">
+      {isSuccess && data.length === 0 && (
+        <p data-cy="no-listings">No results found...</p>
+      )}
       {isSuccess &&
         data.length !== 0 &&
         data.map((developer) => (
