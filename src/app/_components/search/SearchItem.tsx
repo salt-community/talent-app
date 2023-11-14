@@ -12,8 +12,11 @@ type Props = {
 
 const SearchItem = ({ developer, inCart }: Props) => {
   return (
-    <LogLink developerId={developer.id}>
-      <ItemContainer className="relative">
+    <ItemContainer data-cy="developer">
+      <LogLink
+        className="relative flex items-center w-full h-full p-2 gap-2 gl:gap-6 justify-between lg:px-9"
+        developerId={developer.id}
+      >
         <Image
           src={developer.image}
           alt="Image"
@@ -21,7 +24,7 @@ const SearchItem = ({ developer, inCart }: Props) => {
           height={256}
           className="w-20 rounded-full border-none"
         />
-        <div className="flex grow flex-col">
+        <div className="flex grow flex-col gap-1">
           <h2 className="text-xl font-normal lg:text-2xl">{developer.name}</h2>
           <ul className="flex flex-wrap gap-1">
             {developer.skills.slice(0, 4).map((skill, index) => (
@@ -33,7 +36,7 @@ const SearchItem = ({ developer, inCart }: Props) => {
               </li>
             ))}
             {developer.skills.length - 4 > 0 && (
-              <li className="rounded-full bg-orange/10 px-2 text-[0.6rem] text-sm text-black/70">
+              <li className="rounded-full bg-orange/10 px-2 text-xs text-black/70">
                 +{developer.skills.length - 4}
               </li>
             )}
@@ -48,8 +51,8 @@ const SearchItem = ({ developer, inCart }: Props) => {
             className="absolute right-1 top-1 h-6 fill-orange/40"
           />
         )}
-      </ItemContainer>
-    </LogLink>
+      </LogLink>
+    </ItemContainer>
   );
 };
 
