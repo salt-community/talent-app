@@ -9,9 +9,61 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: Roboto;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
+}
+
+input:focus ~ label{
+  top: -12px;
+  font-size: 12px;
+  color: #f35c7e;
+}
+
+.bar {
+  position: relative;
+}
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  position: absolute;
+  background: #f35c7e;
+  transition: 0.9s ease all;
+  -moz-transition: 0.9s ease all;
+  -webkit-transition: 0.9s ease all;
+}
+
+.input:focus ~ .bar:before,
+.input:focus ~ .bar:after {
+  width: 100%;
+}
+
+.bar:before {
+  left: 0;
+}
+
+.bar:after {
+  right: 0;
+}
+
+.input:focus ~ .highlight {
+  animation: inputHighlighter 0.1s ease;
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: #f35c7e;
+  }
+
+  to {
+    width: 0;
+    background: transparent;
+  }
 }
