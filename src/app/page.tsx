@@ -32,7 +32,6 @@ const Home = ({ searchParams }: Props) => {
 const validateSearchParams = ({ searchParams }: Props) => {
   const parsed = zSearchFilter.safeParse(searchParams);
   if (!parsed.success) {
-    console.log(parsed.error.message);
     return { search: "" };
   }
   return parsed.data;
