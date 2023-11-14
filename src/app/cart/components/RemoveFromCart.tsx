@@ -1,14 +1,13 @@
 "use client";
 import Icon from "@/app/assets/icons/Icon";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
 
 type Props = { developerId: string };
 
 const RemoveFromCart = ({ developerId }: Props) => {
-  const router = useRouter();
+  const utils = api.useContext();
   const { mutate: remove, isLoading: removing } = api.cart.remove.useMutation({
-    onSuccess: () => router.refresh(),
+    onSuccess: () => utils.cart.getAll.invalidate(),
   });
   return (
     <button disabled={removing} onClick={() => remove({ developerId })}>
