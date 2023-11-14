@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import SectionHeader from "./SectionHeader";
 import type { RouterOutputs } from "@/trpc/shared";
+import LogLink from "@/app/_components/search/LogLink";
 
 type Mob = RouterOutputs["developer"]["getById"]["mobs"][number];
 
@@ -18,21 +18,21 @@ const TeamMembers = ({ mobs }: Props) => {
           <ul className="flex flex-wrap justify-evenly gap-1">
             {mob.members.map((developer) => (
               <li key={developer.id}>
-                <Link
+                <LogLink
                   className="flex flex-col items-center rounded-md px-2 duration-300 ease-in-out hover:translate-y-[-2%] hover:bg-orange/20 active:bg-orange"
-                  href={`/developer/${developer.id}`}
+                  developerId={developer.id}
                 >
                   <Image
                     src={developer.image}
                     alt="image"
-                    width={50}
-                    height={50}
+                    width={256}
+                    height={256}
                     className="h-12 w-12 rounded-full"
                   />
                   <p className="whitespace-nowrap text-center text-sm">
                     {developer.name}
                   </p>
-                </Link>
+                </LogLink>
               </li>
             ))}
           </ul>
