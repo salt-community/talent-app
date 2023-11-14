@@ -19,7 +19,6 @@ const Login = () => {
           </Button>
           <Button
             data-cy="salt-sign-in"
-            callToAction
             onClick={() => void signIn("google")}
           >
             Salt Sign In
