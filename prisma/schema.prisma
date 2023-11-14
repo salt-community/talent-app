@@ -120,6 +120,7 @@ model Developer {
     cartId       String?
     CartItem     CartItem[]
     LogClickDev  LogClickDev[]
+    locationPref String[]
 
     @@map("public.developer")
 }
