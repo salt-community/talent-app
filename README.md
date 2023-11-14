@@ -1,28 +1,48 @@
-# Create T3 App
+<img src="https://salt-talent-pool.vercel.app/_next/image?url=%2FlogoBlack.png&w=384&q=75" alt="Salt Talent Pool Logo" width="300" height="58">
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-## What's next? How do I make an app with this?
+# Salt Talent Pool
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Overview
+Salt Talent Pool is a cutting-edge application designed to streamline the process of connecting software development consultants with recruiters. It offers a user-friendly platform for browsing consultants based on their skills and expertise, making it easy for recruiters to find the right talent for their projects.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Usage
+To view the application, visit [Salt Talent Pool](https://talents.salt.dev/).
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Features
 
-## Learn More
+- **Clients can sign in to their accounts.**
+- **Browse through the list of developers and add them to their cart for quick reference.**
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- **Search consultants [Using Meilisearch]:**
+  - Efficiently search for software development consultants based on specific categories, such as searching by skill, name, location, etc.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- **SALT sign in (for developers, requires an @appliedtechnology email):**
+  - Developer Form
+  - Developers can easily fill out their profile information, which will be displayed for recruiters.
+  - Showcase your skills, experience, and expertise to attract potential opportunities.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Technology Stack
+The application is built with the powerful T3 stack, combining cutting-edge technologies to deliver a robust and efficient platform.
 
-## How do I deploy this?
+- **T3 Stack Components:**
+  - T - tRPC
+  - T - Tailwind
+  - T - Typescript
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Founders
+Development Team (Mob Name: Developoors)
+- Jou-Fang Wang
+- Allan Heremi
+- Rasmus Eklund
+- Alexandra Macovei
+- Lee Sheppard
+
+## Project Status
+Salt Talent Pool is currently in maintenance mode. While not actively adding new features, the application is still supported and maintained to ensure a smooth experience for users.
+
+## How to Contribute
+We welcome contributions and feedback from the community. If you have suggestions, bug reports, or want to contribute to the project.
