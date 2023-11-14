@@ -14,6 +14,7 @@ import FormError from "../../../_components/FormError";
 import SkillsForm from "./SkillsForm";
 import GithubForm from "./GithubForm";
 import toast from "react-hot-toast";
+import LocationsForm from "./LocationsForm";
 
 type Props = {
   developer: tDevSchema;
@@ -26,12 +27,13 @@ const DeveloperForm = ({
   handleData: submitValidData,
   children,
 }: Props) => {
-  const { gitHubUrl, image, skills, ...rest } = developer;
+  const { gitHubUrl, image, skills, locationPref, ...rest } = developer;
   const [gitHub, setGitHub] = useState({
     gitHubUrl,
     image,
   });
   const skillsRef = useRef(skills);
+  const locationsRef = useRef(locationPref);
   const {
     register,
     handleSubmit,
@@ -48,6 +50,7 @@ const DeveloperForm = ({
     const newData: tDevSchema = {
       ...data,
       skills: skillsRef.current,
+      locationPref: locationsRef.current,
       ...gitHub,
     };
     submitValidData(newData);
@@ -85,6 +88,10 @@ const DeveloperForm = ({
           </div>
         ))}
       </form>
+      <LocationsForm
+        data={locationPref}
+        setData={(data) => (locationsRef.current = data)}
+      />
       <SkillsForm
         data={skills}
         setData={(data) => (skillsRef.current = data)}
