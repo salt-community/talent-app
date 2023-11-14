@@ -30,7 +30,11 @@ const SearchResultsSession = ({ search }: Props) => {
       {gotDevs &&
         gotCart &&
         developers.map((developer) => (
-          <SearchItem key={developer.id} developer={developer} inCart={!!cart.find(i => i.developerId === developer.id)} />
+          <SearchItem
+            key={developer.id}
+            developer={developer}
+            inCart={!!cart.find((i) => i.developerId === developer.id)}
+          />
         ))}
       {gettingDevs && gettingCart && <SearchItemShimmer />}
       {(errorCart || errorDevs) && <p>404</p>}

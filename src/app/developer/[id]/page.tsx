@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import UserCard from "@/app/developer/components/UserCard";
 import SectionHeader from "@/app/developer/components/SectionHeader";
 import Skills from "@/app/developer/components/Skills";
@@ -25,12 +24,15 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
       <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
-        <Link href={"/"} className="absolute left-2 top-2 w-10">
+        <button
+          onClick={() => router.back()}
+          className="absolute left-2 top-2 w-10"
+        >
           <Icon
             icon="arrowLeft"
             className="h-10 w-14 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
           />
-        </Link>
+        </button>
         {isSuccess && <UserCard developer={developer} />}
         {isLoading && <UserCardShimmer />}
       </div>
