@@ -10,7 +10,7 @@ type Props = {
 const Project = ({ project: { id, title } }: Props) => {
   return (
     <Link href={`/profile/project/${id}`}>
-      <ItemContainer>
+      <ItemContainer className="px-5">
         <p>{title}</p>
       </ItemContainer>
     </Link>

@@ -10,7 +10,7 @@ type Props = {
 const MobItem = ({ mob: { id, name } }: Props) => {
   return (
     <Link href={`/profile/mob/${id}`}>
-      <ItemContainer>
+      <ItemContainer className="px-5">
         <p>{name}</p>
       </ItemContainer>
     </Link>
