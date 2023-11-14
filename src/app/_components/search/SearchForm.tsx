@@ -9,9 +9,7 @@ const SearchForm = () => {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
   useEffect(() => {
-    if (debouncedSearch) {
-      router.push(`?search=${debouncedSearch}`);
-    }
+    router.push(`?search=${debouncedSearch}`);
   }, [debouncedSearch, router]);
 
   return (
