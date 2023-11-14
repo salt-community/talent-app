@@ -2,16 +2,26 @@
 import Link from "next/link";
 import UserCard from "@/app/developer/components/UserCard";
 import SectionHeader from "@/app/developer/components/SectionHeader";
-import Skills from "@/app/developer/components/DeveloperSkills";
+import Skills from "@/app/developer/components/Skills";
 import TeamMembers from "@/app/developer/components/Team";
 import { api } from "@/trpc/react";
 import Projects from "@/app/developer/components/Projects";
 import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
+import UserCardShimmer from "../components/shimmer/UserCardShimmer";
+import DeveloperCardShimmer from "../components/shimmer/DeveloperCardShimmer";
+
+import Button from "@/app/_components/Button";
+import { useRouter } from "next/navigation";
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
-  const { data: developer, isSuccess } = api.developer.getById.useQuery({ id });
+  const {
+    data: developer,
+    isSuccess,
+    isLoading,
+  } = api.developer.getById.useQuery({ id });
   const { data: session } = useSession();
+  const router = useRouter();
   return (
     <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
       <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
@@ -22,9 +32,11 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
           />
         </Link>
         {isSuccess && <UserCard developer={developer} />}
+        {isLoading && <UserCardShimmer />}
       </div>
       <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
         {isSuccess && <Bio {...developer} />}
+        {isLoading && <DeveloperCardShimmer />}
         {session ? (
           <>
             {isSuccess && <Skills skills={developer.skills} />}
@@ -32,11 +44,11 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
             {isSuccess && <TeamMembers mobs={developer.mobs} />}
           </>
         ) : (
-          <div>
-            <Link className="underline" href="/login">
-              Sign in
-            </Link>
-            <span className="ml-1">to see more...</span>
+          <div className="mb-2">
+            <span className="ml-1 text-lg font-medium">To see more...</span>
+            <Button callToAction onClick={() => router.push("/login")}>
+              Sign In
+            </Button>
           </div>
         )}
       </div>
