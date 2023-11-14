@@ -6,10 +6,11 @@ import { useSession } from "next-auth/react";
 import Icon from "@/app/assets/icons/Icon";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
+import CartStatus from "./CartStatus";
 
 const Header = () => {
   const { data: session } = useSession();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <header className="flex h-14 items-center justify-between bg-white px-[10px] py-5">
       <Link href={"/"}>
@@ -21,7 +22,7 @@ const Header = () => {
           height={30}
         />
       </Link>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         {!!session && session.user.role === "ADMIN" && (
           <Link href={"/admin"}>
             <Icon
@@ -32,18 +33,9 @@ const Header = () => {
         )}
         {!!session &&
           (session.user.role === "SALTIE" || session.user.role === "ADMIN") && (
-            <Button onClick={() => router.push('/profile')}>
-              Profile
-            </Button>
+            <Button onClick={() => router.push("/profile")}>Profile</Button>
           )}
-        {!!session && session.user.role === "CLIENT" && (
-          <Link href={"/cart"}>
-            <Icon
-              icon="cart"
-              className="h-10 w-10 fill-black active:fill-orange"
-            />
-          </Link>
-        )}
+        <CartStatus />
         <Login />
       </div>
     </header>
