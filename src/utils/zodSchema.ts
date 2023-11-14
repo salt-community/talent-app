@@ -80,3 +80,7 @@ export type tRole = z.infer<typeof zRole>;
 
 export const zMail = z.object({ email: z.string().email() });
 export type tMail = z.infer<typeof zMail>;
+
+export const zSearchFilter = z.object({
+  search: z.string(),
+});
