@@ -10,6 +10,15 @@ import { TRPCError } from "@trpc/server";
 import { devSchema, searchDevSchema } from "@/utils/zodSchema";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
+const shuffleArray = <T>(array: T[]): T[] => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]] as [T, T];
+  }
+  return newArray;
+};
+
 export const developerRouter = createTRPCRouter({
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
@@ -81,18 +90,17 @@ export const developerRouter = createTRPCRouter({
     .input(searchDevSchema)
     .query(async ({ ctx, input: { search } }) => {
       if (search === "") {
-        const data = await ctx.db.developer.findMany({
-          orderBy: { lastModified: "desc" },
-          take: 8,
-        });
-        return data.map(({ skills, title, description, name, image, id }) => ({
-          skills,
-          title,
-          description,
-          name,
-          image,
-          id,
-        }));
+        const data = await ctx.db.developer.findMany();
+        return shuffleArray(data).map(
+          ({ skills, title, description, name, image, id }) => ({
+            skills,
+            title,
+            description,
+            name,
+            image,
+            id,
+          }),
+        );
       }
       if (ctx.session && ctx.session.user.role === "CLIENT") {
         const userId = ctx.session.user.id;
