@@ -23,7 +23,7 @@ const Header = () => {
           data-cy="logo"
         />
       </Link>
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         {!!session && session.user.role === "ADMIN" && (
           <Link href={"/admin"}>
             <Icon
@@ -36,7 +36,7 @@ const Header = () => {
           (session.user.role === "SALTIE" || session.user.role === "ADMIN") && (
             <Button onClick={() => router.push("/profile")}>Profile</Button>
           )}
-        <CartStatus />
+        {session && session.user.role === "CLIENT" && <CartStatus />}
         <Login />
       </div>
     </header>
