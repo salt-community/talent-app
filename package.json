@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "db-seed": "cross-env NODE_ENV=development prisma db seed",
+    "seed": "cross-env NODE_ENV=development prisma db seed",
     "test": "cypress run",
     "cypress": "cypress open"
   },
