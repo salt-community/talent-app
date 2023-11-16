@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { getGitHubUsername, getGithubData } from "./helpers/getGithubData";
 import toast from "react-hot-toast";
-import type { tGithubSchema } from "@/utils/zodSchema";
 import Button from "../../../_components/Button";
 import FormError from "../../../_components/FormError";
 import Icon from "@/app/assets/icons/Icon";
+import type { RouterOutputs } from "@/trpc/shared";
+
+type GitHubData = Pick<
+  RouterOutputs["developer"]["getById"],
+  "gitHubUrl" | "image"
+>;
 
 type Props = {
   error?: string;
-  data: tGithubSchema;
-  setData: (data: tGithubSchema) => void;
+  data: GitHubData;
+  setData: (data: GitHubData) => void;
 };
 
 const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
