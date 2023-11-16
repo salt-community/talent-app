@@ -24,18 +24,22 @@ const UserCard = ({ developer }: Props) => {
       />
       <h1 className="text-center text-2xl font-semibold">{developer.name}</h1>
       {!!developer.locationPref.length && (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 select-none">
           <p className="text-center text-sm text-black/60">
             Open for work in...
           </p>
-          <ul className="relative flex flex-wrap items-center gap-1">
-            <Icon
-              icon="mapMarker"
-              className="absolute -left-[17px] top-0 h-4"
-            />
+          <ul className="flex flex-wrap justify-center items-center gap-1">
             {developer.locationPref.slice(0, 3).map((loc, i, arr) => (
-              <li className="text-sm text-orange/90" key={loc}>
-                {`${loc}${i !== arr.length - 1 ? "," : ""}`}
+              <li className="relative flex" key={loc}>
+                <p className="text-sm text-orange/90">{`${loc}${
+                  i !== arr.length - 1 ? "," : ""
+                }`}</p>
+                {i === 0 && (
+                  <Icon
+                    icon="mapMarker"
+                    className="absolute -left-[17px] top-0 h-4"
+                  />
+                )}
               </li>
             ))}
           </ul>
