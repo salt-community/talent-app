@@ -21,12 +21,11 @@ const DeveloperId = ({ params: { id } }: Props) => {
   } = api.developer.getById.useQuery({ id });
   const { mutate: update, isLoading: updating } =
     api.developer.update.useMutation({
-      onSuccess: async () => {
-        await utils.developer.invalidate();
+      onSuccess: () => {
         router.push("/profile");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
+        toast.error("Could not update developer.");
       },
     });
   const { mutate: remove, isLoading: deleting } =
@@ -35,8 +34,8 @@ const DeveloperId = ({ params: { id } }: Props) => {
         await utils.developer.invalidate();
         router.push("/profile");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
+        toast.error('Could not delete developer.');
       },
     });
   const className =
