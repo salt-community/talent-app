@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import getId from "@/app/profile/developer/components/helpers/getYTid";
 import toast from "react-hot-toast";
 import FormError from "../../../_components/FormError";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
 type Props = {
   project?: tProjectSchema;
@@ -37,7 +37,7 @@ const ProjectForm = ({ project, handleData, children }: Props) => {
     >
       {fields.map((field) => {
         return (
-          <>
+          <Fragment key={field}>
             {field === "description" ? (
               <textarea
                 className={"h-32 grow rounded-md border-2 border-black/50 px-2"}
@@ -53,7 +53,7 @@ const ProjectForm = ({ project, handleData, children }: Props) => {
               />
             )}
             <FormError error={errors[field]} />
-          </>
+          </Fragment>
         );
       })}
       {children}
