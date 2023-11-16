@@ -23,6 +23,24 @@ const UserCard = ({ developer }: Props) => {
         height={100}
       />
       <h1 className="text-center text-2xl font-semibold">{developer.name}</h1>
+      {!!developer.locationPref.length && (
+        <div className="flex flex-col gap-1">
+          <p className="text-center text-sm text-black/60">
+            Open for work in...
+          </p>
+          <ul className="relative flex flex-wrap items-center gap-1">
+            <Icon
+              icon="mapMarker"
+              className="absolute -left-[17px] top-0 h-4"
+            />
+            {developer.locationPref.slice(0, 3).map((loc, i, arr) => (
+              <li className="text-sm text-orange/90" key={loc}>
+                {`${loc}${i !== arr.length - 1 ? "," : ""}`}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="flex gap-2">
         <a href={developer.gitHubUrl} target="_blank">
           <Icon icon="github" className="h-8 w-8 fill-black" />
