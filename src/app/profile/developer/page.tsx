@@ -36,7 +36,7 @@ const DeveloperPage = () => {
           className="h-10 w-10 rounded-full bg-black fill-white"
         />
       </Link>
-      <DeveloperForm developer={newData} handleData={createUser}>
+      <DeveloperForm data={newData} handleData={createUser}>
         <Button callToAction className="py-2" disabled={creatingUser} form="developer-form">
           Create user
         </Button>

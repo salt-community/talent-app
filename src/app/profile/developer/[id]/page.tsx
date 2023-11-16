@@ -6,7 +6,6 @@ import checkIfAuth from "@/utils/redirectIfNotAuth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import DeveloperForm2 from "../components/DeveloperForm2";
 
 type Props = { params: { id: string } };
 const DeveloperId = ({ params: { id } }: Props) => {
@@ -48,36 +47,8 @@ const DeveloperId = ({ params: { id } }: Props) => {
       {isError && <p className={className}>404 not found</p>}
       {isSuccess && (
         <main className="flex w-full flex-col gap-4 p-2">
-          {/* <DeveloperForm
+          <DeveloperForm
             handleData={(dev) => update({ dev, id })}
-            developer={developer}
-          >
-            <div className="flex gap-2">
-              <Button
-                disabled={updating}
-                callToAction
-                className="w-1/2 py-2"
-                form="developer-form"
-              >
-                Save
-              </Button>
-              <Button
-                className="w-1/2 py-2"
-                onClick={() => router.push("/profile")}
-              >
-                Go back
-              </Button>
-            </div>
-            <Button
-              disabled={deleting}
-              className="py-2 hover:bg-pink/60"
-              onClick={() => remove(id)}
-            >
-              Delete
-            </Button>
-          </DeveloperForm> */}
-          <DeveloperForm2
-            handleData={(data) => console.log(data)}
             data={{
               ...developer,
               skills: developer.skills.map((i) => ({ skill: i })),
@@ -109,7 +80,7 @@ const DeveloperId = ({ params: { id } }: Props) => {
             >
               Delete
             </Button>
-          </DeveloperForm2>
+          </DeveloperForm>
         </main>
       )}
     </>

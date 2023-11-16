@@ -1,67 +1,110 @@
-"use client";
-import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
-import {
-  devSchemaPartial,
-  githubSchema,
-  type tDevSchema,
-  type tDevSchemaPartial,
-} from "@/utils/zodSchema";
-import { type ReactNode, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { keys, formInfo } from "./helpers/formPlaceholders";
-import FormError from "../../../_components/FormError";
-import SkillsForm from "./SkillsForm";
+import { useForm, useFieldArray } from "react-hook-form";
+import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import {
+  SortableContext,
+  useSortable,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { CSS } from "@dnd-kit/utilities";
+import { Fragment, type ReactNode } from "react";
+import Icon from "@/app/assets/icons/Icon";
+import FormError from "@/app/_components/FormError";
+import { formInfo, keys } from "./helpers/formPlaceholders";
+import Button from "@/app/_components/Button";
 import GithubForm from "./GithubForm";
-import toast from "react-hot-toast";
-import LocationsForm from "./LocationsForm";
+import { devSchema, type tDevSchema } from "@/utils/zodSchema";
 
+type UseSortableReturn = Omit<
+  ReturnType<typeof useSortable>,
+  "setNodeRef" | "transform" | "transition"
+>;
+
+type SortableItemProps = {
+  id: string;
+  children: (args: UseSortableReturn) => React.ReactNode;
+};
+
+const SortableItem = (props: SortableItemProps) => {
+  const { setNodeRef, transform, transition, ...rest } = useSortable({
+    id: props.id,
+  });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+  return (
+    <div ref={setNodeRef} style={style}>
+      {props.children({ ...rest })}
+    </div>
+  );
+};
+
+const onDragEnd = <T extends { id: string }>(
+  event: DragEndEvent,
+  arr: T[],
+  move: (activeIndex: number, overIndex: number) => void,
+) => {
+  const { active, over } = event;
+  if (over && active.id !== over.id) {
+    const activeIndex = arr.map((i) => i.id).indexOf(active.id as string);
+    console.log(activeIndex);
+    const overIndex = arr.map((i) => i.id).indexOf(over.id as string);
+    if (activeIndex !== undefined && overIndex !== undefined) {
+      move(activeIndex, overIndex);
+    }
+  }
+};
 type Props = {
-  developer: tDevSchema;
+  data: tDevSchema;
   handleData: (data: tDevSchema) => void;
   children: ReactNode;
 };
 
-const DeveloperForm = ({
-  developer,
-  handleData: submitValidData,
-  children,
-}: Props) => {
-  const { gitHubUrl, image, skills, locationPref, ...rest } = developer;
-  const [gitHub, setGitHub] = useState({
-    gitHubUrl,
-    image,
-  });
-  const skillsRef = useRef(skills);
-  const locationsRef = useRef(locationPref);
+const DeveloperForm2 = ({ data, handleData, children }: Props) => {
   const {
-    register,
     handleSubmit,
+    control,
+    register,
+    setValue,
     formState: { errors },
-  } = useForm<tDevSchemaPartial>({
-    mode: "onSubmit",
-    defaultValues: rest,
-    resolver: zodResolver(devSchemaPartial),
+  } = useForm<tDevSchema>({
+    resolver: zodResolver(devSchema),
+    defaultValues: data,
+    mode: "onBlur",
   });
-  const onSubmit: SubmitHandler<tDevSchemaPartial> = (data) => {
-    if (skillsRef.current.length === 0) {
-      toast.error("You have no skills!");
-    }
-    const newData: tDevSchema = {
-      ...data,
-      skills: skillsRef.current,
-      locationPref: locationsRef.current,
-      ...gitHub,
-    };
-    submitValidData(newData);
-  };
+
+  const modifiers = [restrictToParentElement];
+  const {
+    fields: skills,
+    move: moveSkill,
+    append: appendSkill,
+    remove: removeSkill,
+  } = useFieldArray({
+    control,
+    name: "skills",
+  });
+  const {
+    fields: locations,
+    move: moveLocation,
+    append: appendLocation,
+    remove: removeLocation,
+  } = useFieldArray({
+    control,
+    name: "locationPref",
+  });
   const className = "h-10 rounded-md border-2 border-black/50 px-2 bg-black/10";
   return (
-    <div className="flex flex-col gap-2 lg:px-48">
+    <>
       <form
         id="developer-form"
-        className="flex flex-col gap-1"
-        onSubmit={(event) => void handleSubmit(onSubmit)(event)}
+        onSubmit={(event) =>
+          void handleSubmit((values) => {
+            handleData(values);
+          })(event)
+        }
+        className="flex flex-col gap-2"
       >
         {keys.map((key) => (
           <div className="flex flex-col" key={key}>
@@ -87,22 +130,130 @@ const DeveloperForm = ({
             <FormError error={errors[key]} />
           </div>
         ))}
+        <div className="flex flex-col gap-2">
+          <p className="pt-2 font-semibold">Locations</p>
+          <FormError error={errors.locationPref?.root} />
+          <div className="flex flex-wrap gap-1">
+            <DndContext
+              modifiers={modifiers}
+              onDragEnd={(event) => onDragEnd(event, locations, moveLocation)}
+            >
+              <SortableContext strategy={rectSortingStrategy} items={locations}>
+                {locations.map((field, index) => {
+                  return (
+                    <Fragment key={field.id}>
+                      <SortableItem id={field.id}>
+                        {({ attributes, listeners }) => (
+                          <div className="flex cursor-default select-none items-center gap-1 rounded-full bg-orange p-1 text-sm text-white">
+                            <button {...attributes} {...listeners}>
+                              <Icon
+                                icon="dragVH"
+                                className="h-6 cursor-grab fill-black"
+                              />
+                            </button>
+                            <input
+                              className="min-w-0 bg-orange text-white outline-none placeholder:text-black"
+                              placeholder="New location..."
+                              {...register(`locationPref.${index}.location`)}
+                            />
+                            <FormError
+                              error={
+                                errors.locationPref
+                                  ? errors.locationPref[index]?.location
+                                  : undefined
+                              }
+                            />
+                            <button
+                              onClick={() => removeLocation(index)}
+                              type="button"
+                            >
+                              <Icon
+                                icon="delete"
+                                className="w-6 cursor-pointer fill-white hover:scale-110 hover:fill-black"
+                              />
+                            </button>
+                          </div>
+                        )}
+                      </SortableItem>
+                    </Fragment>
+                  );
+                })}
+              </SortableContext>
+            </DndContext>
+            <Button
+              type="button"
+              onClick={() => appendLocation({ location: "" })}
+            >
+              Add
+            </Button>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="pt-2 font-semibold">Skills</p>
+          <FormError error={errors.skills?.root} />
+          <div className="flex flex-wrap gap-1">
+            <DndContext
+              modifiers={modifiers}
+              onDragEnd={(event) => onDragEnd(event, skills, moveSkill)}
+            >
+              <SortableContext strategy={rectSortingStrategy} items={skills}>
+                {skills.map((field, index) => {
+                  return (
+                    <Fragment key={field.id}>
+                      <SortableItem id={field.id}>
+                        {({ attributes, listeners }) => (
+                          <div className="relative flex cursor-default select-none items-center gap-1 rounded-full bg-orange p-1 text-sm text-white">
+                            <button {...attributes} {...listeners}>
+                              <Icon
+                                icon="dragVH"
+                                className="h-6 cursor-grab fill-black"
+                              />
+                            </button>
+                            <input
+                              className="min-w-0 bg-orange text-white outline-none placeholder:text-black"
+                              placeholder="New skill..."
+                              {...register(`skills.${index}.skill`)}
+                            />
+                            <FormError
+                              error={
+                                errors.skills
+                                  ? errors.skills[index]?.skill
+                                  : undefined
+                              }
+                            />
+                            <button
+                              onClick={() => removeSkill(index)}
+                              type="button"
+                            >
+                              <Icon
+                                icon="delete"
+                                className="w-6 cursor-pointer fill-white hover:scale-110 hover:fill-black"
+                              />
+                            </button>
+                          </div>
+                        )}
+                      </SortableItem>
+                    </Fragment>
+                  );
+                })}
+              </SortableContext>
+            </DndContext>
+            <Button type="button" onClick={() => appendSkill({ skill: "" })}>
+              Add
+            </Button>
+          </div>
+        </div>
       </form>
-      <LocationsForm
-        data={locationPref}
-        setData={(data) => (locationsRef.current = data)}
-      />
-      <SkillsForm
-        data={skills}
-        setData={(data) => (skillsRef.current = data)}
-      />
       <GithubForm
-        data={{ gitHubUrl, image }}
-        setData={(data) => setGitHub(data)}
+        data={{ gitHubUrl: data.gitHubUrl, image: data.image }}
+        setData={({ gitHubUrl, image }) => {
+          setValue("gitHubUrl", gitHubUrl);
+          setValue("image", image);
+        }}
       />
-      {githubSchema.safeParse(gitHub).success && <>{children}</>}
-    </div>
+      {children}
+    </>
   );
 };
 
-export default DeveloperForm;
+export default DeveloperForm2;
