@@ -1,6 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
-import { DndContext, type DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  useSensor,
+  type DragEndEvent,
+  TouchSensor,
+  MouseSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   SortableContext,
   useSortable,
@@ -93,6 +100,9 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
     control,
     name: "locationPref",
   });
+  const touchSensor = useSensor(TouchSensor);
+  const mouseSensor = useSensor(MouseSensor);
+  const sensors = useSensors(mouseSensor, touchSensor);
   const className = "h-10 rounded-md border-2 border-black/50 px-2 bg-black/10";
   return (
     <>
@@ -124,6 +134,11 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
                 {...register(key)}
                 className={className}
                 placeholder={formInfo[key].placeholder}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                  }
+                }}
               />
             )}
             <FormError error={errors[key]} />
@@ -136,6 +151,7 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
             <DndContext
               modifiers={modifiers}
               onDragEnd={(event) => onDragEnd(event, locations, moveLocation)}
+              sensors={sensors}
             >
               <SortableContext strategy={rectSortingStrategy} items={locations}>
                 {locations.map((field, index) => {
@@ -151,8 +167,14 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
                               />
                             </button>
                             <input
-                              className="min-w-0 bg-orange text-white outline-none placeholder:text-black"
+                              className="min-w-0 w-20 bg-orange text-white outline-none placeholder:text-black"
                               placeholder="New location..."
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                  appendLocation({ location: "" });
+                                }
+                              }}
                               {...register(`locationPref.${index}.location`)}
                             />
                             <FormError
@@ -194,6 +216,7 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
             <DndContext
               modifiers={modifiers}
               onDragEnd={(event) => onDragEnd(event, skills, moveSkill)}
+              sensors={sensors}
             >
               <SortableContext strategy={rectSortingStrategy} items={skills}>
                 {skills.map((field, index) => {
@@ -209,9 +232,15 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
                               />
                             </button>
                             <input
-                              className="min-w-0 bg-orange text-white outline-none placeholder:text-black"
+                              className="min-w-5 w-20 bg-orange text-white outline-none placeholder:text-black"
                               placeholder="New skill..."
                               {...register(`skills.${index}.skill`)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                  e.preventDefault();
+                                  appendSkill({ skill: "" });
+                                }
+                              }}
                             />
                             <FormError
                               error={
