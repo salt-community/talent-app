@@ -1,9 +1,12 @@
-import seedMeilisearch from "@/server/seedMeilisearch";
+// import seedMeilisearch from "@/server/seedMeilisearch";
+import { storeDataLocally, seedDataToDb } from "./backup";
 
 const seedData = async () => {
-  await seedMeilisearch();
+  // await seedMeilisearch();
+  await storeDataLocally();
+  // await seedDataToDb();
 };
 
 seedData()
-  .then(() => console.log("Successfully seeded developers and meilisearch"))
-  .catch(() => console.log("Seed failed"));
+  .then(() => console.log("Seed successs!"))
+  .catch(() => console.log("Seed failed!"));
