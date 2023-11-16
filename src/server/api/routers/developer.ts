@@ -136,9 +136,14 @@ export const developerRouter = createTRPCRouter({
 
   create: protectedProcedure
     .input(devSchema)
-    .mutation(async ({ ctx, input: dev }) => {
+    .mutation(async ({ ctx, input: { skills, locationPref, ...rest } }) => {
       const id = ctx.session.user.id;
       const lastModified = new Date();
+      const dev = {
+        ...rest,
+        skills: skills.map((i) => i.skill),
+        locationPref: locationPref.map((i) => i.location),
+      };
       await ctx.db.developer.create({
         data: { ...dev, lastModified, User: { connect: { id } } },
       });
@@ -147,14 +152,27 @@ export const developerRouter = createTRPCRouter({
 
   update: protectedProcedure
     .input(z.object({ dev: devSchema, id: z.string().min(1) }))
-    .mutation(async ({ ctx, input: { dev, id } }) => {
-      const lastModified = new Date();
-      await ctx.db.developer.update({
-        where: { id },
-        data: { ...dev, lastModified },
-      });
-      await seedMeilisearch();
-    }),
+    .mutation(
+      async ({
+        ctx,
+        input: {
+          dev: { locationPref, skills, ...rest },
+          id,
+        },
+      }) => {
+        const dev = {
+          ...rest,
+          skills: skills.map((i) => i.skill),
+          locationPref: locationPref.map((i) => i.location),
+        };
+        const lastModified = new Date();
+        await ctx.db.developer.update({
+          where: { id },
+          data: { ...dev, lastModified },
+        });
+        await seedMeilisearch();
+      },
+    ),
 
   getByUser: protectedProcedure.query(({ ctx }) => {
     return ctx.db.developer.findFirst({
