@@ -49,7 +49,13 @@ const DeveloperId = ({ params: { id } }: Props) => {
         <main className="flex w-full flex-col gap-4 p-2">
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
-            developer={developer}
+            data={{
+              ...developer,
+              skills: developer.skills.map((i) => ({ skill: i })),
+              locationPref: developer.locationPref.map((i) => ({
+                location: i,
+              })),
+            }}
           >
             <div className="flex gap-2">
               <Button

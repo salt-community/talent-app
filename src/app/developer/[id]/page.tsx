@@ -36,7 +36,7 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
         {isSuccess && <UserCard developer={developer} />}
         {isLoading && <UserCardShimmer />}
       </div>
-      <div className="relative flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
+      <div className="flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl grow">
         {isSuccess && <Bio {...developer} />}
         {isLoading && <DeveloperCardShimmer />}
         {session ? (

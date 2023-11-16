@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getGitHubUsername, getGithubData } from "./helpers/getGithubData";
 import toast from "react-hot-toast";
-import type { tGithubSchema } from "@/utils/zodSchema";
 import Button from "../../../_components/Button";
 import FormError from "../../../_components/FormError";
 import Icon from "@/app/assets/icons/Icon";
+import type { RouterOutputs } from "@/trpc/shared";
+
+type GitHubData = Pick<
+  RouterOutputs["developer"]["getById"],
+  "gitHubUrl" | "image"
+>;
 
 type Props = {
-  data: tGithubSchema;
-  setData: (data: tGithubSchema) => void;
+  error?: string;
+  data: GitHubData;
+  setData: (data: GitHubData) => void;
 };
 
 const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
@@ -28,6 +34,12 @@ const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
         setData({ gitHubUrl: "", image: "" });
       });
   };
+
+  useEffect(() => {
+    if (!isValid) {
+      setData({ gitHubUrl: "", image: "" });
+    }
+  }, [isValid, setData]);
 
   return (
     <form
@@ -55,7 +67,6 @@ const GithubForm = ({ data: { gitHubUrl }, setData }: Props) => {
         {isValid && (
           <Icon icon="check" className="absolute right-5 w-8 fill-green-600" />
         )}
-
         {!isValid && <Button className="h-10">Validate</Button>}
       </div>
       {!isValid && (

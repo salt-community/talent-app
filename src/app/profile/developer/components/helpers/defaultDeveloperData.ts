@@ -5,7 +5,7 @@ const defaultDeveloperData = (): tDevSchema => {
     gitHubUrl: "",
     image: "",
     skills: [],
-    locationPref: ["Stockholm"],
+    locationPref: [{ location: "Stockholm" }],
     name: "",
     phone: "",
     mail: "",

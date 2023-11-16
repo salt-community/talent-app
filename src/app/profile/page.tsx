@@ -11,7 +11,7 @@ const Profile = async () => {
   const mobs = await api.mob.getByDev.query();
 
   return (
-    <main className="flex flex-col items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
+    <main className="flex flex-col grow items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
       <Section title={"Developer profile:"}>
         {developer ? (
           <Developer developer={developer} />
