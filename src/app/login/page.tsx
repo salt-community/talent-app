@@ -23,7 +23,6 @@ const LoginPage = () => {
         className="flex max-w-sm flex-col gap-3 "
         onSubmit={(event) =>
           void handleSubmit(async ({ email }) => {
-            console.log(email);
             await signIn("email", { email, callbackUrl: "/" });
           })(event)
         }

@@ -49,7 +49,6 @@ const onDragEnd = <T extends { id: string }>(
   const { active, over } = event;
   if (over && active.id !== over.id) {
     const activeIndex = arr.map((i) => i.id).indexOf(active.id as string);
-    console.log(activeIndex);
     const overIndex = arr.map((i) => i.id).indexOf(over.id as string);
     if (activeIndex !== undefined && overIndex !== undefined) {
       move(activeIndex, overIndex);
