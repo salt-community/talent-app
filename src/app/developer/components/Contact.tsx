@@ -2,7 +2,7 @@
 import Icon from "@/app/assets/icons/Icon";
 import type { RouterOutputs } from "@/trpc/shared";
 import React, { useState } from "react";
-type Developer = RouterOutputs["developer"]["getById"];
+type Developer = RouterOutputs["developer"]["getBySlug"];
 
 type Props = { developer: Developer };
 
