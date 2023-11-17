@@ -4,8 +4,10 @@ import type { RouterOutputs } from "@/trpc/shared";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
 import AddToCart from "./AddToCart";
+import Button from "@/app/_components/Button";
+import { useRouter } from "next/navigation";
 
-type Developer = RouterOutputs["developer"]["getById"];
+type Developer = RouterOutputs["developer"]["getBySlug"];
 
 type Props = {
   developer: Developer;
@@ -13,6 +15,7 @@ type Props = {
 
 const UserCard = ({ developer }: Props) => {
   const { data: session } = useSession();
+  const router = useRouter();
   return (
     <section className="flex flex-col items-center gap-2 rounded-md bg-gray p-2 md:w-1/4 md:rounded-none">
       <Image
@@ -24,11 +27,11 @@ const UserCard = ({ developer }: Props) => {
       />
       <h1 className="text-center text-2xl font-semibold">{developer.name}</h1>
       {!!developer.locationPref.length && (
-        <div className="flex flex-col gap-1 select-none">
+        <div className="flex select-none flex-col gap-1">
           <p className="text-center text-sm text-black/60">
             Open for work in...
           </p>
-          <ul className="flex flex-wrap justify-center items-center gap-1">
+          <ul className="flex flex-wrap items-center justify-center gap-1">
             {developer.locationPref.slice(0, 3).map((loc, i, arr) => (
               <li className="relative flex" key={loc}>
                 <p className="text-sm text-orange/90">{`${loc}${
@@ -55,6 +58,11 @@ const UserCard = ({ developer }: Props) => {
       </div>
       {session && session.user.role === "CLIENT" && (
         <AddToCart developerId={developer.id} />
+      )}
+      {!session && (
+        <Button callToAction onClick={() => router.push("/login")}>
+          Sign In to add to cart
+        </Button>
       )}
     </section>
   );
