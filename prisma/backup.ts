@@ -1,5 +1,5 @@
 import { db } from "@/server/db";
-import { readFileSync, readdirSync, writeFileSync } from "fs";
+import { readFileSync, readdirSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "path";
 import type { UserRole } from "types";
 
@@ -143,7 +143,18 @@ const MobDevToJSON = async () => {
   }
 };
 
+const cleanLocal = () => {
+  const dirs = readdirSync(dataPath);
+  for (const dir of dirs) {
+    const files = readdirSync(join(dataPath, dir));
+    for (const file of files) {
+      unlinkSync(join(dataPath, dir, file));
+    }
+  }
+};
+
 export const storeDataLocally = async () => {
+  cleanLocal();
   await AccountsToJSON();
   await UsersToJSON();
   await DevsToJSON();
