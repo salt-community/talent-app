@@ -1,38 +1,63 @@
-import { api } from "@/trpc/server";
+"use client";
+import { api } from "@/trpc/react";
 import Developer from "./components/DeveloperItem";
-import Project from "./components/ProjectItem";
 import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
 import MobItem from "./components/MobItem";
+import Projects from "./components/dndProjects/Projects";
 
-const Profile = async () => {
-  const developer = await api.developer.getByUser.query();
-  const projects = await api.project.getByDev.query();
-  const mobs = await api.mob.getByDev.query();
+const Profile = () => {
+  const {
+    data: developer,
+    isSuccess: gotDev,
+    isLoading: gettingDev,
+  } = api.developer.getByUser.useQuery();
+  const {
+    data: projects,
+    isSuccess: gotProjects,
+    isLoading: gettingProjects,
+  } = api.project.getByDev.useQuery();
+  const {
+    data: mobs,
+    isSuccess: gotMobs,
+    isLoading: gettingMobs,
+  } = api.mob.getByDev.useQuery();
 
   return (
-    <main className="flex flex-col grow items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
+    <main className="flex grow flex-col items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
       <Section title={"Developer profile:"}>
-        {developer ? (
-          <Developer developer={developer} />
-        ) : (
-          <Link href={"/profile/developer"}>
-            <ItemContainer className="px-5">Create developer</ItemContainer>
-          </Link>
+        {gotDev && (
+          <>
+            {developer ? (
+              <Developer developer={developer} />
+            ) : (
+              <Link href={"/profile/developer"}>
+                <ItemContainer className="px-5">Create developer</ItemContainer>
+              </Link>
+            )}
+          </>
         )}
+        {gettingDev && <p>Loading...</p>}
       </Section>
       {developer && (
         <>
-          <Section title="Your projects">
-            {projects.length !== 0 &&
-              projects.map((project) => (
+          {gotProjects && projects.length !== 0 && (
+            <Section title="Your projects">
+              {/* {projects.map((project) => (
                 <Project key={project.id} project={project} />
+              ))} */}
+            <Projects data={projects} />
+            </Section>
+          )}
+          {gettingProjects && <p>Loading...</p>}
+          {gotMobs && mobs.length !== 0 && (
+            <Section title="Your mobs">
+              {mobs.map((mob) => (
+                <MobItem mob={mob} key={mob.id} />
               ))}
-          </Section>
-          <Section title="Your mobs">
-            {mobs.length !== 0 &&
-              mobs.map((mob) => <MobItem mob={mob} key={mob.id} />)}
-          </Section>
+            </Section>
+          )}
+          {gettingMobs && <p>Loading...</p>}
           <Section title="Manage projects">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
               <ItemContainer className="px-5">Create new project</ItemContainer>
