@@ -5,9 +5,14 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-type Props = { children: ReactNode; developerId: string; className?: string };
+type Props = {
+  children: ReactNode;
+  slug: string;
+  developerId: string;
+  className?: string;
+};
 
-const LogLink = ({ children, developerId, className }: Props) => {
+const LogLink = ({ children, developerId, slug, className }: Props) => {
   const { data: session } = useSession();
   const { mutate: logClick } = api.log.logClick.useMutation();
   const handleClick = () => {
@@ -19,7 +24,7 @@ const LogLink = ({ children, developerId, className }: Props) => {
     <Link
       className={className}
       onClick={handleClick}
-      href={`/developer/${developerId}`}
+      href={`/developer/${slug}`}
     >
       {children}
     </Link>

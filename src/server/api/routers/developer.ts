@@ -20,11 +20,24 @@ const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 export const developerRouter = createTRPCRouter({
-  getById: publicProcedure
+  getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
+      const developer = await ctx.db.developer.findUnique({ where: { id } });
+      if (!developer) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Developer not found!",
+        });
+      }
+      return developer;
+    }),
+
+  getBySlug: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input: { id: slug } }) => {
       const dev = await ctx.db.developer.findUnique({
-        where: { id },
+        where: { slug },
         include: {
           mobs: {
             select: {
@@ -39,6 +52,7 @@ export const developerRouter = createTRPCRouter({
                           id: true,
                           name: true,
                           image: true,
+                          slug: true,
                         },
                       },
                     },
@@ -64,15 +78,11 @@ export const developerRouter = createTRPCRouter({
       if (!dev) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
-      const mobs = dev.mobs.map(({ Mob: { id, name, members } }) => ({
-        id,
-        name,
-        members: members.map(({ Developer: { id, image, name } }) => ({
-          id,
-          name,
-          image,
-        })),
+      const mobs = dev.mobs.map(({ Mob: { members, ...rest } }) => ({
+        ...rest,
+        members: members.map(({ Developer }) => ({ ...Developer })),
       }));
+
       return {
         ...dev,
         projects: dev.projects.map((project) => ({
@@ -89,27 +99,44 @@ export const developerRouter = createTRPCRouter({
   getBySearch: publicProcedure
     .input(searchDevSchema)
     .query(async ({ ctx, input: { search } }) => {
+      let cart: string[] = [];
+      if (ctx.session && ctx.session.user.role === "CLIENT") {
+        const userId = ctx.session.user.id;
+        const res = await ctx.db.cartItem.findMany({
+          where: { userId },
+          select: { developerId: true },
+        });
+        cart = res.map(({ developerId }) => developerId);
+        ctx.db.logSearch.create({ data: { userId, search } }).catch(() => {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "1234",
+          });
+        });
+      }
       if (search === "") {
         const data = await ctx.db.developer.findMany();
         return shuffleArray(data).map(
-          ({ skills, title, description, name, image, id }) => ({
+          ({ skills, title, description, name, image, slug, id }) => ({
             skills,
             title,
             description,
             name,
             image,
+            slug,
             id,
+            inCart: !!cart.find((i) => i === id),
           }),
         );
       }
-      if (ctx.session && ctx.session.user.role === "CLIENT") {
-        const userId = ctx.session.user.id;
-        await ctx.db.logSearch.create({ data: { userId, search } });
-      }
+
       try {
         const res = await ctx.msClient.index("developers").search(search);
         const searchData = res.hits as SearchResult[];
-        return searchData;
+        return searchData.map((dev) => ({
+          ...dev,
+          inCart: !!cart.find((i) => i === dev.id),
+        }));
       } catch (error) {
         console.log(error);
         const mode = "insensitive";
@@ -123,14 +150,18 @@ export const developerRouter = createTRPCRouter({
             ],
           },
         });
-        return data.map(({ skills, title, description, name, image, id }) => ({
-          skills,
-          title,
-          description,
-          name,
-          image,
-          id,
-        }));
+        return data.map(
+          ({ skills, title, description, name, image, slug, id }) => ({
+            skills,
+            title,
+            description,
+            name,
+            image,
+            slug,
+            id,
+            inCart: !!cart.find((i) => i === id),
+          }),
+        );
       }
     }),
 
@@ -186,5 +217,18 @@ export const developerRouter = createTRPCRouter({
     .mutation(async ({ ctx, input: id }) => {
       await ctx.db.developer.delete({ where: { id } });
       await seedMeilisearch();
+    }),
+
+  updateSlug: protectedProcedure
+    .input(z.object({ id: z.string().min(1), slug: z.string().min(1) }))
+    .mutation(async ({ ctx, input: { id, slug } }) => {
+      try {
+        await ctx.db.developer.update({ where: { id }, data: { slug } });
+      } catch (error) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Slug already used!",
+        });
+      }
     }),
 });

@@ -6,6 +6,7 @@ import checkIfAuth from "@/utils/redirectIfNotAuth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import SlugForm from "../components/SlugForm";
 
 type Props = { params: { id: string } };
 const DeveloperId = ({ params: { id } }: Props) => {
@@ -31,21 +32,22 @@ const DeveloperId = ({ params: { id } }: Props) => {
   const { mutate: remove, isLoading: deleting } =
     api.developer.delete.useMutation({
       onSuccess: async () => {
-        await utils.developer.invalidate();
+        await utils.developer.getByUser.invalidate();
         router.push("/profile");
       },
       onError: () => {
-        toast.error('Could not delete developer.');
+        toast.error("Could not delete developer.");
       },
     });
   const className =
-    "flex justify-center w-full h-full items-center font-bold text-black ";
+    "flex justify-center w-full h-full items-center font-bold text-black";
   return (
     <>
       {isLoading && <p className={className}>Loading...</p>}
       {isError && <p className={className}>404 not found</p>}
       {isSuccess && (
         <main className="flex w-full flex-col gap-4 p-2">
+          <SlugForm id={developer.id} slug={developer.slug} />
           <DeveloperForm
             handleData={(dev) => update({ dev, id })}
             data={{
