@@ -13,9 +13,16 @@ const SearchResults = ({ search }: Props) => {
     isSuccess: gotDevs,
     isLoading: gettingDevs,
     isError: errorDevs,
-  } = api.developer.getBySearch.useQuery({
-    search,
-  });
+  } = api.developer.getBySearch.useQuery(
+    {
+      search,
+    },
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+    },
+  );
   return (
     <ul data-cy="dev-list" className="flex flex-col gap-4 px-4">
       {gotDevs && developers.length === 0 && (
