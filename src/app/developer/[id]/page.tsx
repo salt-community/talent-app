@@ -11,7 +11,6 @@ import { useSession } from "next-auth/react";
 import UserCardShimmer from "../components/shimmer/UserCardShimmer";
 import DeveloperCardShimmer from "../components/shimmer/DeveloperCardShimmer";
 
-import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const {
@@ -22,7 +21,11 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <main className="flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5">
+    <main
+      className={`flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5 ${
+        !session && "pb-5"
+      }`}
+    >
       <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
         <button
           onClick={() => router.back()}
@@ -36,23 +39,12 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
         {isSuccess && <UserCard developer={developer} />}
         {isLoading && <UserCardShimmer />}
       </div>
-      <div className="flex w-full flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl grow">
+      <div className="flex w-full grow flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
         {isSuccess && <Bio {...developer} />}
         {isLoading && <DeveloperCardShimmer />}
-        {session ? (
-          <>
-            {isSuccess && <Skills skills={developer.skills} />}
-            {isSuccess && <Projects projects={developer.projects} />}
-            {isSuccess && <TeamMembers mobs={developer.mobs} />}
-          </>
-        ) : (
-          <div className="mb-2">
-            <span className="ml-1 text-lg font-medium">To see more...</span>
-            <Button callToAction onClick={() => router.push("/login")}>
-              Sign In
-            </Button>
-          </div>
-        )}
+        {isSuccess && <Skills skills={developer.skills} />}
+        {isSuccess && <Projects projects={developer.projects} />}
+        {isSuccess && <TeamMembers mobs={developer.mobs} />}
       </div>
       {session && isSuccess && <Contact developer={developer} />}
     </main>
