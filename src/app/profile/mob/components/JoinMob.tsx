@@ -37,7 +37,7 @@ const MobItem = ({ mob, developerId }: MobItemProps) => {
   const connectionId = findConnection(mob.members, developerId);
   const { mutate: join, isLoading: joiningMob } = api.mob.join.useMutation({
     onSuccess: async () => {
-      await utils.mob.invalidate();
+      await utils.mob.getAll.invalidate();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -45,7 +45,7 @@ const MobItem = ({ mob, developerId }: MobItemProps) => {
   });
   const { mutate: leave, isLoading: leavingMob } = api.mob.leave.useMutation({
     onSuccess: async () => {
-      await utils.mob.invalidate();
+      await utils.mob.getAll.invalidate();
     },
     onError: (error) => {
       toast.error(error.message);

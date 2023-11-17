@@ -42,7 +42,7 @@ const ProjectItem = ({ project, developerId }: ProjectItemProps) => {
   const { mutate: join, isLoading: joiningProject } =
     api.project.join.useMutation({
       onSuccess: async () => {
-        await utils.project.invalidate();
+        await utils.project.getAll.invalidate();
       },
       onError: (error) => {
         toast.error(error.message);
@@ -51,7 +51,7 @@ const ProjectItem = ({ project, developerId }: ProjectItemProps) => {
   const { mutate: leave, isLoading: leavingProject } =
     api.project.leave.useMutation({
       onSuccess: async () => {
-        await utils.project.invalidate();
+        await utils.project.getAll.invalidate();
       },
       onError: (error) => {
         toast.error(error.message);
