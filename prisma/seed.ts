@@ -1,12 +1,13 @@
 // import seedMeilisearch from "@/server/seedMeilisearch";
-import { storeDataLocally, seedDataToDb } from "./backup";
+// import { storeDataLocally, seedDataToDb } from "./backup";
 
 const seedData = async () => {
   // await seedMeilisearch();
-  await storeDataLocally();
+  // await storeDataLocally();
   // await seedDataToDb();
+  await new Promise((resolve) => {
+    resolve(console.log("No script to run."));
+  });
 };
 
-seedData()
-  .then(() => console.log("Seed successs!"))
-  .catch(() => console.log("Seed failed!"));
+seedData().catch(() => console.log("Seed failed!"));
