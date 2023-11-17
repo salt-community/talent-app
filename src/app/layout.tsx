@@ -20,16 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-screen">
       <body className={`flex h-screen flex-col`}>
-        <main className="flex h-full w-full items-center justify-center">
-          <p>Under maintenance.</p>
-        </main>
-        {/* <TRPCReactProvider headers={headers()}>
+        <TRPCReactProvider headers={headers()}>
           <Toaster />
           <SessionProviderWrapper>
             <Header />
             {children}
           </SessionProviderWrapper>
-        </TRPCReactProvider> */}
+        </TRPCReactProvider>
       </body>
     </html>
   );
