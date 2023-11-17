@@ -33,11 +33,13 @@ export const projectRouter = createTRPCRouter({
   getByDev: protectedProcedure.query(async ({ ctx }) => {
     const projects = await ctx.db.project_developer.findMany({
       where: { Developer: { User: { some: { id: ctx.session.user.id } } } },
-      include: { project: true },
+      select: { id: true, project: true, order: true },
     });
-    return projects.map(({ project }) => ({
-      id: project.id,
+    return projects.map(({ id, project, order }) => ({
+      id,
+      projectId: project.id,
       title: project.title,
+      order,
     }));
   }),
 
@@ -90,5 +92,15 @@ export const projectRouter = createTRPCRouter({
     .input(z.string().min(1))
     .mutation(async ({ ctx, input: id }) => {
       await ctx.db.project.delete({ where: { id } });
+    }),
+
+  reorder: protectedProcedure
+    .input(z.object({ projects: z.array(z.object({ id: z.string().min(1) })) }))
+    .mutation(async ({ ctx, input: { projects } }) => {
+      await Promise.all(
+        projects.map(({ id }, order) =>
+          ctx.db.project_developer.update({ where: { id }, data: { order } }),
+        ),
+      );
     }),
 });
