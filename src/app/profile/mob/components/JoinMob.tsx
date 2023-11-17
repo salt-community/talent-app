@@ -14,11 +14,11 @@ type Props = { developerId: string };
 const JoinMob = ({ developerId }: Props) => {
   const { data: mobs, isSuccess } = api.mob.getAll.useQuery();
   return (
-    <main className="flex flex-col gap-2 p-2">
+    <main className="flex grow flex-col bg-orange p-4">
       {!isSuccess ? (
         <p>Loading...</p>
       ) : (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-3">
           {mobs.map((mob) => (
             <MobItem key={mob.id} mob={mob} developerId={developerId} />
           ))}
@@ -53,7 +53,7 @@ const MobItem = ({ mob, developerId }: MobItemProps) => {
   });
 
   return (
-    <ItemContainer key={mob.id} className="flex-col justify-normal">
+    <ItemContainer key={mob.id} className="flex-col justify-normal p-2">
       <div className="flex w-full justify-between">
         <Link href={`/profile/mob/${mob.id}`} className="select-none">
           {mob.name}
@@ -82,11 +82,11 @@ const MobItem = ({ mob, developerId }: MobItemProps) => {
         {mob.members.map((dev) => (
           <li key={dev.connectionId}>
             <Image
-              className="rounded-full"
+              className="h-12 w-12 rounded-full"
               src={dev.image}
               alt="developer profile picture"
-              width={48}
-              height={48}
+              width={256}
+              height={256}
             />
           </li>
         ))}

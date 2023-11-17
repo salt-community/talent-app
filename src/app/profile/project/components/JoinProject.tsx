@@ -14,11 +14,11 @@ type Props = { developerId: string };
 const JoinProject = ({ developerId }: Props) => {
   const { data: projects, isSuccess } = api.project.getAll.useQuery();
   return (
-    <main className="p-2">
+    <main className="flex flex-col bg-orange p-4 grow">
       {!isSuccess ? (
         <p>Loading...</p>
       ) : (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-3">
           {projects.map((project) => (
             <ProjectItem
               key={project.id}
@@ -59,7 +59,7 @@ const ProjectItem = ({ project, developerId }: ProjectItemProps) => {
     });
 
   return (
-    <ItemContainer key={project.id} className="flex-col justify-normal">
+    <ItemContainer key={project.id} className="flex-col justify-normal p-2">
       <div className="flex w-full justify-between">
         <Link href={`/profile/project/${project.id}`} className="select-none">
           {project.title}
@@ -88,11 +88,11 @@ const ProjectItem = ({ project, developerId }: ProjectItemProps) => {
         {project.members.map((dev) => (
           <li key={dev.connectionId}>
             <Image
-              className="h-10 w-10 rounded-full"
+              className="h-12 w-12 rounded-full"
               src={dev.image}
               alt="developer profile picture"
-              width={32}
-              height={32}
+              width={256}
+              height={256}
             />
           </li>
         ))}
