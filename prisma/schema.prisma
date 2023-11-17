@@ -100,6 +100,7 @@ model Project_developer {
 
 model Developer {
     id           String              @id @default(cuid())
+    slug         String              @unique @default(cuid())
     name         String
     phone        String
     mail         String
