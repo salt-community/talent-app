@@ -12,7 +12,7 @@ type Props = {
 const TeamMembers = ({ mobs }: Props) => {
   return (
     <>
-      {mobs.map((mob) => (
+      {mobs.slice(0, 1).map((mob) => (
         <section className="flex w-full flex-col gap-4" key={mob.id}>
           <SectionHeader title="Team members" />
           <ul className="flex flex-wrap justify-evenly gap-1">
