@@ -1,7 +1,7 @@
 import type { RouterOutputs } from "@/trpc/shared";
 import SectionHeader from "./SectionHeader";
 import Icon from "@/app/assets/icons/Icon";
-type Project = RouterOutputs["developer"]["getById"]["projects"][number];
+type Project = RouterOutputs["developer"]["getBySlug"]["projects"][number];
 
 type Props = {
   projects: Project[];

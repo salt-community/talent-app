@@ -18,7 +18,7 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
     data: developer,
     isSuccess,
     isLoading,
-  } = api.developer.getById.useQuery({ id });
+  } = api.developer.getBySlug.useQuery({ id });
   const { data: session } = useSession();
   const router = useRouter();
   return (

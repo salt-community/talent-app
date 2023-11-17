@@ -3,7 +3,7 @@ import SectionHeader from "./SectionHeader";
 import type { RouterOutputs } from "@/trpc/shared";
 import LogLink from "@/app/_components/search/LogLink";
 
-type Mob = RouterOutputs["developer"]["getById"]["mobs"][number];
+type Mob = RouterOutputs["developer"]["getBySlug"]["mobs"][number];
 
 type Props = {
   mobs: Mob[];
@@ -21,6 +21,7 @@ const TeamMembers = ({ mobs }: Props) => {
                 <LogLink
                   className="flex flex-col items-center rounded-md px-2 duration-300 ease-in-out hover:translate-y-[-2%] hover:bg-orange/20 active:bg-orange"
                   developerId={developer.id}
+                  slug={developer.slug}
                 >
                   <Image
                     src={developer.image}
