@@ -7,15 +7,15 @@ import Icon from "@/app/assets/icons/Icon";
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type Props = {
   developer: DeveloperSearch;
-  inCart: boolean;
 };
 
-const SearchItem = ({ developer, inCart }: Props) => {
+const SearchItem = ({ developer }: Props) => {
   return (
     <ItemContainer data-cy="developer">
       <LogLink
-        className="relative flex items-center w-full h-full p-2 gap-2 gl:gap-6 justify-between lg:px-9"
+        className="gl:gap-6 relative flex h-full w-full items-center justify-between gap-2 p-2 lg:px-9"
         developerId={developer.id}
+        slug={developer.slug}
       >
         <Image
           src={developer.image}
@@ -45,7 +45,7 @@ const SearchItem = ({ developer, inCart }: Props) => {
         <p className="text-md hidden overflow-hidden overflow-ellipsis whitespace-nowrap md:flex">
           {developer.title}
         </p>
-        {inCart && (
+        {developer.inCart && (
           <Icon
             icon="cart"
             className="absolute right-1 top-1 h-6 fill-orange/40"

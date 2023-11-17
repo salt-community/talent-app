@@ -23,7 +23,7 @@ const SearchResults = ({ search }: Props) => {
       )}
       {gotDevs &&
         developers.map((developer) => (
-          <SearchItem key={developer.id} developer={developer} inCart={false} />
+          <SearchItem key={developer.id} developer={developer} />
         ))}
       {gettingDevs && <SearchItemShimmer />}
       {errorDevs && <p>404</p>}
