@@ -6,6 +6,7 @@ export type SearchResult = {
   description: string;
   name: string;
   image: string;
+  slug: string;
   id: string;
 };
 
