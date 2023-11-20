@@ -10,8 +10,9 @@ import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
 import UserCardShimmer from "../components/shimmer/UserCardShimmer";
 import DeveloperCardShimmer from "../components/shimmer/DeveloperCardShimmer";
-
 import { useRouter } from "next/navigation";
+import GitHubCalendar from "../components/GitHubContributions/GitHubContributions";
+
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const {
     data: developer,
@@ -22,28 +23,35 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const router = useRouter();
   return (
     <main
-      className={`flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink px-5 pt-5 ${
+      className={`flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink pt-5 md:px-5 ${
         !session && "pb-5"
       }`}
     >
-      <div className="relative flex w-full flex-col items-center gap-5 rounded-md bg-gray p-5 md:max-w-5xl">
+      <div className="relative flex w-full flex-col items-center gap-5 bg-gray p-5 md:max-w-5xl md:rounded-md">
         <button
           onClick={() => router.back()}
           className="absolute left-2 top-2 w-10"
         >
-          <Icon
-            icon="arrowLeft"
-            className="h-10 w-14 rounded-full border border-black/30 bg-black fill-white active:bg-black/30"
-          />
+          <Icon icon="arrowLeft" className="h-10 fill-black" />
         </button>
         {isSuccess && <UserCard developer={developer} />}
         {isLoading && <UserCardShimmer />}
       </div>
-      <div className="flex w-full grow flex-col gap-5 rounded-md bg-gray px-5 pt-5 md:max-w-5xl">
+      <div className="flex w-full grow flex-col gap-5 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
+        {isSuccess && <Skills skills={developer.skills} />}
         {isSuccess && <Bio {...developer} />}
         {isLoading && <DeveloperCardShimmer />}
-        {isSuccess && <Skills skills={developer.skills} />}
         {isSuccess && <Projects projects={developer.projects} />}
+        {isSuccess && developer.gitHubUsername && (
+          <>
+            <SectionHeader title="Github contributions" />
+            <GitHubCalendar
+              username={developer.gitHubUsername}
+              fontSize={16}
+              colorScheme="light"
+            />
+          </>
+        )}
         {isSuccess && <TeamMembers mobs={developer.mobs} />}
       </div>
       {session && isSuccess && <Contact developer={developer} />}
