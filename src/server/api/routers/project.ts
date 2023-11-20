@@ -30,19 +30,6 @@ export const projectRouter = createTRPCRouter({
     });
   }),
 
-  getByDev: protectedProcedure.query(async ({ ctx }) => {
-    const projects = await ctx.db.project_developer.findMany({
-      where: { Developer: { User: { some: { id: ctx.session.user.id } } } },
-      select: { id: true, project: true, order: true },
-    });
-    return projects.map(({ id, project, order }) => ({
-      id,
-      projectId: project.id,
-      title: project.title,
-      order,
-    }));
-  }),
-
   getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {

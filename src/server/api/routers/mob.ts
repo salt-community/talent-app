@@ -31,17 +31,6 @@ export const mobRouter = createTRPCRouter({
     });
   }),
 
-  getByDev: protectedProcedure.query(async ({ ctx }) => {
-    const mob = await ctx.db.mob_developer.findMany({
-      where: { Developer: { User: { some: { id: ctx.session.user.id } } } },
-      include: { Mob: true },
-    });
-    return mob.map(({ Mob }) => ({
-      id: Mob.id,
-      name: Mob.name,
-    }));
-  }),
-
   getById: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input: { id } }) => {
