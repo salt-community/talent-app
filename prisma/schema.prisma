@@ -94,7 +94,7 @@ model Project_developer {
     developerId String
     project     Project   @relation(fields: [groupId], references: [id], onDelete: Cascade)
     groupId     String
-    order       Int?
+    order       Int       @default(0)
 
     @@map("public.project_developer")
 }
