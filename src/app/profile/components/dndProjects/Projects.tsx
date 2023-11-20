@@ -84,7 +84,6 @@ const Projects = ({ data }: Props) => {
     }
   };
   useEffect(() => {
-    console.log("use effect triggered");
     if (data.map((i) => i.id).join("") !== items.map((i) => i.id).join("")) {
       setEdited(true);
       return;
