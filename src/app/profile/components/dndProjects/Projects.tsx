@@ -1,3 +1,4 @@
+"use client";
 import {
   DndContext,
   useSensor,
@@ -15,8 +16,7 @@ import {
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import Icon from "@/app/assets/icons/Icon";
-import type { RouterOutputs } from "@/trpc/shared";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import ItemContainer from "@/app/_components/ItemContainer";
 import Button from "@/app/_components/Button";
@@ -47,14 +47,27 @@ const SortableItem = (props: SortableItemProps) => {
   );
 };
 
-type Project = RouterOutputs["project"]["getByDev"][number];
+type Project = {
+  id: string;
+  projectId: string;
+  title: string;
+  order: number;
+};
 type Props = {
   data: Project[];
 };
 
 const Projects = ({ data }: Props) => {
+  const utils = api.useContext();
   const [items, setItems] = useState(data);
-  const {mutate: reorder} = api.project.reorder.useMutation()
+  const [edited, setEdited] = useState(false);
+  const { mutate: reorder } = api.project.reorder.useMutation({
+    onSuccess: async () => {
+      setEdited(false);
+      await utils.developer.getByUser.invalidate();
+      await utils.developer.getBySlug.invalidate();
+    },
+  });
   const modifiers = [restrictToParentElement];
   const touchSensor = useSensor(TouchSensor);
   const mouseSensor = useSensor(MouseSensor);
@@ -70,32 +83,58 @@ const Projects = ({ data }: Props) => {
       }
     }
   };
+  useEffect(() => {
+    console.log("use effect triggered");
+    if (data.map((i) => i.id).join("") !== items.map((i) => i.id).join("")) {
+      setEdited(true);
+      return;
+    }
+    setEdited(false);
+  }, [items, data]);
+
+  useEffect(() => {
+    setItems(data);
+  }, [data]);
+
   return (
-    <div className="flex w-full flex-col gap-1">
+    <div className="relative flex w-full flex-col gap-1">
+      {edited && (
+        <div className="absolute bottom-0 z-10 flex gap-2 place-self-end p-1">
+          <Button
+            callToAction
+            className="border"
+            onClick={() => reorder({ projects: items })}
+          >
+            Save
+          </Button>
+          <Button className="border" onClick={() => setItems(data)}>
+            Cancel
+          </Button>
+        </div>
+      )}
       <DndContext modifiers={modifiers} onDragEnd={onDragEnd} sensors={sensors}>
         <SortableContext strategy={verticalListSortingStrategy} items={items}>
           {items.map(({ id, title, projectId }) => {
             return (
               <SortableItem key={id} id={id}>
                 {({ attributes, listeners }) => (
-                  <Link href={`/profile/project/${projectId}`}>
-                    <ItemContainer className="px-5">
-                      <button {...attributes} {...listeners}>
-                        <Icon
-                          icon="dragVH"
-                          className="h-6 cursor-grab fill-black"
-                        />
-                      </button>
+                  <ItemContainer className="px-5">
+                    <button {...attributes} {...listeners}>
+                      <Icon
+                        icon="dragVH"
+                        className="h-6 cursor-grab fill-black"
+                      />
+                    </button>
+                    <Link href={`/profile/project/${projectId}`}>
                       <p>{title}</p>
-                    </ItemContainer>
-                  </Link>
+                    </Link>
+                  </ItemContainer>
                 )}
               </SortableItem>
             );
           })}
         </SortableContext>
       </DndContext>
-      <Button onClick={() => reorder({projects: items})}>Save new order</Button>
     </div>
   );
 };
