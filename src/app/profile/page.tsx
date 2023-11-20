@@ -12,52 +12,34 @@ const Profile = () => {
     isSuccess: gotDev,
     isLoading: gettingDev,
   } = api.developer.getByUser.useQuery();
-  const {
-    data: projects,
-    isSuccess: gotProjects,
-    isLoading: gettingProjects,
-  } = api.project.getByDev.useQuery();
-  const {
-    data: mobs,
-    isSuccess: gotMobs,
-    isLoading: gettingMobs,
-  } = api.mob.getByDev.useQuery();
 
   return (
     <main className="flex grow flex-col items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
       <Section title={"Developer profile:"}>
-        {gotDev && (
-          <>
-            {developer ? (
-              <Developer developer={developer} />
-            ) : (
-              <Link href={"/profile/developer"}>
-                <ItemContainer className="px-5">Create developer</ItemContainer>
-              </Link>
-            )}
-          </>
+        {gotDev && developer ? (
+          <Developer developer={developer} />
+        ) : (
+          <Link href={"/profile/developer"}>
+            <ItemContainer className="px-5">Create developer</ItemContainer>
+          </Link>
         )}
         {gettingDev && <p>Loading...</p>}
       </Section>
       {developer && (
         <>
-          {gotProjects && projects.length !== 0 && (
-            <Section title="Your projects">
-              {/* {projects.map((project) => (
-                <Project key={project.id} project={project} />
-              ))} */}
-            <Projects data={projects} />
+          {developer.projects.length !== 0 && (
+            <Section title="Your projects (The order is visible in your profile)">
+              <Projects data={developer.projects} />
             </Section>
           )}
-          {gettingProjects && <p>Loading...</p>}
-          {gotMobs && mobs.length !== 0 && (
+
+          {developer.mobs.length !== 0 && (
             <Section title="Your mobs">
-              {mobs.map((mob) => (
-                <MobItem mob={mob} key={mob.id} />
+              {developer.mobs.map((mob) => (
+                <MobItem {...mob} key={mob.id} />
               ))}
             </Section>
           )}
-          {gettingMobs && <p>Loading...</p>}
           <Section title="Manage projects">
             <Link href={`/profile/project?id=${developer.id}&do=create`}>
               <ItemContainer className="px-5">Create new project</ItemContainer>
