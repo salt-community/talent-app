@@ -19,6 +19,16 @@ const shuffleArray = <T>(array: T[]): T[] => {
   return newArray;
 };
 
+const getGitHubUsername = (gitHubLink: string): string | null => {
+  const regex = /github\.com\/([^/]+)\/?/;
+  const match = gitHubLink.match(regex);
+  if (match?.[1]) {
+    return match[1];
+  } else {
+    return null;
+  }
+};
+
 export const developerRouter = createTRPCRouter({
   getById: protectedProcedure
     .input(z.object({ id: z.string() }))
@@ -83,9 +93,10 @@ export const developerRouter = createTRPCRouter({
         ...rest,
         members: members.map(({ Developer }) => ({ ...Developer })),
       }));
-
+      const gitHubUsername = getGitHubUsername(dev.gitHubUrl);
       return {
         ...dev,
+        gitHubUsername,
         projects: dev.projects.map((project) => ({
           description: project.project.description,
           title: project.project.title,
