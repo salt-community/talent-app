@@ -1,5 +1,3 @@
-import React from "react";
-
 const DeveloperCardShimmer = () => {
   return (
     <div className="my-2 h-[24rem] animate-pulse rounded-lg bg-gray p-4 duration-500">
