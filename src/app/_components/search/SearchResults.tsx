@@ -18,13 +18,12 @@ const SearchResults = ({ search }: Props) => {
       search,
     },
     {
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
     },
   );
   return (
-    <ul data-cy="dev-list" className="flex flex-col gap-4 px-4">
+    <ul data-cy="dev-list" className="flex flex-col gap-4 p-2">
       {gotDevs && developers.length === 0 && (
         <p data-cy="no-listings">No results found...</p>
       )}
