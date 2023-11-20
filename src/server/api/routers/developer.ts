@@ -72,6 +72,7 @@ export const developerRouter = createTRPCRouter({
                 },
               },
             },
+            orderBy: { order: "asc" },
           },
         },
       });
@@ -91,6 +92,7 @@ export const developerRouter = createTRPCRouter({
           youtube: project.project.youtube,
           id: project.groupId,
           githublink: project.project.githubLink,
+          order: project.order,
         })),
         mobs,
       };
@@ -205,11 +207,36 @@ export const developerRouter = createTRPCRouter({
       },
     ),
 
-  getByUser: protectedProcedure.query(({ ctx }) => {
-    return ctx.db.developer.findFirst({
+  getByUser: protectedProcedure.query(async ({ ctx }) => {
+    const data = await ctx.db.developer.findFirst({
       where: { User: { every: { id: ctx.session.user.id } } },
-      select: { id: true, image: true, name: true },
+      select: {
+        id: true,
+        image: true,
+        name: true,
+        projects: {
+          select: { id: true, project: true, order: true },
+          orderBy: { order: "asc" },
+        },
+        mobs: { select: { Mob: true } },
+      },
     });
+    if (data) {
+      return {
+        ...data,
+        projects: data.projects.map(({ id, project, order }) => ({
+          id,
+          projectId: project.id,
+          title: project.title,
+          order,
+        })),
+        mobs: data.mobs.map(({ Mob }) => ({
+          id: Mob.id,
+          name: Mob.name,
+        })),
+      };
+    }
+    return null;
   }),
 
   delete: protectedProcedure
