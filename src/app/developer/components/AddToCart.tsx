@@ -21,6 +21,7 @@ const AddToCart = ({ developerId }: Props) => {
     onSuccess: async () => {
       await refetch();
       await utils.cart.getAll.invalidate();
+      await utils.developer.getBySearch.invalidate();
     },
   });
   return (
@@ -30,7 +31,11 @@ const AddToCart = ({ developerId }: Props) => {
           Remove from cart
         </Button>
       ) : (
-        <Button callToAction disabled={adding} onClick={() => add({ developerId })}>
+        <Button
+          callToAction
+          disabled={adding}
+          onClick={() => add({ developerId })}
+        >
           Add to cart
         </Button>
       )}
