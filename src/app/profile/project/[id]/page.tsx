@@ -20,14 +20,14 @@ const ProjectPage = ({ params: { id } }: Props) => {
   const { mutate: updateProject, isLoading: updatingProject } =
     api.project.update.useMutation({
       onSuccess: async () => {
-        await utils.project.invalidate();
+        await utils.developer.getByUser.invalidate();
         router.push("/profile");
       },
     });
   const { mutate: remove, isLoading: removingProject } =
     api.project.remove.useMutation({
       onSuccess: async () => {
-        await utils.project.invalidate();
+        await utils.developer.getByUser.invalidate();
         router.push("/profile");
       },
     });

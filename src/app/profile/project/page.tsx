@@ -23,11 +23,11 @@ const ProjectPage = () => {
   const { mutate: create, isLoading: creatingProject } =
     api.project.create.useMutation({
       onSuccess: async () => {
-        await utils.project.invalidate();
+        await utils.developer.getByUser.invalidate();
         router.push("/profile");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
+        toast.error("Something went wrong");
       },
     });
   if (validatedSearchParams.data.do === "create") {
