@@ -31,4 +31,15 @@ export const logRouter = createTRPCRouter({
       },
     });
   }),
+
+  getCarts: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.db.cartItem.findMany({
+      select: {
+        id: true,
+        date: true,
+        developer: { select: { name: true } },
+        User: { select: { email: true, id: true } },
+      },
+    });
+  }),
 });
