@@ -30,7 +30,7 @@ const Client = async ({ params: { id } }: Props) => {
   return (
     <main>
       <section className="flex flex-col">
-        <h2>Clicked on developers</h2>
+        <h2>Client events</h2>
         <table>
           <thead>
             <tr>
