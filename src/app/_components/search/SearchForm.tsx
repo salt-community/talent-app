@@ -10,7 +10,8 @@ const SearchForm = () => {
   const debouncedSearch = useDebounce(search, 500);
   useEffect(() => {
     if (!!debouncedSearch) {
-      router.push(`?search=${debouncedSearch}`);
+      const encodedSearch = encodeURIComponent(debouncedSearch);
+      router.push(`?search=${encodedSearch}`);
     }
   }, [debouncedSearch, router]);
 
