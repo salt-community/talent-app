@@ -32,7 +32,7 @@ const SearchResults = ({ search }: Props) => {
           <SearchItem key={developer.id} developer={developer} />
         ))}
       {gettingDevs && <SearchItemShimmer />}
-      {errorDevs && <p>404</p>}
+      {errorDevs && <p>Something went wrong...</p>}
     </ul>
   );
 };
