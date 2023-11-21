@@ -64,7 +64,13 @@ const GitHubCalendar = ({
   }
 
   if (loading || !data) {
-    return <Skeleton {...props} loading style={{fill: "#353535", opacity: '10%'}} />;
+    return (
+      <Skeleton
+        {...props}
+        loading
+        style={{ fill: "#353535", opacity: "10%" }}
+      />
+    );
   }
 
   const theme = props.theme ?? DEFAULT_THEME;
