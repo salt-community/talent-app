@@ -1,13 +1,24 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
-import NotAllowed from "../components/notAllowed";
 
 const page = async () => {
   const session = await getServerAuthSession();
+  if (!session) {
+    return (
+      <main className="flex grow items-center justify-center">
+        <p>You are not allowed here!</p>
+      </main>
+    );
+  }
+  if (session && session.user.role !== "ADMIN") {
+    <main className="flex grow items-center justify-center">
+      <p>You are not allowed here {session.user.role}!</p>
+    </main>;
+  }
   const searches = await api.log.getSearch.query();
   const className = "border text-xs md:text-base";
   return (
-    <NotAllowed session={session}>
+    <main className="flex flex-col gap-2 p-5">
       <section className="flex flex-col">
         <h2>Searches</h2>
         <table>
@@ -38,7 +49,7 @@ const page = async () => {
           </tbody>
         </table>
       </section>
-    </NotAllowed>
+    </main>
   );
 };
 
