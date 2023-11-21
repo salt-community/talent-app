@@ -27,10 +27,10 @@ const seedMeilisearch = async () => {
       .index("developers")
       .updateSearchableAttributes([
         "skills",
+        "locations",
         "title",
         "description",
         "name",
-        "locations",
       ]);
 
     await client.index("developers").updateSettings(settings);
