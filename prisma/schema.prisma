@@ -119,7 +119,6 @@ model Developer {
     projects     Project_developer[]
     mobs         Mob_developer[]
     User         User[]
-    cartId       String?
     CartItem     CartItem[]
     LogClickDev  LogClickDev[]
     locationPref String[]
@@ -147,11 +146,12 @@ model Mob {
 
 model CartItem {
     id          String    @id @default(cuid())
+    date        DateTime  @default(now())
     developer   Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
     developerId String
     comment     String?
-    User        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId      String?
+    User        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      String
 
     @@unique([developerId, userId])
     @@map("public.cartItem")
