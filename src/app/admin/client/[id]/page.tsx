@@ -25,7 +25,7 @@ const Client = async ({ params: { id } }: Props) => {
     ({ date, developer: { name } }) => ({ date, data: name, event: "cart" }),
   );
   const data = [...clicks, ...searches, ...carts];
-  data.sort((a, b) => a.date.toString() - b.date.toString());
+  data.sort((a, b) => Number(a.date) - Number(b.date));
   const className = "border text-xs md:text-base";
   return (
     <main>
