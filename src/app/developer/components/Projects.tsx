@@ -1,14 +1,20 @@
 import type { RouterOutputs } from "@/trpc/shared";
 import SectionHeader from "./SectionHeader";
 import Icon from "@/app/assets/icons/Icon";
-type Project = RouterOutputs["developer"]["getBySlug"]["projects"][number];
+import type { LoadingProps } from "types";
+type Developer = RouterOutputs["developer"]["getBySlug"];
 
-type Props = {
-  projects: Project[];
-};
-const Projects = ({ projects }: Props) => {
-  return (
-    <section>
+const Projects = ({ data }: LoadingProps<Developer>) => {
+  if (data.status === "loading") {
+    return (
+      <div className="relative pb-[56.25%] bg-black/10 animate-pulse">
+        <div className="absolute left-0 top-0 h-full w-full"></div>
+      </div>
+    );
+  }
+  if (data.status === "success") {
+    const projects = data.data.projects;
+    return (
       <ul className="flex flex-col gap-4">
         {projects.map((project) => (
           <div key={project.id} className="flex flex-col gap-4">
@@ -33,8 +39,11 @@ const Projects = ({ projects }: Props) => {
           </div>
         ))}
       </ul>
-    </section>
-  );
+    );
+  }
+  if (data.status === "error") {
+    return <p>Something went wrong...</p>;
+  }
 };
 
 export default Projects;

@@ -1,6 +1,5 @@
 "use client";
 import UserCard from "@/app/developer/components/UserCard";
-import SectionHeader from "@/app/developer/components/SectionHeader";
 import Skills from "@/app/developer/components/Skills";
 import TeamMembers from "@/app/developer/components/Team";
 import { api } from "@/trpc/react";
@@ -8,18 +7,14 @@ import Projects from "@/app/developer/components/Projects";
 import Contact from "@/app/developer/components/Contact";
 import Icon from "@/app/assets/icons/Icon";
 import { useSession } from "next-auth/react";
-import UserCardShimmer from "../components/shimmer/UserCardShimmer";
-import DeveloperCardShimmer from "../components/shimmer/DeveloperCardShimmer";
 import { useRouter } from "next/navigation";
 import GitHubCalendar from "../components/GitHubContributions/GitHubContributions";
+import type { ReactNode } from "react";
 
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
-  const {
-    data: developer,
-    isSuccess,
-    isLoading,
-  } = api.developer.getBySlug.useQuery({ id });
+  const { data: developer, status } = api.developer.getBySlug.useQuery({ id });
   const { data: session } = useSession();
+  const gitHubUsername = developer ? developer.gitHubUsername : null;
   const router = useRouter();
   return (
     <main
@@ -27,45 +22,50 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
         !session && "pb-5"
       }`}
     >
-      <div className="relative flex w-full flex-col items-center gap-5 bg-gray p-5 md:max-w-5xl md:rounded-md">
+      <section className="relative flex w-full flex-col items-center gap-5 bg-gray p-5 md:max-w-5xl md:rounded-md">
         <button
           onClick={() => router.back()}
           className="absolute left-2 top-2 w-10"
         >
           <Icon icon="arrowLeft" className="h-10 fill-black" />
         </button>
-        {isSuccess && <UserCard developer={developer} />}
-        {isLoading && <UserCardShimmer />}
-      </div>
-      <div className="flex w-full grow flex-col gap-5 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
-        {isSuccess && <Skills skills={developer.skills} />}
-        {isSuccess && <Bio {...developer} />}
-        {isLoading && <DeveloperCardShimmer />}
-        {isSuccess && <Projects projects={developer.projects} />}
-        {isSuccess && developer.gitHubUsername && (
-          <>
-            <SectionHeader title="Github contributions" />
-            <GitHubCalendar
-              username={developer.gitHubUsername}
-              fontSize={16}
-              colorScheme="light"
-            />
-          </>
-        )}
-        {isSuccess && <TeamMembers mobs={developer.mobs} />}
-      </div>
-      {session && isSuccess && <Contact developer={developer} />}
+        <UserCard data={{ data: developer!, status }} />
+      </section>
+      <section className="flex w-full grow flex-col gap-5 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
+        <Article title="Skills">
+          <Skills data={{ data: developer!, status }} />
+        </Article>
+        <Article title="GitHub contributions">
+          <GitHubCalendar
+            username={gitHubUsername}
+            fontSize={16}
+            colorScheme="light"
+          />
+        </Article>
+        <Article title={developer?.title ?? "Fullstack web developer"}>
+          {status === "success" && <p>{developer.description}</p>}
+        </Article>
+        <Article title="Projects">
+          <Projects data={{ data: developer!, status }} />
+        </Article>
+        <Article title="Team members">
+          {status === "success" && developer.mobs.length > 0 && (
+            <TeamMembers mob={developer.mobs[0]!} />
+          )}
+        </Article>
+      </section>
+      {session && status === 'success' && <Contact developer={developer} />}
     </main>
   );
 };
 
-type BioProps = { title: string; description: string };
-const Bio = ({ title, description }: BioProps) => {
+type ArticleProps = { title: string; children: ReactNode };
+const Article = ({ title, children }: ArticleProps) => {
   return (
-    <section className="flex flex-col gap-4">
-      <SectionHeader title={title} />
-      <p>{description}</p>
-    </section>
+    <article className="flex flex-col gap-4">
+      <h2 className="text-xl font-medium md:text-3xl">{title}</h2>
+      {children}
+    </article>
   );
 };
 

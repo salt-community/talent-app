@@ -12,3 +12,11 @@ export type SearchResult = {
 
 export type tIcon = keyof typeof svgPaths;
 export type UserRole = "SALTIE" | "CLIENT" | "ADMIN";
+export type Status = "error" | "loading" | "success";
+
+type LoadingState = { status: "loading" };
+type SuccessState<T> = { status: "success"; data: T };
+type ErrorState = { status: "error" };
+export type LoadingProps<T> = {
+  data: LoadingState | SuccessState<T> | ErrorState;
+};

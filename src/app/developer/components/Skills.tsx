@@ -1,21 +1,32 @@
 "use client";
+import type { RouterOutputs } from "@/trpc/shared";
 import { useState } from "react";
-import SectionHeader from "./SectionHeader";
+import type { LoadingProps } from "types";
+type Developer = RouterOutputs["developer"]["getBySlug"];
 
-type Props = { skills: string[] };
-
-const Skills = ({ skills }: Props) => {
+const Skills = ({ data }: LoadingProps<Developer>) => {
   const [more, setMore] = useState(false);
-  return (
-    <section className="flex flex-col gap-4">
-      <SectionHeader title="Skills" />
+  if (data.status === "loading") {
+    return (
+      <div className="flex w-full animate-pulse gap-2">
+        <div className="h-4 w-1/5 rounded bg-black/10"></div>
+        <div className="h-4 w-1/5 rounded bg-black/10"></div>
+        <div className="h-4 w-1/5 rounded bg-black/10"></div>
+        <div className="h-4 w-1/5 rounded bg-black/10"></div>
+      </div>
+    );
+  }
+
+  if (data.status === "success") {
+    const skills = data.data.skills;
+    return (
       <ul className="flex flex-wrap gap-3">
         {skills
           .filter((_, i) => more || i < 4)
           .map((skill, index) => {
             return (
               <li key={skill + index}>
-                <p className="text-black/70 text-sm bg-orange/10 rounded-full px-2 py-1">
+                <p className="rounded-full bg-orange/10 px-2 py-1 text-sm text-black/70">
                   {skill}
                 </p>
               </li>
@@ -32,8 +43,12 @@ const Skills = ({ skills }: Props) => {
           )}
         </li>
       </ul>
-    </section>
-  );
+    );
+  }
+
+  if (data.status === "error") {
+    return <p>Something went wrong</p>;
+  }
 };
 
 export default Skills;

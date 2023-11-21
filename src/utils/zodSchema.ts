@@ -22,7 +22,6 @@ export const devSchema = z.object({
   locationPref: z
     .array(z.object({ location: z.string().min(1) }))
     .min(1, "Minimum one location")
-    .max(3)
     .refine((i) => new Set(i).size === i.length, {
       message: "Locations must be unique!",
     }),
