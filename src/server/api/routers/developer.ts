@@ -120,12 +120,14 @@ export const developerRouter = createTRPCRouter({
           select: { developerId: true },
         });
         cart = res.map(({ developerId }) => developerId);
-        ctx.db.logSearch.create({ data: { userId, search } }).catch(() => {
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "1234",
+        if (!!search) {
+          ctx.db.logSearch.create({ data: { userId, search } }).catch(() => {
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: "1234",
+            });
           });
-        });
+        }
       }
       if (search === "") {
         const data = await ctx.db.developer.findMany();
