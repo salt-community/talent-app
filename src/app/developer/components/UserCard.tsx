@@ -30,7 +30,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
       ? developer.locationPref
       : developer.locationPref.slice(0, 3);
     return (
-      <section className="flex flex-col items-center gap-2 rounded-md bg-gray p-2 md:w-1/4 md:rounded-none">
+      <section className="flex flex-col items-center gap-2 rounded-md bg-gray p-2 md:rounded-none">
         <Image
           className="h-28 w-28 rounded-full"
           src={developer.image}
@@ -42,7 +42,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
         {!!developer.locationPref.length && (
           <div className="flex select-none flex-col gap-1">
             <p className="text-center text-sm text-black/60">
-              Open for work in...
+              Open for work in
             </p>
             <ul className="flex flex-wrap items-center justify-center gap-1">
               {locations.map((loc, i, arr) => (
@@ -61,7 +61,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
             </ul>
             {developer.locationPref.length > 3 && (
               <button
-                className="text-sm underline underline-offset-2"
+                className="text-sm underline underline-offset-2 w-fit self-center"
                 onClick={() => setShowMore((p) => !p)}
               >
                 {showMore ? "Show less" : "Show more"}
