@@ -21,7 +21,6 @@ export default {
         gray: "#f8f8f8",
         white: "#ffffff",
         pink: "#f35c7e",
-        hoverGray: "#353535",
       },
     },
   },
