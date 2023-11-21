@@ -10,7 +10,7 @@ import type { ApiErrorResponse, ApiResponse, Year } from "./types";
 import { transformData } from "./utils";
 
 export interface Props extends Omit<CalendarProps, "data"> {
-  username: string;
+  username: string | null;
   year?: Year;
   transformData?: (data: Array<Activity>) => Array<Activity>;
   transformTotalCount?: boolean;
@@ -44,6 +44,9 @@ const GitHubCalendar = ({
   const fetchData = useCallback(() => {
     setLoading(true);
     setError(null);
+    if (!username) {
+      return;
+    }
     fetchCalendarData(username, year)
       .then(setData)
       .catch(setError)
@@ -61,7 +64,7 @@ const GitHubCalendar = ({
   }
 
   if (loading || !data) {
-    return <Skeleton {...props} loading />;
+    return <Skeleton {...props} loading style={{fill: "#353535", opacity: '10%'}} />;
   }
 
   const theme = props.theme ?? DEFAULT_THEME;
