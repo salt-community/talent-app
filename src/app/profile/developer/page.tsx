@@ -16,11 +16,11 @@ const DeveloperPage = () => {
   const { mutate: createUser, isLoading: creatingUser } =
     api.developer.create.useMutation({
       onSuccess: async () => {
-        await utils.developer.invalidate();
+        await utils.developer.getByUser.invalidate();
         router.push("/profile");
       },
-      onError: (error) => {
-        toast.error(error.message);
+      onError: () => {
+        toast.error("Something went wrong..");
       },
     });
   const newData = defaultDeveloperData();
@@ -31,13 +31,15 @@ const DeveloperPage = () => {
   return (
     <main className="flex flex-col gap-2 p-2">
       <Link className="sticky top-0 w-10" href={"/profile"}>
-        <Icon
-          icon="arrowLeft"
-          className="h-10 w-10 rounded-full bg-black fill-white"
-        />
+        <Icon icon="arrowLeft" className="h-10 w-10 rounded-full fill-black" />
       </Link>
       <DeveloperForm data={newData} handleData={createUser}>
-        <Button callToAction className="py-2" disabled={creatingUser} form="developer-form">
+        <Button
+          callToAction
+          className="py-2"
+          disabled={creatingUser}
+          form="developer-form"
+        >
           Create user
         </Button>
       </DeveloperForm>
