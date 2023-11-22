@@ -54,7 +54,7 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
           )}
         </Article>
       </section>
-      {session && status === 'success' && <Contact developer={developer} />}
+      {session && status === "success" && <Contact developer={developer} />}
     </main>
   );
 };
