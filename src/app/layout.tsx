@@ -5,9 +5,13 @@ import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
+import { env } from "process";
 
 export const metadata = {
-  title: "Salt Talent Pool",
+  title:
+    env.NODE_ENV === "development"
+      ? "DEV: Salt Talent Pool"
+      : "Salt Talent Pool",
   description: "Salt Talent Pool",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
