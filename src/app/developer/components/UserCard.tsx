@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import type { LoadingProps } from "types";
 import { useState } from "react";
 import { NextDev, PrevDev } from "./developerNavigation/DevButtons";
+import parseLocalStorage from "./developerNavigation/parseLocalStorage";
 
 type Developer = RouterOutputs["developer"]["getBySlug"];
 
@@ -27,12 +28,19 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
   }
   if (data.status === "success") {
     const developer = data.data;
+    const { next, prev, search } = parseLocalStorage(developer.slug);
     const locations = showMore
       ? developer.locationPref
       : developer.locationPref.slice(0, 3);
     return (
-      <div className="flex w-full items-center justify-between gap-2 rounded-md bg-gray p-2 md:rounded-none">
-        <PrevDev currentSlug={data.data.slug} />
+      <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 bg-gray p-2 md:rounded-md">
+        <button
+          onClick={() => router.push(`/?search=${search}`)}
+          className="absolute left-2 top-2 w-10"
+        >
+          <Icon icon="arrowLeft" className="h-10 fill-black" />
+        </button>
+        <PrevDev slug={prev} />
         <div className="flex flex-col items-center gap-2">
           <Image
             className="h-28 w-28 rounded-full"
@@ -91,8 +99,8 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
             </Button>
           )}
         </div>
-        <NextDev currentSlug={data.data.slug} />
-      </div>
+        <NextDev slug={next} />
+      </section>
     );
   }
   if (data.status === "error") {
