@@ -14,9 +14,9 @@ const Contact = ({ developer }: Props) => {
         open ? "h-60" : "h-8"
       }`}
     >
-      <div className="flex flex-col w-full h-full bg-orange/10 items-center">
+      <div className="flex h-full w-full flex-col items-center">
         <div
-          className="flex h-8 w-full cursor-pointer items-center justify-center bg-white rounded-t-md"
+          className="flex h-8 w-full cursor-pointer items-center justify-center rounded-t-md bg-black/10"
           onClick={(e) => {
             e.stopPropagation();
             setOpen((prev) => !prev);
@@ -26,35 +26,37 @@ const Contact = ({ developer }: Props) => {
             icon={open ? "down" : "up"}
             className="h-8 w-8 self-center fill-black"
           />
-          {!open && <p>Contact</p>}
+          {!open && <p className="font-semibold">Contact</p>}
         </div>
         {open && (
-          <div className="flex grow flex-col justify-center gap-2">
-            <div className="flex gap-1">
-              <Icon icon="phone" className="w-6 fill-black" />
-              <p>{developer.phone}</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <Icon icon="mail" className="w-6 fill-black" />
-              <a className="text-orange" href={`mailto: ${developer.mail}`}>
-                Email me
+          <div className="flex w-full grow flex-col items-center justify-center gap-2 bg-orange/10">
+            <div className="flex flex-col justify-center">
+              <div className="flex gap-1">
+                <Icon icon="phone" className="w-6 fill-black" />
+                <p>{developer.phone}</p>
+              </div>
+              <div className="flex items-center gap-1">
+                <Icon icon="mail" className="w-6 fill-black" />
+                <a className="text-orange" href={`mailto: ${developer.mail}`}>
+                  Email me
+                </a>
+              </div>
+              <div className="flex items-center gap-1">
+                <Icon icon="mapMarker" className="w-6 fill-black" />
+                <div className="flex gap-1">
+                  <p>{developer.city},</p>
+                  <p>{developer.country}</p>
+                </div>
+              </div>
+              <a
+                href={developer.resume}
+                target="_blank"
+                className="flex items-center gap-1"
+              >
+                <Icon icon="resume" className="w-6 fill-black" />
+                <p className="text-orange">Resume</p>
               </a>
             </div>
-            <div className="flex items-center gap-1">
-              <Icon icon="mapMarker" className="w-6 fill-black" />
-              <div className="flex gap-1">
-                <p>{developer.city},</p>
-                <p>{developer.country}</p>
-              </div>
-            </div>
-            <a
-              href={developer.resume}
-              target="_blank"
-              className="flex items-center gap-1"
-            >
-              <Icon icon="resume" className="w-6 fill-black" />
-              <p className="text-orange">Resume</p>
-            </a>
           </div>
         )}
       </div>
