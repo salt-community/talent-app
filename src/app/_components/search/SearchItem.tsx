@@ -7,15 +7,17 @@ import Icon from "@/app/assets/icons/Icon";
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
 type Props = {
   developer: DeveloperSearch;
+  storeScroll?: () => void;
 };
 
-const SearchItem = ({ developer }: Props) => {
+const SearchItem = ({ developer, storeScroll }: Props) => {
   return (
     <ItemContainer data-cy="developer">
       <LogLink
         className="gl:gap-6 relative flex h-full w-full items-center justify-between gap-2 p-2 lg:px-9"
         developerId={developer.id}
         slug={developer.slug}
+        storeScroll={storeScroll}
       >
         <Image
           src={developer.image}
