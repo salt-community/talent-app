@@ -16,9 +16,8 @@ const Profile = () => {
   return (
     <main className="flex grow flex-col items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
       <Section title={"Developer profile:"}>
-        {gotDev && developer ? (
-          <Developer developer={developer} />
-        ) : (
+        {gotDev && developer && <Developer developer={developer} />}
+        {gotDev && !developer && (
           <Link href={"/profile/developer"}>
             <ItemContainer className="px-5">Create developer</ItemContainer>
           </Link>
