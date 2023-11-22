@@ -122,10 +122,7 @@ export const developerRouter = createTRPCRouter({
         cart = res.map(({ developerId }) => developerId);
         if (!!search) {
           ctx.db.logSearch.create({ data: { userId, search } }).catch(() => {
-            throw new TRPCError({
-              code: "INTERNAL_SERVER_ERROR",
-              message: "1234",
-            });
+            console.log("Could not log search");
           });
         }
       }
