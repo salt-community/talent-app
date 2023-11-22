@@ -31,7 +31,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
       ? developer.locationPref
       : developer.locationPref.slice(0, 3);
     return (
-      <section className="flex w-full items-center justify-between gap-2 rounded-md bg-gray p-2 md:rounded-none">
+      <div className="flex w-full items-center justify-between gap-2 rounded-md bg-gray p-2 md:rounded-none">
         <PrevDev currentSlug={data.data.slug} />
         <div className="flex flex-col items-center gap-2">
           <Image
@@ -92,7 +92,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
           )}
         </div>
         <NextDev currentSlug={data.data.slug} />
-      </section>
+      </div>
     );
   }
   if (data.status === "error") {
