@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-screen">
-      <body className={`flex h-screen flex-col`}>
+      <body className="flex h-screen flex-col">
         <TRPCReactProvider headers={headers()}>
           <Toaster />
           <SessionProviderWrapper>
