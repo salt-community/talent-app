@@ -22,6 +22,12 @@ const SearchResults = ({ search }: Props) => {
       refetchOnReconnect: false,
     },
   );
+  if (gotDevs) {
+    localStorage.setItem(
+      "next-devs",
+      JSON.stringify(developers.map(({ slug }) => ({ name: slug }))),
+    );
+  }
   return (
     <ul data-cy="dev-list" className="flex flex-col gap-4 p-2">
       {gotDevs && developers.length === 0 && (
