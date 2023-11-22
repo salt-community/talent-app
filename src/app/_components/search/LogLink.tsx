@@ -10,12 +10,22 @@ type Props = {
   slug: string;
   developerId: string;
   className?: string;
+  storeScroll?: () => void;
 };
 
-const LogLink = ({ children, developerId, slug, className }: Props) => {
+const LogLink = ({
+  children,
+  developerId,
+  slug,
+  className,
+  storeScroll,
+}: Props) => {
   const { data: session } = useSession();
   const { mutate: logClick } = api.log.logClick.useMutation();
   const handleClick = () => {
+    if (storeScroll) {
+      storeScroll();
+    }
     if (session && session.user.role === "CLIENT") {
       logClick({ developerId });
     }
