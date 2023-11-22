@@ -1,24 +1,40 @@
-import { mobSchema } from "@/utils/zodSchema";
-import { z } from "zod";
+import { localStorageSchema } from "@/utils/zodSchema";
 
-const parseLocalStorage = (currentSlug: string) => {
+type ParsedLocalStorage = {
+  next: string | null;
+  prev: string | null;
+  search: string;
+  scrollPosition: number;
+};
+
+const parseLocalStorage = (currentSlug: string): ParsedLocalStorage => {
+  const empty = { next: null, prev: null, search: "", scrollPosition: 0 };
   const raw = localStorage.getItem("next-devs");
   if (!raw) {
-    return { next: null, prev: null };
+    return empty;
   }
-  const parsed = z.array(mobSchema).safeParse(JSON.parse(raw));
+  const parsed = localStorageSchema.safeParse(JSON.parse(raw));
   if (!parsed.success) {
-    return { next: null, prev: null };
+    console.log(parsed.error.message);
+    return empty;
   }
-  const currentSlugIndex = parsed.data
-    .map(({ name }) => name)
+  console.log("went here");
+  const currentSlugIndex = parsed.data.devs
+    .map(({ slug }) => slug)
     .indexOf(currentSlug);
   if (currentSlugIndex === -1) {
-    return { next: null, prev: null };
+    return empty;
   }
-  const next = parsed.data[currentSlugIndex + 1];
-  const prev = parsed.data[currentSlugIndex - 1];
-  return { next: !!next ? next.name : null, prev: !!prev ? prev.name : null };
+  const next = parsed.data.devs[currentSlugIndex + 1];
+  const prev = parsed.data.devs[currentSlugIndex - 1];
+  const { search, scrollPosition } = parsed.data;
+  console.log(parsed.data);
+  return {
+    next: !!next ? next.slug : null,
+    prev: !!prev ? prev.slug : null,
+    search,
+    scrollPosition,
+  };
 };
 
 export default parseLocalStorage;
