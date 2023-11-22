@@ -21,6 +21,7 @@ export const logRouter = createTRPCRouter({
         User: { select: { name: true, email: true } },
         developer: { select: { image: true, name: true } },
       },
+      orderBy: { date: "desc" },
     });
   }),
 
@@ -29,6 +30,7 @@ export const logRouter = createTRPCRouter({
       include: {
         User: { select: { name: true, email: true } },
       },
+      orderBy: { date: "desc" },
     });
   }),
 
@@ -40,6 +42,7 @@ export const logRouter = createTRPCRouter({
         developer: { select: { name: true } },
         User: { select: { email: true, id: true } },
       },
+      orderBy: { date: "desc" },
     });
   }),
 });
