@@ -10,14 +10,14 @@ import { TRPCError } from "@trpc/server";
 import { devSchema, searchDevSchema } from "@/utils/zodSchema";
 import seedMeilisearch from "@/server/seedMeilisearch";
 
-const shuffleArray = <T>(array: T[]): T[] => {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]] as [T, T];
-  }
-  return newArray;
-};
+// const shuffleArray = <T>(array: T[]): T[] => {
+//   const newArray = [...array];
+//   for (let i = newArray.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [newArray[i], newArray[j]] = [newArray[j], newArray[i]] as [T, T];
+//   }
+//   return newArray;
+// };
 
 const getGitHubUsername = (gitHubLink: string): string | null => {
   const regex = /github\.com\/([^/]+)\/?/;
@@ -130,8 +130,10 @@ export const developerRouter = createTRPCRouter({
         }
       }
       if (search === "") {
-        const data = await ctx.db.developer.findMany();
-        return shuffleArray(data).map(
+        const data = await ctx.db.developer.findMany({
+          orderBy: { name: "asc" },
+        });
+        return data.map(
           ({ skills, title, description, name, image, slug, id }) => ({
             skills,
             title,
