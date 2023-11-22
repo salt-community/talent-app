@@ -1,28 +1,25 @@
 import React from "react";
-import parseLocalStorage from "./parseLocalStorage";
 import Icon from "@/app/assets/icons/Icon";
 import { useRouter } from "next/navigation";
 
-type Props = { currentSlug: string };
-const NextDev = ({ currentSlug }: Props) => {
+type Props = { slug: string | null };
+const NextDev = ({ slug }: Props) => {
   const router = useRouter();
-  const { next } = parseLocalStorage(currentSlug);
   return (
     <button
-      className={!!next ? "block" : "invisible"}
-      onClick={() => router.push(`/developer/${next}`)}
+      className={!!slug ? "block" : "invisible"}
+      onClick={() => router.push(`/developer/${slug}`)}
     >
       <Icon icon="nextPerson" className="h-10 fill-black" />
     </button>
   );
 };
-const PrevDev = ({ currentSlug }: Props) => {
+const PrevDev = ({ slug }: Props) => {
   const router = useRouter();
-  const { prev } = parseLocalStorage(currentSlug);
   return (
     <button
-      className={!!prev ? "block" : "invisible"}
-      onClick={() => router.push(`/developer/${prev}`)}
+      className={!!slug ? "block" : "invisible"}
+      onClick={() => router.push(`/developer/${slug}`)}
     >
       <Icon icon="previousPerson" className="h-10 fill-black" />
     </button>
