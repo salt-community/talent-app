@@ -29,7 +29,7 @@ const SearchResults = ({ search }: Props) => {
     );
   }
   return (
-    <ul data-cy="dev-list" className="flex flex-col gap-4 p-2">
+    <ul data-cy="dev-list" className="flex w-full max-w-5xl flex-col gap-4 p-2">
       {gotDevs && developers.length === 0 && (
         <p data-cy="no-listings">No results found...</p>
       )}
