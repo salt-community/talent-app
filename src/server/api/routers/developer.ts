@@ -189,9 +189,17 @@ export const developerRouter = createTRPCRouter({
         skills: skills.map((i) => i.skill),
         locationPref: locationPref.map((i) => i.location),
       };
-      await ctx.db.developer.create({
+      const newDev = await ctx.db.developer.create({
         data: { ...dev, lastModified, User: { connect: { id } } },
       });
+      const slug = dev.name.toLowerCase().replace(/[^a-zA-Z]+/g, "-");
+      const foundSlug = await ctx.db.developer.findFirst({ where: { slug } });
+      if (!foundSlug) {
+        await ctx.db.developer.update({
+          where: { id: newDev.id },
+          data: { slug },
+        });
+      }
       await seedMeilisearch();
     }),
 
