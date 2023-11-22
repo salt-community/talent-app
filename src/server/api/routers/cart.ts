@@ -14,15 +14,18 @@ export const cartRouter = createTRPCRouter({
     const userId = ctx.session.user.id;
     const cart = await ctx.db.cartItem.findMany({
       where: { userId },
-      include: { developer: { select: { image: true, name: true } } },
+      include: {
+        developer: { select: { image: true, name: true, slug: true } },
+      },
     });
     return cart.map(
-      ({ id, comment, developerId, developer: { image, name } }) => ({
+      ({ id, comment, developerId, developer: { image, name, slug } }) => ({
         id,
         developerId,
         comment,
         image,
         name,
+        slug,
       }),
     );
   }),

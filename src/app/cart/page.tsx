@@ -21,10 +21,10 @@ const Cart = () => {
         </h2>
         <ul className="flex flex-col gap-2">
           {isSuccess &&
-            cart.map(({ developerId, image, name }) => (
+            cart.map(({ developerId, image, name, slug }) => (
               <ItemContainer key={developerId} className="px-4">
                 <Link
-                  href={`developer/${developerId}`}
+                  href={`developer/${slug}`}
                   className="flex w-full justify-between"
                 >
                   <div className="flex items-center gap-4">
