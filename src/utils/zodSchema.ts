@@ -72,3 +72,10 @@ export type tMail = z.infer<typeof zMail>;
 export const zSearchFilter = z.object({
   search: z.string(),
 });
+
+export const localStorageSchema = z.object({
+  search: z.string(),
+  scrollPosition: z.number(),
+  devs: z.array(z.object({ slug: z.string().min(1) })),
+});
+export type tLocalStorageSchema = z.infer<typeof localStorageSchema>;
