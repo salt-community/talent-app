@@ -38,8 +38,6 @@ Development Team (Mob Name: Developoors)
 - Jou-Fang Wang
 - Allan Heremi
 - Rasmus Eklund
-- Alexandra Macovei
-- Lee Sheppard
 
 ## Project Status
 Salt Talent Pool is currently in maintenance mode. While not actively adding new features, the application is still supported and maintained to ensure a smooth experience for users.
