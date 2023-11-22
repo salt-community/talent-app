@@ -1,5 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
+import Link from "next/link";
 
 const page = async () => {
   const session = await getServerAuthSession();
@@ -30,10 +31,10 @@ const page = async () => {
             </tr>
           </thead>
           <tbody>
-            {searches.map((i) => (
-              <tr key={i.id}>
+            {searches.map(({ id, date, userId, search, User: { email } }) => (
+              <tr key={id}>
                 <td className={className}>
-                  {i.date.toLocaleTimeString("sv-SE", {
+                  {date.toLocaleTimeString("sv-SE", {
                     year: "numeric",
                     month: "2-digit",
                     day: "2-digit",
@@ -42,8 +43,17 @@ const page = async () => {
                     second: "2-digit",
                   })}
                 </td>
-                <td className={className}>{i.User.email}</td>
-                <td className={className}>{i.search}</td>
+                <td className={className}>
+                  {
+                    <Link
+                      className="underline"
+                      href={`/admin/client/${userId}`}
+                    >
+                      {email}
+                    </Link>
+                  }
+                </td>
+                <td className={className}>{search}</td>
               </tr>
             ))}
           </tbody>

@@ -41,7 +41,7 @@ const Client = async ({ params: { id } }: Props) => {
           </thead>
           <tbody>
             {data.map(({ date, data, event }) => (
-              <tr key={id}>
+              <tr key={Number(date) + id}>
                 <td className={className}>
                   {date.toLocaleTimeString("sv-SE", {
                     year: "numeric",

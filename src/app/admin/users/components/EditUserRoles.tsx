@@ -3,6 +3,7 @@ import { api } from "@/trpc/react";
 import type { RouterOutputs } from "@/trpc/shared";
 import { zRole, type tRole } from "@/utils/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 type Users = RouterOutputs["users"]["getAll"][number];
@@ -22,7 +23,13 @@ const EditUserRole = ({ user }: Props) => {
   });
   return (
     <li className="flex items-center justify-between border px-1 text-xs md:text-base">
-      <p>{user.email}</p>
+      {user.role === "CLIENT" ? (
+        <Link className="underline" href={`/admin/client/${user.id}`}>
+          {user.email}
+        </Link>
+      ) : (
+        <p>{user.email}</p>
+      )}
       <form
         onSubmit={(event) =>
           void handleSubmit(({ role }) =>

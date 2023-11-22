@@ -32,12 +32,7 @@ const page = async () => {
           </thead>
           <tbody>
             {cartItems.map(
-              ({
-                id,
-                date,
-                User: { email, id: userId },
-                developer: { name },
-              }) => (
+              ({ id, date, userId, User: { email }, developer: { name } }) => (
                 <tr key={id}>
                   <td className={className}>
                     {date.toLocaleTimeString("sv-SE", {
@@ -50,7 +45,12 @@ const page = async () => {
                     })}
                   </td>
                   <td className={className}>
-                    <Link href={`/admin/client/${userId}`}>{email}</Link>
+                    <Link
+                      className="underline"
+                      href={`/admin/client/${userId}`}
+                    >
+                      {email}
+                    </Link>
                   </td>
                   <td className={className}>{name}</td>
                 </tr>

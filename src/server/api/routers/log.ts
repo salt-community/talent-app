@@ -37,10 +37,11 @@ export const logRouter = createTRPCRouter({
   getCarts: protectedProcedure.query(async ({ ctx }) => {
     return await ctx.db.cartItem.findMany({
       select: {
+        userId: true,
         id: true,
         date: true,
         developer: { select: { name: true } },
-        User: { select: { email: true, id: true } },
+        User: { select: { email: true } },
       },
       orderBy: { date: "desc" },
     });

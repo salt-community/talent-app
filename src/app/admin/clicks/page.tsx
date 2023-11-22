@@ -1,5 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
+import Link from "next/link";
 const Admin = async () => {
   const session = await getServerAuthSession();
   if (!session) {
@@ -29,22 +30,33 @@ const Admin = async () => {
             </tr>
           </thead>
           <tbody>
-            {clicks.map((i) => (
-              <tr key={i.id}>
-                <td className={className}>
-                  {i.date.toLocaleTimeString("sv-SE", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                  })}
-                </td>
-                <td className={className}>{i.User.email}</td>
-                <td className={className}>{i.developer.name}</td>
-              </tr>
-            ))}
+            {clicks.map(
+              ({ date, developer: { name }, id, User: { email }, userId }) => (
+                <tr key={id}>
+                  <td className={className}>
+                    {date.toLocaleTimeString("sv-SE", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </td>
+                  <td className={className}>
+                    {
+                      <Link
+                        className="underline"
+                        href={`/admin/client/${userId}`}
+                      >
+                        {email}
+                      </Link>
+                    }
+                  </td>
+                  <td className={className}>{name}</td>
+                </tr>
+              ),
+            )}
           </tbody>
         </table>
       </section>
