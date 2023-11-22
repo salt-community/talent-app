@@ -4,7 +4,7 @@ import ItemContainer from "../../../_components/ItemContainer";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import type { RouterOutputs } from "@/trpc/shared";
-import findConnection from "@/app/helpers/findMemberInGroup";
+import findConnection from "@/app/profile/helpers/findMemberInGroup";
 import Link from "next/link";
 import Button from "../../../_components/Button";
 
