@@ -19,7 +19,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
   const router = useRouter();
   if (data.status === "loading") {
     return (
-      <div className="flex h-full w-full items-center justify-center rounded-lg bg-gray py-2">
+      <div className="flex h-full w-full max-w-5xl items-center justify-center rounded-lg bg-gray py-2">
         <div className="flex animate-pulse flex-col gap-2">
           <div className="h-24 w-24 rounded-full bg-black/10"></div>
           <div className="h-4 w-full rounded bg-black/10"></div>
