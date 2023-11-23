@@ -8,9 +8,9 @@ const CartStatus = () => {
 
   return (
     <Link href={"/cart"} className="relative">
-      <Icon icon="star" className="h-10 fill-orange lg:h-12" />
-      <div className="absolute right-0 top-0 flex h-4 w-4 select-none items-center justify-center rounded-full bg-black/90 lg:h-5 lg:w-5">
-        <p className="text-sm text-white">{isSuccess && cart.length}</p>
+      <Icon icon="starCart" className="h-8 fill-black lg:h-12" />
+      <div className="absolute -right-2 -top-1 flex h-4 w-4 select-none items-center justify-center rounded-full bg-orange/90 lg:h-5 lg:w-5">
+        <p className="text-sm text-black">{isSuccess && cart.length}</p>
       </div>
     </Link>
   );
