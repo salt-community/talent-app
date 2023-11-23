@@ -21,11 +21,11 @@ const SearchForm = () => {
         e.preventDefault();
         router.push(`?search=${debouncedSearch}`);
       }}
-      className="mx-auto flex gap-2 rounded-sm bg-white md:w-3/5 lg:w-[400px]"
+      className="flex gap-2 rounded-sm bg-white md:w-3/5 lg:w-[400px]"
     >
       <input
         data-cy="searchbar"
-        className=" placeholder-gray-400 grow px-2 py-1 outline-none placeholder:translate-x-2 placeholder:font-primary placeholder:text-sm placeholder:font-light"
+        className="grow px-2 py-1 placeholder-black/80 outline-none placeholder:font-primary placeholder:text-sm placeholder:font-light"
         value={search}
         onChange={({ target: { value } }) => setSearch(value)}
         placeholder="Search"
