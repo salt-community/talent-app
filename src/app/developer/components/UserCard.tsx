@@ -64,7 +64,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
         ) : (
           <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 bg-gray p-2 md:rounded-md">
             <button
-              onClick={() => router.push(`/?search=${search}`)}
+              onClick={() => router.push(!!search ? `/?search=${search}` : "/")}
               className="absolute left-2 top-2 w-10"
             >
               <Icon icon="arrowLeft" className="h-10 fill-black" />
