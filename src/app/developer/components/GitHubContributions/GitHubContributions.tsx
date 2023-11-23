@@ -92,6 +92,7 @@ const GitHubCalendar = ({
         transformDataCallback && transformTotalCount ? undefined : totalCount
       }
       {...props}
+      weekStart={1}
     />
   );
 };
