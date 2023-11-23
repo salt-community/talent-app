@@ -15,7 +15,7 @@ const SearchResults = ({ search }: Props) => {
     localStorage.setItem(
       "next-devs",
       JSON.stringify({
-        search,
+        search: encodeURIComponent(search),
         scrollPosition: scrollRef.current ? scrollRef.current.scrollTop : 0,
         devs: devs.map(({ slug }) => ({ slug })),
       }),
