@@ -8,11 +8,14 @@ import Contact from "@/app/developer/components/Contact";
 import { useSession } from "next-auth/react";
 import GitHubCalendar from "../components/GitHubContributions/GitHubContributions";
 import type { ReactNode } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: developer, status } = api.developer.getBySlug.useQuery({ id });
   const { data: session } = useSession();
   const gitHubUsername = developer ? developer.gitHubUsername : null;
+  const sm = useMediaQuery({ query: "(max-width: 640px)" });
+
   return (
     <main
       className={`flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink pt-5 md:px-5 ${
@@ -27,8 +30,11 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
         <Article title="GitHub contributions">
           <GitHubCalendar
             username={gitHubUsername}
-            fontSize={16}
+            fontSize={sm ? 8 : 16}
             colorScheme="light"
+            blockSize={sm ? 5 : 12}
+            blockMargin={sm ? 1 : 4}
+            blockRadius={sm ? 1 : 2}
           />
         </Article>
         <Article title={developer?.title ?? "Fullstack web developer"}>
