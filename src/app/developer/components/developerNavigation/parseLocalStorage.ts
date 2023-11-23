@@ -15,10 +15,8 @@ const parseLocalStorage = (currentSlug: string): ParsedLocalStorage => {
   }
   const parsed = localStorageSchema.safeParse(JSON.parse(raw));
   if (!parsed.success) {
-    console.log(parsed.error.message);
     return empty;
   }
-  console.log("went here");
   const currentSlugIndex = parsed.data.devs
     .map(({ slug }) => slug)
     .indexOf(currentSlug);
@@ -28,7 +26,6 @@ const parseLocalStorage = (currentSlug: string): ParsedLocalStorage => {
   const next = parsed.data.devs[currentSlugIndex + 1];
   const prev = parsed.data.devs[currentSlugIndex - 1];
   const { search, scrollPosition } = parsed.data;
-  console.log(parsed.data);
   return {
     next: !!next ? next.slug : null,
     prev: !!prev ? prev.slug : null,
