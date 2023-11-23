@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/app/_components/Button";
+import Icon from "@/app/assets/icons/Icon";
 import { api } from "@/trpc/react";
 
 type Props = { developerId: string };
@@ -27,17 +27,13 @@ const AddToCart = ({ developerId }: Props) => {
   return (
     <>
       {gotCart && inCart ? (
-        <Button disabled={removing} onClick={() => remove({ developerId })}>
-          Remove from cart
-        </Button>
+        <button disabled={removing} onClick={() => remove({ developerId })}>
+          <Icon icon="star" className="h-10 fill-orange" />
+        </button>
       ) : (
-        <Button
-          callToAction
-          disabled={adding}
-          onClick={() => add({ developerId })}
-        >
-          Add to cart
-        </Button>
+        <button disabled={adding} onClick={() => add({ developerId })}>
+          <Icon icon="starOutline" className="h-10 fill-black/50" />
+        </button>
       )}
     </>
   );

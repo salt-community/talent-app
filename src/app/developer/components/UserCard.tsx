@@ -69,6 +69,11 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
             >
               <Icon icon="arrowLeft" className="h-10 fill-black" />
             </button>
+            {session && session.user.role === "CLIENT" && (
+              <div className="absolute right-2 top-2">
+                <AddToCart developerId={developer.id} />
+              </div>
+            )}
             <PrevDev slug={prev} />
             <div className="flex flex-col items-center gap-2">
               <Image
@@ -120,9 +125,6 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
                   <Icon icon="linkedin" className="h-8 w-8 fill-black" />
                 </a>
               </div>
-              {session && session.user.role === "CLIENT" && (
-                <AddToCart developerId={developer.id} />
-              )}
               {!session && (
                 <Button callToAction onClick={() => router.push("/login")}>
                   Sign In to add to cart

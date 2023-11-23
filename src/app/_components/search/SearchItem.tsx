@@ -49,7 +49,7 @@ const SearchItem = ({ developer, storeScroll }: Props) => {
         </p>
         {developer.inCart && (
           <Icon
-            icon="cart"
+            icon="star"
             className="absolute right-1 top-1 h-6 fill-orange/40"
           />
         )}

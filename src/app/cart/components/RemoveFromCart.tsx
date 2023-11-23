@@ -11,7 +11,7 @@ const RemoveFromCart = ({ developerId }: Props) => {
   });
   return (
     <button disabled={removing} onClick={() => remove({ developerId })}>
-      <Icon icon="delete" className="h-8 w-8 hover:scale-125" />
+      <Icon icon="star" className="h-10 fill-orange md:hover:scale-110" />
     </button>
   );
 };
