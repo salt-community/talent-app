@@ -20,12 +20,12 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
   const router = useRouter();
   if (data.status === "loading") {
     return (
-      <div className="flex h-full w-full max-w-5xl items-center justify-center rounded-lg bg-gray py-2">
-        <div className="flex animate-pulse flex-col gap-2">
-          <div className="h-24 w-24 rounded-full bg-black/10"></div>
-          <div className="h-4 w-full rounded bg-black/10"></div>
-          <div className="h-4 w-full rounded bg-black/10"></div>
-          <div className="h-4 w-full rounded bg-black/10"></div>
+      <div className="flex h-full w-full max-w-5xl items-center justify-center rounded-lg bg-gray py-10">
+        <div className="flex animate-pulse flex-col gap-4 w-full items-center">
+          <div className="h-28 w-28 rounded-full bg-black/10"></div>
+          <div className="h-6 w-3/5 rounded bg-black/10"></div>
+          <div className="h-4 w-2/5 rounded bg-black/10"></div>
+          <div className="h-4 w-2/5 rounded bg-black/10"></div>
         </div>
       </div>
     );
@@ -56,13 +56,13 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
                 className="h-full rounded-full"
                 src={developer.image}
                 alt="profile picture"
-                width={256}
-                height={256}
+                width={512}
+                height={512}
               />
             </section>
           </>
         ) : (
-          <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 bg-gray p-2 md:rounded-md">
+          <section className="relative flex w-full max-w-5xl items-center gap-2 justify-between bg-gray pb-5 pt-10 md:rounded-md">
             <button
               onClick={() => router.push(!!search ? `/?search=${search}` : "/")}
               className="absolute left-2 top-2 w-10"
@@ -81,54 +81,58 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
             >
               <Icon icon="previousPerson" className="h-10 fill-black" />
             </LogLink>
-            <div className="flex flex-col items-center gap-2">
-              <Image
-                onClick={() => setBigImage((p) => !p)}
-                className="h-28 w-28 cursor-zoom-in rounded-full"
-                src={developer.image}
-                alt="profile picture"
-                width={256}
-                height={256}
-              />
-              <h1 className="text-center text-2xl font-semibold">
-                {developer.name}
-              </h1>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-col gap-1 items-center">
+                <Image
+                  onClick={() => setBigImage((p) => !p)}
+                  className="h-28 w-28 cursor-zoom-in rounded-full"
+                  src={developer.image}
+                  alt="profile picture"
+                  width={256}
+                  height={256}
+                />
+                <h1 className="text-center text-2xl font-semibold">
+                  {developer.name}
+                </h1>
+              </div>
               {!!developer.locationPref.length && (
-                <div className="flex select-none flex-col gap-1">
+                <div className="flex select-none flex-col gap-0">
                   <p className="text-center text-sm text-black/60">
                     Open for work in
                   </p>
-                  <ul className="flex flex-wrap items-center justify-center gap-1">
-                    {locations.map((loc, i, arr) => (
-                      <li className="relative flex" key={loc}>
-                        <p className="text-sm text-orange/90">{`${loc}${
-                          i !== arr.length - 1 ? "," : ""
-                        }`}</p>
-                        {i === 0 && (
-                          <Icon
-                            icon="mapMarker"
-                            className="absolute -left-[17px] top-0 h-4"
-                          />
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  {developer.locationPref.length > 3 && (
-                    <button
-                      className="w-fit self-center text-sm underline underline-offset-2"
-                      onClick={() => setShowMore((p) => !p)}
-                    >
-                      {showMore ? "Show less" : "Show more"}
-                    </button>
-                  )}
+                  <div className="flex flex-col">
+                    <ul className="flex flex-wrap items-center justify-center gap-1">
+                      {locations.map((loc, i, arr) => (
+                        <li className="relative flex" key={loc}>
+                          <p className="text-sm text-orange/90">{`${loc}${
+                            i !== arr.length - 1 ? "," : ""
+                          }`}</p>
+                          {i === 0 && (
+                            <Icon
+                              icon="mapMarker"
+                              className="absolute -left-[17px] top-0 h-4"
+                            />
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                    {developer.locationPref.length > 3 && (
+                      <button
+                        className="w-fit self-center text-sm underline underline-offset-2"
+                        onClick={() => setShowMore((p) => !p)}
+                      >
+                        {showMore ? "Show less" : "Show more"}
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
               <div className="flex gap-2">
                 <a href={developer.gitHubUrl} target="_blank">
-                  <Icon icon="github" className="h-8 w-8 fill-black" />
+                  <Icon icon="github" className="h-10 w-10 fill-black" />
                 </a>
                 <a href={developer.linkedinUrl} target="_blank">
-                  <Icon icon="linkedin" className="h-8 w-8 fill-black" />
+                  <Icon icon="linkedin" className="h-10 w-10 fill-black" />
                 </a>
               </div>
               {!session && (
