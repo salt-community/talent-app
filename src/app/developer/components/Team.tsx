@@ -12,7 +12,6 @@ const TeamMembers = ({ mob }: Props) => {
         <li key={developer.id}>
           <LogLink
             className="flex flex-col items-center rounded-md p-2 duration-300 ease-in-out hover:-translate-y-1 hover:bg-orange/20 active:bg-orange"
-            developerId={developer.id}
             slug={developer.slug}
           >
             <Image
