@@ -89,7 +89,7 @@ const GitHubCalendar = ({
       theme={theme}
       labels={Object.assign({}, defaultLabels, labels)}
       totalCount={
-        transformDataCallback && transformTotalCount ? undefined : totalCount
+        transformDataCallback && transformTotalCount ? undefined : totalCount 
       }
       {...props}
       weekStart={1}
