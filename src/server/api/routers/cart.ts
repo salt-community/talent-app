@@ -49,7 +49,7 @@ export const cartRouter = createTRPCRouter({
       });
     }),
 
-  update: protectedProcedure
+  updateComment: protectedProcedure
     .input(cartItem)
     .mutation(async ({ ctx, input: { developerId, comment } }) => {
       const userId = ctx.session.user.id;

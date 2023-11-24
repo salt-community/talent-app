@@ -4,15 +4,33 @@ import { TRPCError } from "@trpc/server";
 
 export const logRouter = createTRPCRouter({
   logClick: protectedProcedure
-    .input(z.object({ developerId: z.string().min(1) }))
-    .mutation(({ ctx, input: { developerId } }) => {
+    .input(z.object({ slug: z.string().min(1) }))
+    .mutation(({ ctx, input: { slug } }) => {
       const userId = ctx.session.user.id;
-      ctx.db.logClickDev.create({ data: { developerId, userId } }).catch(() => {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Could not log",
+      ctx.db.developer
+        .findUnique({ where: { slug }, select: { id: true } })
+        .then((dev) => {
+          if (!dev) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "Could not find developer.",
+            });
+          }
+          ctx.db.logClickDev
+            .create({ data: { developerId: dev.id, userId } })
+            .catch(() => {
+              throw new TRPCError({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "Could not log",
+              });
+            });
+        })
+        .catch(() => {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Could not log.",
+          });
         });
-      });
     }),
 
   getClicks: protectedProcedure.query(async ({ ctx }) => {
