@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { RouterOutputs } from "@/trpc/shared";
 import ItemContainer from "../ItemContainer";
-import LogLink from "./LogLink";
+import LogLink from "../LogLink";
 import Icon from "@/app/assets/icons/Icon";
 
 type DeveloperSearch = RouterOutputs["developer"]["getBySearch"][number];
@@ -15,7 +15,6 @@ const SearchItem = ({ developer, storeScroll }: Props) => {
     <ItemContainer data-cy="developer">
       <LogLink
         className="gl:gap-6 relative flex h-full w-full items-center justify-between gap-2 p-2 lg:px-9"
-        developerId={developer.id}
         slug={developer.slug}
         storeScroll={storeScroll}
       >
