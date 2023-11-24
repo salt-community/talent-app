@@ -14,8 +14,8 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
   const { data: developer, status } = api.developer.getBySlug.useQuery({ id });
   const { data: session } = useSession();
   const gitHubUsername = developer ? developer.gitHubUsername : null;
-  const sm = useMediaQuery({ query: "(max-width: 640px)" });
-
+  const xs = useMediaQuery({ query: "(max-width: 360px)" });
+  const sm = useMediaQuery({ query: "(max-width: 480px)" });
   return (
     <main
       className={`flex grow flex-col items-center gap-5 bg-gradient-to-b from-orange to-pink pt-5 md:px-5 ${
@@ -23,19 +23,21 @@ const DeveloperPage = ({ params: { id } }: { params: { id: string } }) => {
       }`}
     >
       <UserCard data={{ data: developer!, status }} />
-      <section className="flex w-full grow flex-col gap-5 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
+      <section className="flex w-full grow flex-col gap-12 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
         <Article title="Skills">
           <Skills data={{ data: developer!, status }} />
         </Article>
         <Article title="GitHub contributions">
-          <GitHubCalendar
-            username={gitHubUsername}
-            fontSize={sm ? 8 : 16}
-            colorScheme="light"
-            blockSize={sm ? 5 : 12}
-            blockMargin={sm ? 1 : 4}
-            blockRadius={sm ? 1 : 2}
-          />
+          <div className="[&_svg]:w-full">
+            <GitHubCalendar
+              username={gitHubUsername}
+              fontSize={xs ? 10 : (sm ? 12 : 16)}
+              colorScheme="light"
+              blockSize={xs ? 5 : (sm ? 6 : 12)}
+              blockMargin={sm ? 1 : 4}
+              blockRadius={sm ? 1 : 2}
+            />
+          </div>
         </Article>
         <Article title={developer?.title ?? "Fullstack web developer"}>
           {status === "success" && <p>{developer.description}</p>}
