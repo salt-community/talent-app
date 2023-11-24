@@ -8,11 +8,14 @@ const Skills = ({ data }: LoadingProps<Developer>) => {
   const [more, setMore] = useState(false);
   if (data.status === "loading") {
     return (
-      <div className="flex w-full animate-pulse gap-2">
-        <div className="h-4 w-1/5 rounded bg-black/10"></div>
-        <div className="h-4 w-1/5 rounded bg-black/10"></div>
-        <div className="h-4 w-1/5 rounded bg-black/10"></div>
-        <div className="h-4 w-1/5 rounded bg-black/10"></div>
+      <div className="flex h-10 lg:h-8 w-full animate-pulse flex-wrap gap-2 rounded-md">
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
+        <div className="w-16 rounded bg-black/10 md:w-32"></div>
       </div>
     );
   }
@@ -22,7 +25,7 @@ const Skills = ({ data }: LoadingProps<Developer>) => {
     return (
       <ul className="flex flex-wrap gap-3">
         {skills
-          .filter((_, i) => more || i < 4)
+          .filter((_, i) => more || i < 6)
           .map((skill, index) => {
             return (
               <li key={skill + index}>
@@ -32,16 +35,16 @@ const Skills = ({ data }: LoadingProps<Developer>) => {
               </li>
             );
           })}
-        <li>
-          {skills.length > 4 && (
+        {skills.length > 6 && (
+          <li>
             <button
-              className="text-sm underline underline-offset-2"
+              className="self-end text-sm underline underline-offset-2"
               onClick={() => setMore((p) => !p)}
             >
               {more ? "Show less" : "Show more"}
             </button>
-          )}
-        </li>
+          </li>
+        )}
       </ul>
     );
   }
