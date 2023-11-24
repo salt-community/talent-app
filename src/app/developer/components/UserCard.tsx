@@ -8,8 +8,8 @@ import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
 import type { LoadingProps } from "types";
 import { useState } from "react";
-import { NextDev, PrevDev } from "./developerNavigation/DevButtons";
-import parseLocalStorage from "./developerNavigation/parseLocalStorage";
+import parseLocalStorage from "./helpers/parseLocalStorage";
+import LogLink from "@/app/_components/LogLink";
 
 type Developer = RouterOutputs["developer"]["getBySlug"];
 
@@ -74,7 +74,13 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
                 <AddToCart developerId={developer.id} />
               </div>
             )}
-            <PrevDev slug={prev} />
+
+            <LogLink
+              slug={prev ? prev : ""}
+              className={!!prev ? "block" : "invisible"}
+            >
+              <Icon icon="previousPerson" className="h-10 fill-black" />
+            </LogLink>
             <div className="flex flex-col items-center gap-2">
               <Image
                 onClick={() => setBigImage((p) => !p)}
@@ -131,7 +137,12 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
                 </Button>
               )}
             </div>
-            <NextDev slug={next} />
+            <LogLink
+              slug={next ? next : ""}
+              className={!!next ? "block" : "invisible"}
+            >
+              <Icon icon="nextPerson" className="h-10 fill-black" />
+            </LogLink>
           </section>
         )}
       </>
