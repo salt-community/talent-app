@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { RouterOutputs } from "@/trpc/shared";
-import LogLink from "@/app/_components/search/LogLink";
+import LogLink from "@/app/_components/LogLink";
 
 type Mob = RouterOutputs["developer"]["getBySlug"]["mobs"][number];
 type Props = { mob: Mob };
