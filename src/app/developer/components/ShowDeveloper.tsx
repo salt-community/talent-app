@@ -22,8 +22,8 @@ const ShowDeveloper = ({ developer, session }: Props) => {
   const xs = useMediaQuery({ query: "(max-width: 360px)" });
   const sm = useMediaQuery({ query: "(max-width: 480px)" });
   return (
-    <main // bg-gradient-to-b from-orange to-pink
-      className={`flex grow flex-col items-center gap-5 px-4 pt-4 md:px-5 md:pt-5 ${
+    <main
+      className={`flex grow flex-col items-center gap-5 px-5 pt-4 md:px-5 md:pt-5 ${
         !session && "pb-5"
       }`}
     >
