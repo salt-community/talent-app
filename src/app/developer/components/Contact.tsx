@@ -10,7 +10,7 @@ const Contact = ({ developer }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`sticky bottom-0 flex w-full max-w-5xl flex-col rounded-t-md border-t border-t-black/30 bg-white transition-[height] duration-500 ease-in-out ${
+      className={`sticky bottom-0 flex w-screen max-w-5xl flex-col rounded-t-md border-t border-t-black/30 bg-white transition-[height] duration-500 ease-in-out md:w-full ${
         open ? "h-60" : "h-8"
       }`}
     >
@@ -33,12 +33,14 @@ const Contact = ({ developer }: Props) => {
             <div className="flex flex-col justify-center">
               <div className="flex gap-1">
                 <Icon icon="phone" className="w-6 fill-black" />
-                <p>{developer.phone}</p>
+                <a className="text-orange" href={`tel: ${developer.phone}`}>
+                  {developer.phone}
+                </a>
               </div>
               <div className="flex items-center gap-1">
                 <Icon icon="mail" className="w-6 fill-black" />
                 <a className="text-orange" href={`mailto: ${developer.mail}`}>
-                  Email me
+                  Email
                 </a>
               </div>
               <div className="flex items-center gap-1">
