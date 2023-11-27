@@ -30,17 +30,22 @@ const ShowDeveloper = ({ developer, session }: Props) => {
       <UserCard developer={developer} />
       <section className="flex w-full grow flex-col gap-10 bg-gray px-4 pt-5 md:max-w-5xl md:rounded-md md:px-8">
         <nav className="flex justify-around">
-          {options.map((i) => (
-            <button
-              key={`${i}-button`}
-              className={`border-black/15 w-1/4 select-none rounded-lg bg-orange/10 py-1 text-center font-primary font-medium tracking-widest transition-colors duration-300 md:tracking-wide lg:w-1/6 ${
-                view === i && "border border-black/30 bg-orange/50 shadow-md"
-              }`}
-              onClick={() => setView(i)}
-            >
-              {i}
-            </button>
-          ))}
+          {options.map((i) => {
+            if (i === "Projects" && developer.projects.length === 0) {
+              return;
+            }
+            return (
+              <button
+                key={`${i}-button`}
+                className={`border-black/15 w-1/4 select-none rounded-lg bg-orange/10 py-1 text-center font-primary font-medium tracking-widest transition-colors duration-300 md:tracking-wide lg:w-1/6 ${
+                  view === i && "border border-black/30 bg-orange/50 shadow-md"
+                }`}
+                onClick={() => setView(i)}
+              >
+                {i}
+              </button>
+            );
+          })}
         </nav>
         {view === "Skills" && (
           <>
@@ -80,12 +85,11 @@ const ShowDeveloper = ({ developer, session }: Props) => {
         >
           <Projects projects={developer.projects} />
         </article>
-
-        <Article title="Team">
-          {developer.mobs.length > 0 && (
+        {developer.mobs.length > 0 && (
+          <Article title="Team">
             <TeamMembers mob={developer.mobs[0]!} />
-          )}
-        </Article>
+          </Article>
+        )}
       </section>
       {session && <Contact developer={developer} />}
     </main>
