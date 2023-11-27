@@ -2,9 +2,7 @@
 import Image from "next/image";
 import type { RouterOutputs } from "@/trpc/shared";
 import Icon from "@/app/assets/icons/Icon";
-import { useSession } from "next-auth/react";
 import AddToCart from "./AddToCart";
-import Button from "@/app/_components/Button";
 import { useRouter } from "next/navigation";
 import type { LoadingProps } from "types";
 import { useState } from "react";
@@ -14,14 +12,13 @@ import LogLink from "@/app/_components/LogLink";
 type Developer = RouterOutputs["developer"]["getBySlug"];
 
 const UserCard = ({ data }: LoadingProps<Developer>) => {
-  const { data: session } = useSession();
   const [showMore, setShowMore] = useState(false);
   const [bigImage, setBigImage] = useState(false);
   const router = useRouter();
   if (data.status === "loading") {
     return (
-      <div className="flex h-full w-full max-w-5xl items-center justify-center md:rounded-lg bg-gray pt-10">
-        <div className="flex animate-pulse flex-col gap-4 w-full items-center">
+      <div className="flex h-full w-full max-w-5xl items-center justify-center bg-gray pt-10 md:rounded-lg">
+        <div className="flex w-full animate-pulse flex-col items-center gap-4">
           <div className="h-28 w-28 rounded-full bg-black/10"></div>
           <div className="h-6 w-3/5 rounded bg-black/10"></div>
           <div className="h-4 w-2/5 rounded bg-black/10"></div>
@@ -62,19 +59,16 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
             </section>
           </>
         ) : (
-          <section className="relative flex w-full max-w-5xl items-center gap-2 justify-between bg-gray pb-5 pt-10 md:rounded-md">
+          <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 bg-gray pb-5 pt-10 md:rounded-md">
             <button
               onClick={() => router.push(!!search ? `/?search=${search}` : "/")}
               className="absolute left-2 top-2 w-10"
             >
               <Icon icon="arrowLeft" className="h-10 fill-black" />
             </button>
-            {session && session.user.role === "CLIENT" && (
-              <div className="absolute right-2 top-2">
-                <AddToCart developerId={developer.id} />
-              </div>
-            )}
-
+            <div className="absolute right-2 top-2">
+              <AddToCart developerId={developer.id} />
+            </div>
             <LogLink
               slug={prev ? prev : ""}
               className={!!prev ? "block" : "invisible"}
@@ -82,7 +76,7 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
               <Icon icon="previousPerson" className="h-10 fill-black" />
             </LogLink>
             <div className="flex flex-col items-center gap-4">
-              <div className="flex flex-col gap-1 items-center">
+              <div className="flex flex-col items-center gap-1">
                 <Image
                   onClick={() => setBigImage((p) => !p)}
                   className="h-28 w-28 cursor-zoom-in rounded-full"
@@ -135,11 +129,6 @@ const UserCard = ({ data }: LoadingProps<Developer>) => {
                   <Icon icon="linkedin" className="h-10 w-10 fill-black" />
                 </a>
               </div>
-              {!session && (
-                <Button callToAction onClick={() => router.push("/login")}>
-                  Sign In to add to cart
-                </Button>
-              )}
             </div>
             <LogLink
               slug={next ? next : ""}
