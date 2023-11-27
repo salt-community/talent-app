@@ -15,6 +15,9 @@ const AddToCart = ({ developerId }: Props) => {
       </Link>
     );
   }
+  if (session.user.role !== "CLIENT") {
+    return;
+  }
   const utils = api.useContext();
   const {
     data: inCart,
