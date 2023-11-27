@@ -234,6 +234,7 @@ export const developerRouter = createTRPCRouter({
         id: true,
         image: true,
         name: true,
+        slug: true,
         projects: {
           select: { id: true, project: true, order: true },
           orderBy: { order: "asc" },
