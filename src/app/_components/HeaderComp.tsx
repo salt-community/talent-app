@@ -12,7 +12,7 @@ const Header = () => {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <header className="flex h-14 items-center justify-between bg-white px-[10px] py-5">
+    <header className="flex items-center justify-between border-b border-b-black/20 bg-white px-3 py-2 md:py-5">
       <Link href={"/"}>
         <Image
           className="w-[100px] p-2 lg:w-[140px]"
