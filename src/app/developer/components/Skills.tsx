@@ -13,7 +13,7 @@ const Skills = ({ skills }: Props) => {
           return (
             <li key={`${skill}-skill`}>
               <p
-                className={`rounded-full bg-orange/25 px-2 py-1 text-sm text-black `}
+                className={`rounded-full bg-black/5 px-2 py-1 text-sm text-black `}
               >
                 {skill}
               </p>
