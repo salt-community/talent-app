@@ -45,7 +45,7 @@ const UserCard = ({ developer }: Props) => {
           </section>
         </>
       ) : (
-        <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 bg-gray pb-5 pt-10 md:rounded-md">
+        <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 rounded-md border border-black/20 bg-gray p-5 pt-10 shadow-lg">
           <button
             onClick={() => router.push(!!search ? `/?search=${search}` : "/")}
             className="absolute left-2 top-2 w-10"
