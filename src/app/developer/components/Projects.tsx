@@ -10,7 +10,7 @@ const Projects = ({ projects }: Props) => {
       {projects.map((project) => (
         <div key={project.id} className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
-            <SectionHeader title={project.title} />{" "}
+            <SectionHeader title={project.title} />
             <a className="w-8" href={project.githublink} target="_blank">
               <Icon icon="github" className="h-8 w-8 fill-black" />
             </a>
