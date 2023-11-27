@@ -49,7 +49,7 @@ const ProjectPage = ({ params: { id } }: Props) => {
                 type="submit"
               >
                 Submit
-              </Button>{" "}
+              </Button>
               <Button
                 className="w-1/2 py-2"
                 type="button"
