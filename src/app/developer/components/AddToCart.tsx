@@ -1,10 +1,20 @@
 "use client";
 import Icon from "@/app/assets/icons/Icon";
 import { api } from "@/trpc/react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 type Props = { developerId: string };
 
 const AddToCart = ({ developerId }: Props) => {
+  const { data: session } = useSession();
+  if (!session) {
+    return (
+      <Link href={"/login"}>
+        <Icon icon="starOutline" className="h-10 fill-orange" />
+      </Link>
+    );
+  }
   const utils = api.useContext();
   const {
     data: inCart,
