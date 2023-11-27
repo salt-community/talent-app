@@ -22,18 +22,18 @@ const ShowDeveloper = ({ developer, session }: Props) => {
   const xs = useMediaQuery({ query: "(max-width: 360px)" });
   const sm = useMediaQuery({ query: "(max-width: 480px)" });
   return (
-    <main
-      className={`flex grow flex-col items-center bg-gradient-to-b from-orange to-pink md:gap-5 md:px-5 md:pt-5 ${
+    <main // bg-gradient-to-b from-orange to-pink
+      className={`flex grow flex-col items-center gap-5 px-4 pt-4 md:px-5 md:pt-5 ${
         !session && "pb-5"
       }`}
     >
       <UserCard developer={developer} />
-      <section className="flex w-full grow flex-col gap-10 border-t border-t-black/30 bg-gray px-5 pt-5 md:max-w-5xl md:rounded-md">
+      <section className="flex w-full grow flex-col gap-10 bg-gray px-4 md:px-8 pt-5 md:max-w-5xl md:rounded-md">
         <nav className="flex justify-around">
           {options.map((i) => (
             <button
               key={`${i}-button`}
-              className={`border-black/15 w-1/4 select-none rounded-lg bg-orange/10 py-1 text-center font-primary font-semibold tracking-widest transition-colors duration-300 md:tracking-wide lg:w-1/6 ${
+              className={`border-black/15 w-1/4 select-none rounded-lg bg-orange/10 py-1 text-center font-primary font-medium tracking-widest transition-colors duration-300 md:tracking-wide lg:w-1/6 ${
                 view === i && "border border-black/30 bg-orange/50 shadow-md"
               }`}
               onClick={() => setView(i)}
@@ -59,7 +59,7 @@ const ShowDeveloper = ({ developer, session }: Props) => {
                   username={developer.gitHubUsername}
                   fontSize={xs ? 10 : sm ? 12 : 16}
                   colorScheme="light"
-                  blockSize={xs ? 5 : sm ? 6 : 12}
+                  blockSize={xs ? 5 : sm ? 6 : 16}
                   blockMargin={sm ? 1 : 4}
                   blockRadius={sm ? 1 : 2}
                 />
@@ -95,17 +95,18 @@ const ShowDeveloper = ({ developer, session }: Props) => {
 type ArticleProps = {
   title?: string;
   children: ReactNode;
+  className?: string;
 };
-const Article = ({ title, children }: ArticleProps) => {
+const Article = ({ title, children, className }: ArticleProps) => {
   const [slide, setSlide] = useState(true);
   setTimeout(() => {
     setSlide(false);
   }, 100);
   return (
     <article
-      className={`flex flex-col gap-4 transition-all duration-300 ${
+      className={`flex flex-col gap-4 transition-all duration-500 ${
         slide ? "translate-y-20 opacity-0" : "translate-x-0 opacity-100"
-      }`}
+      } ${className}`}
     >
       {title && <h2 className="text-xl font-medium md:text-3xl">{title}</h2>}
       {children}
