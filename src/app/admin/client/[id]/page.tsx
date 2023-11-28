@@ -28,8 +28,8 @@ const Client = async ({ params: { id } }: Props) => {
   data.sort((a, b) => Number(a.date) - Number(b.date));
   const className = "border text-xs md:text-base";
   return (
-    <main>
-      <section className="flex flex-col">
+    <main className="flex flex-col">
+      <section className="flex w-full max-w-5xl flex-col self-center">
         <h2>Client events</h2>
         <table>
           <thead>
