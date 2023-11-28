@@ -15,7 +15,7 @@ const Header = () => {
     <header className="flex items-center justify-between border-b border-b-black/20 bg-white px-3 py-2 md:py-5">
       <Link href={"/"}>
         <Image
-          className="w-[100px] p-2 lg:w-[140px]"
+          className="w-24 p-2 lg:w-36"
           src="/logoBlack.png"
           alt="salt logo"
           width={130}
