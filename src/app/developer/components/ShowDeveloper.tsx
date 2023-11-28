@@ -31,7 +31,11 @@ const ShowDeveloper = ({ developer, session }: Props) => {
       <section className="flex w-full grow flex-col gap-10 bg-gray px-4 pt-5 md:max-w-5xl md:rounded-md md:px-8">
         <nav className="flex justify-around">
           {options.map((i) => {
-            if (i === "Projects" && developer.projects.length === 0) {
+            if (
+              i === "Projects" &&
+              developer.projects.length === 0 &&
+              developer.mobs.length === 0
+            ) {
               return;
             }
             return (
@@ -85,7 +89,7 @@ const ShowDeveloper = ({ developer, session }: Props) => {
         >
           <Projects projects={developer.projects} />
         </article>
-        {developer.mobs.length > 0 && (
+        {view === "Projects" && developer.mobs.length > 0 && (
           <Article title="Team">
             <TeamMembers mob={developer.mobs[0]!} />
           </Article>
