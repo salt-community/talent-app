@@ -11,10 +11,10 @@ const Contact = ({ developer }: Props) => {
   return (
     <div
       className={`sticky bottom-0 flex w-screen max-w-5xl flex-col rounded-t-md border-t border-t-black/30 bg-white transition-[height] duration-500 ease-in-out md:w-full ${
-        open ? "h-60" : "h-8"
+        open ? "h-44" : "h-8"
       }`}
     >
-      <div className="flex h-full w-full flex-col items-center">
+      <div className="flex w-full grow flex-col items-center">
         <div
           className="flex h-8 w-full cursor-pointer items-center justify-center rounded-t-md bg-black/10"
           onClick={(e) => {
@@ -29,7 +29,7 @@ const Contact = ({ developer }: Props) => {
           {!open && <p className="font-semibold">Contact</p>}
         </div>
         {open && (
-          <div className="flex w-full grow flex-col items-center justify-center gap-2 bg-orange/10">
+          <div className="flex w-full grow flex-col items-center justify-center gap-2 bg-orange/10 py-5">
             <div className="flex flex-col justify-center">
               <div className="flex gap-1">
                 <Icon icon="phone" className="w-6 fill-black" />
