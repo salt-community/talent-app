@@ -239,7 +239,7 @@ export const developerRouter = createTRPCRouter({
           select: { id: true, project: true, order: true },
           orderBy: { order: "asc" },
         },
-        mobs: { select: { Mob: true } },
+        mobs: { select: { id: true, Mob: true } },
       },
     });
     if (data) {
@@ -251,9 +251,10 @@ export const developerRouter = createTRPCRouter({
           title: project.title,
           order,
         })),
-        mobs: data.mobs.map(({ Mob }) => ({
+        mobs: data.mobs.map(({ id, Mob }) => ({
           id: Mob.id,
           name: Mob.name,
+          connectionId: id,
         })),
       };
     }

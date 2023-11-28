@@ -61,11 +61,17 @@ const Projects = ({ data }: Props) => {
   const utils = api.useContext();
   const [items, setItems] = useState(data);
   const [edited, setEdited] = useState(false);
-  const { mutate: reorder } = api.project.reorder.useMutation({
+  const { mutate: reorder, isLoading: reordering } =
+    api.project.reorder.useMutation({
+      onSuccess: async () => {
+        setEdited(false);
+        await utils.developer.getByUser.invalidate();
+        await utils.developer.getBySlug.invalidate();
+      },
+    });
+  const { mutate: leave, isLoading: leaving } = api.project.leave.useMutation({
     onSuccess: async () => {
-      setEdited(false);
       await utils.developer.getByUser.invalidate();
-      await utils.developer.getBySlug.invalidate();
     },
   });
   const modifiers = [restrictToParentElement];
@@ -102,6 +108,7 @@ const Projects = ({ data }: Props) => {
           <Button
             callToAction
             className="border"
+            disabled={reordering}
             onClick={() => reorder({ projects: items })}
           >
             Save
@@ -117,16 +124,24 @@ const Projects = ({ data }: Props) => {
             return (
               <SortableItem key={id} id={id}>
                 {({ attributes, listeners }) => (
-                  <ItemContainer className="px-5">
-                    <button {...attributes} {...listeners}>
-                      <Icon
-                        icon="dragVH"
-                        className="h-6 cursor-grab fill-black"
-                      />
-                    </button>
-                    <Link href={`/profile/project/${projectId}`}>
+                  <ItemContainer className="justify-between px-5">
+                    <div className="flex gap-1">
+                      <button {...attributes} {...listeners}>
+                        <Icon
+                          icon="dragVH"
+                          className="h-6 cursor-grab fill-black"
+                        />
+                      </button>
                       <p>{title}</p>
-                    </Link>
+                    </div>
+                    <div className="flex gap-1">
+                      <Button disabled={leaving} onClick={() => leave({ id })}>
+                        Leave
+                      </Button>
+                      <Link href={`/profile/project/${projectId}`}>
+                        <Icon icon="edit" className="h-8" />
+                      </Link>
+                    </div>
                   </ItemContainer>
                 )}
               </SortableItem>
