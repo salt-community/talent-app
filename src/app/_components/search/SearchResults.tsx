@@ -47,7 +47,7 @@ const SearchResults = ({ search }: Props) => {
         <p data-cy="no-listings">No results found...</p>
       )}
       {gotDevs &&
-        [...developers].map((developer) => (
+        developers.map((developer) => (
           <SearchItem
             key={developer.id}
             developer={developer}
