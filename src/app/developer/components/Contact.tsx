@@ -16,7 +16,7 @@ const Contact = ({ developer }: Props) => {
   return (
     <section className="relative h-8 w-full max-w-5xl self-center">
       <div
-        className={`absolute bottom-0 flex w-full flex-col overflow-hidden bg-white transition-[height] duration-500 ease-in-out ${
+        className={`absolute bottom-0 left-0 flex w-full flex-col overflow-hidden bg-white transition-[height] duration-500 ease-in-out ${
           open ? "h-48" : "h-8"
         }`}
       >
