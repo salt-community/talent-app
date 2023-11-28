@@ -78,7 +78,7 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
   } = useForm<tDevSchema>({
     resolver: zodResolver(devSchema),
     defaultValues: data,
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
   const modifiers = [restrictToParentElement];
@@ -145,7 +145,7 @@ const DeveloperForm2 = ({ data, handleData, children }: Props) => {
           </div>
         ))}
         <div className="flex flex-col gap-2">
-          <p className="pt-2 font-semibold">Locations</p>
+          <p className="pt-2 font-semibold">Preferred working locations</p>
           <FormError error={errors.locationPref?.root} />
           <div className="flex flex-wrap gap-1">
             <DndContext
