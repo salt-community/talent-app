@@ -1,7 +1,9 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
-const Admin = async () => {
+import Navbar from "../_components/Navbar";
+
+const page = async () => {
   const session = await getServerAuthSession();
   if (!session) {
     return (
@@ -15,23 +17,24 @@ const Admin = async () => {
       <p>You are not allowed here {session.user.role}!</p>
     </main>;
   }
-  const clicks = await api.log.getClicks.query();
+  const cartItems = await api.log.getCarts.query();
   const className = "border text-xs md:text-base";
   return (
-    <main className="flex flex-col gap-2 p-5">
-      <section className="flex flex-col">
-        <h2>Clicked on developers</h2>
+    <main className="flex flex-col">
+      <Navbar page="favorited" />
+      <section className="flex w-full max-w-5xl flex-col self-center p-5">
+        <h2 className="text-lg font-bold">Developers favorited</h2>
         <table>
           <thead>
             <tr>
-              <td className={className}>Date</td>
-              <td className={className}>Mail</td>
+              <td className={className}>Timestamp</td>
+              <td className={className}>Client email</td>
               <td className={className}>Developer</td>
             </tr>
           </thead>
           <tbody>
-            {clicks.map(
-              ({ date, developer: { name }, id, User: { email }, userId }) => (
+            {cartItems.map(
+              ({ id, date, userId, User: { email }, developer: { name } }) => (
                 <tr key={id}>
                   <td className={className}>
                     {date.toLocaleTimeString("sv-SE", {
@@ -44,14 +47,12 @@ const Admin = async () => {
                     })}
                   </td>
                   <td className={className}>
-                    {
-                      <Link
-                        className="underline"
-                        href={`/admin/client/${userId}`}
-                      >
-                        {email}
-                      </Link>
-                    }
+                    <Link
+                      className="underline"
+                      href={`/admin/client/${userId}`}
+                    >
+                      {email}
+                    </Link>
                   </td>
                   <td className={className}>{name}</td>
                 </tr>
@@ -64,4 +65,4 @@ const Admin = async () => {
   );
 };
 
-export default Admin;
+export default page;

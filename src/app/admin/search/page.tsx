@@ -1,6 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
+import Navbar from "../_components/Navbar";
 
 const page = async () => {
   const session = await getServerAuthSession();
@@ -19,9 +20,10 @@ const page = async () => {
   const searches = await api.log.getSearch.query();
   const className = "border text-xs md:text-base";
   return (
-    <main className="flex flex-col gap-2 p-5">
-      <section className="flex flex-col">
-        <h2>Searches</h2>
+    <main className="flex flex-col gap-2">
+      <Navbar page="search" />
+      <section className="flex w-full max-w-5xl flex-col self-center">
+        <h2 className="text-lg font-bold">Client search events</h2>
         <table>
           <thead>
             <tr>

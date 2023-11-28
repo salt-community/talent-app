@@ -10,7 +10,7 @@ const Users = ({ users }: Props) => {
   const [filter, setFilter] = useState({ search: "", role: "" });
 
   return (
-    <section>
+    <section className="w-full max-w-5xl p-5 self-center">
       <form className="flex justify-between">
         <div className="flex flex-col">
           <label htmlFor="search">Search mail</label>

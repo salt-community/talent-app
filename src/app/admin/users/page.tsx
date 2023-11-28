@@ -1,6 +1,7 @@
 import { api } from "@/trpc/server";
 import Users from "./components/Users";
 import { getServerAuthSession } from "@/server/auth";
+import Navbar from "../_components/Navbar";
 const page = async () => {
   const session = await getServerAuthSession();
   if (!session) {
@@ -17,7 +18,8 @@ const page = async () => {
   }
   const users = await api.users.getAll.query();
   return (
-    <main className="flex flex-col gap-2 p-5">
+    <main className="flex flex-col gap-2">
+      <Navbar page="users" />
       <Users users={users} />
     </main>
   );

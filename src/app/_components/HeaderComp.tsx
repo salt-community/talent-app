@@ -25,7 +25,7 @@ const Header = () => {
       </Link>
       <div className="flex items-center gap-4">
         {!!session && session.user.role === "ADMIN" && (
-          <Link href={"/admin"}>
+          <Link href={"/admin/users"}>
             <Icon
               icon="admin"
               className="h-10 w-10 fill-black active:fill-orange"
