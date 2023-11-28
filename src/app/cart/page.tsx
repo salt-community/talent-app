@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Fragment, useState } from "react";
 import Icon from "../assets/icons/Icon";
 import type { RouterOutputs } from "@/trpc/shared";
+import Button from "../_components/Button";
 type Developer = RouterOutputs["cart"]["getAll"][number];
 
 const Cart = () => {
@@ -50,9 +51,27 @@ const CartItem = ({
     onSuccess: () => utils.cart.getAll.invalidate(),
   });
   const [edit, setEdit] = useState(false);
+  const [visible, setVisible] = useState(false);
   return (
     <Fragment>
       <ItemContainer className="relative gap-4 p-4">
+        {visible && (
+          <div className="absolute left-0 top-0 z-20 flex h-full w-full flex-col items-center gap-2 bg-black/90 p-6">
+            <p className="text-white">Remove from favorites?</p>
+            <div className="flex h-full w-full justify-between gap-6">
+              <Button
+                disabled={removing}
+                onClick={() => remove({ developerId })}
+                className="grow"
+              >
+                Yes
+              </Button>
+              <Button onClick={() => setVisible(false)} className="grow">
+                No
+              </Button>
+            </div>
+          </div>
+        )}
         <Image
           alt="developer image"
           src={image}
@@ -79,8 +98,7 @@ const CartItem = ({
         </div>
         <button
           className="absolute right-1 top-1"
-          disabled={removing}
-          onClick={() => remove({ developerId })}
+          onClick={() => setVisible(true)}
         >
           <Icon icon="star" className="w-10 fill-orange" />
         </button>
