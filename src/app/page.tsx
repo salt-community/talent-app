@@ -10,7 +10,7 @@ const Home = ({ searchParams }: Props) => {
   const { search } = validateSearchParams({ searchParams });
   const decodedSearch = decodeURIComponent(search);
   return (
-    <main className="flex h-[calc(100vh-57px)] flex-col items-center gap-1">
+    <main className="flex h-[calc(100vh-57px)] flex-col items-center gap-1 md:h-[calc(100vh-86px)]">
       <div className="flex h-20 w-full flex-col items-center justify-center bg-gradient-to-r from-[rgb(255,121,97)] to-[rgb(243,92,126)] lg:h-96 lg:gap-7">
         <h1 className="hidden lg:flex lg:text-center lg:font-secondary lg:text-5xl lg:font-bold lg:text-white">
           Tomorrow&apos;s Full-Stack Developers. <br /> Available Today.
