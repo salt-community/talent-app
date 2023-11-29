@@ -22,31 +22,28 @@ const ShowDeveloper = ({ developer }: Props) => {
   const sm = useMediaQuery({ query: "(max-width: 480px)" });
   return (
     <>
-      <main className="flex grow flex-col items-center gap-5 overflow-y-auto p-5">
+      <main className="flex grow flex-col items-center gap-14 overflow-y-auto p-5">
         <UserCard developer={developer} />
-        <section className="flex w-full grow flex-col gap-10 rounded-md border border-black/20 p-5 shadow-lg md:max-w-5xl">
-          <nav className="flex justify-around">
-            {options.map((i) => {
-              if (
-                i === "Projects" &&
-                developer.projects.length === 0 &&
-                developer.mobs.length === 0
-              ) {
-                return;
-              }
-              return (
+        <section className="relative flex w-full grow flex-col gap-10 rounded-b-md border border-black/20 p-5 shadow-lg md:max-w-5xl">
+          <nav className="absolute bottom-full left-[-1px] right-[-1px] flex">
+            {options
+              .filter((i) =>
+                i === "Projects"
+                  ? developer.projects.length !== 0 &&
+                    developer.mobs.length !== 0
+                  : true,
+              )
+              .map((i) => (
                 <button
                   key={`${i}-button`}
-                  className={`border-black/15 w-1/4 select-none rounded-lg bg-orange/10 py-1 text-center font-primary font-medium tracking-widest transition-colors duration-300 md:tracking-wide lg:w-1/6 ${
-                    view === i &&
-                    "border border-black/30 bg-orange/50 shadow-md"
+                  className={`relative top-0 grow select-none rounded-t-md border border-black/20 bg-white py-1 text-center font-primary tracking-widest transition-colors duration-300 md:w-40 md:grow-0 md:tracking-wide  ${
+                    view === i && "border-b-0 font-bold"
                   }`}
                   onClick={() => setView(i)}
                 >
                   {i}
                 </button>
-              );
-            })}
+              ))}
           </nav>
           {view === "Skills" && (
             <>
