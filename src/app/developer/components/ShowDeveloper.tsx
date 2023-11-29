@@ -27,12 +27,18 @@ const ShowDeveloper = ({ developer }: Props) => {
         <section className="relative flex w-full grow flex-col gap-10 rounded-b-md border border-black/20 p-5 shadow-lg md:max-w-5xl">
           <nav className="absolute bottom-full left-[-1px] right-[-1px] flex">
             {options
-              .filter((i) =>
-                i === "Projects"
-                  ? developer.projects.length !== 0 &&
-                    developer.mobs.length !== 0
-                  : true,
-              )
+              .filter((i) => {
+                if (i === "Projects") {
+                  if (
+                    developer.projects.length === 0 &&
+                    developer.mobs.length === 0
+                  ) {
+                    return false;
+                  }
+                  return true;
+                }
+                return true;
+              })
               .map((i) => (
                 <button
                   key={`${i}-button`}
