@@ -10,23 +10,23 @@ const Users = ({ users }: Props) => {
   const [filter, setFilter] = useState({ search: "", role: "" });
 
   return (
-    <section className="w-full max-w-5xl p-5 self-center">
+    <section className="w-full max-w-5xl self-center p-5">
       <form className="flex justify-between">
-        <div className="flex flex-col">
-          <label htmlFor="search">Search mail</label>
+        <div className="flex items-center gap-1">
+          <label htmlFor="search">Filter by</label>
           <input
-            className="border"
+            className="border-b border-orange outline-none"
             type="text"
             id="search"
             value={filter.search}
-            placeholder="Search email"
+            placeholder="email"
             onChange={({ target: { value } }) =>
               setFilter(({ role }) => ({ role, search: value }))
             }
           />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="role">Filter role</label>
+        <div className="flex gap-1">
+          <label htmlFor="role">Filter by </label>
           <select
             id="role"
             value={filter.role}
@@ -34,7 +34,7 @@ const Users = ({ users }: Props) => {
               setFilter(({ search }) => ({ role: value, search }))
             }
           >
-            <option value="">Select</option>
+            <option value="">role</option>
             <option value="SALTIE">Saltie</option>
             <option value="CLIENT">Client</option>
             <option value="ADMIN">Admin</option>
