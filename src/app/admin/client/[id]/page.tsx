@@ -30,13 +30,13 @@ const Client = async ({ params: { id } }: Props) => {
   return (
     <main className="flex flex-col">
       <section className="flex w-full max-w-5xl flex-col self-center">
-        <h2>Client events</h2>
+        <h2 className="text-lg font-bold">Client activity</h2>
         <table>
           <thead>
             <tr>
-              <td className={className}>Date</td>
+              <td className={className}>Timestamp</td>
               <td className={className}>Data</td>
-              <td className={className}>Event</td>
+              <td className={className}>Activity</td>
             </tr>
           </thead>
           <tbody>
