@@ -11,35 +11,30 @@ const Users = ({ users }: Props) => {
 
   return (
     <section className="w-full max-w-5xl self-center p-5">
-      <form className="flex justify-between">
-        <div className="flex items-center gap-1">
-          <label htmlFor="search">Filter by</label>
-          <input
-            className="border-b border-orange outline-none"
-            type="text"
-            id="search"
-            value={filter.search}
-            placeholder="email"
-            onChange={({ target: { value } }) =>
-              setFilter(({ role }) => ({ role, search: value }))
-            }
-          />
-        </div>
-        <div className="flex gap-1">
-          <label htmlFor="role">Filter by </label>
-          <select
-            id="role"
-            value={filter.role}
-            onChange={({ target: { value } }) =>
-              setFilter(({ search }) => ({ role: value, search }))
-            }
-          >
-            <option value="">role</option>
-            <option value="SALTIE">Saltie</option>
-            <option value="CLIENT">Client</option>
-            <option value="ADMIN">Admin</option>
-          </select>
-        </div>
+      <form className="flex items-center justify-between text-sm md:text-base">
+        <input
+          className="min-w-0 border-b border-orange outline-none"
+          type="text"
+          id="search"
+          value={filter.search}
+          placeholder="Filter by email"
+          onChange={({ target: { value } }) =>
+            setFilter(({ role }) => ({ role, search: value }))
+          }
+        />
+
+        <select
+          className="border-b border-orange"
+          value={filter.role}
+          onChange={({ target: { value } }) =>
+            setFilter(({ search }) => ({ role: value, search }))
+          }
+        >
+          <option value="">Filter by role</option>
+          <option value="SALTIE">Saltie</option>
+          <option value="CLIENT">Client</option>
+          <option value="ADMIN">Admin</option>
+        </select>
       </form>
       <h2>Users</h2>
       <ul className="flex flex-col gap-1">
