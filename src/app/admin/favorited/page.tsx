@@ -2,6 +2,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
 import Navbar from "../_components/Navbar";
+import Comment from "./_components/Comment";
 
 const page = async () => {
   const session = await getServerAuthSession();
@@ -34,7 +35,14 @@ const page = async () => {
           </thead>
           <tbody>
             {cartItems.map(
-              ({ id, date, userId, User: { email }, developer: { name } }) => (
+              ({
+                id,
+                date,
+                comment,
+                userId,
+                User: { email },
+                developer: { name },
+              }) => (
                 <tr key={id}>
                   <td className={className}>
                     {date.toLocaleTimeString("sv-SE", {
@@ -54,7 +62,9 @@ const page = async () => {
                       {email}
                     </Link>
                   </td>
-                  <td className={className}>{name}</td>
+                  <td className={className}>
+                    {comment ? <Comment comment={comment} name={name} /> : name}
+                  </td>
                 </tr>
               ),
             )}
