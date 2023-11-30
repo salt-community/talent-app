@@ -22,7 +22,6 @@ const Users = ({ users }: Props) => {
             setFilter(({ role }) => ({ role, search: value }))
           }
         />
-
         <select
           className="border-b border-orange"
           value={filter.role}
