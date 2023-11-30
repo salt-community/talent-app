@@ -58,6 +58,7 @@ export const logRouter = createTRPCRouter({
         userId: true,
         id: true,
         date: true,
+        comment: true,
         developer: { select: { name: true } },
         User: { select: { email: true } },
       },
