@@ -1,5 +1,5 @@
 // import seedMeilisearch from "@/server/seedMeilisearch";
-// import { storeDataLocally, seedDataToDb } from "./backup";
+import { storeDataLocally, seedDataToDb } from "./backup";
 
 // import { addOrder } from "./addOrder";
 
@@ -16,4 +16,7 @@ const seedData = async () => {
   });
 };
 
-seedData().catch(() => console.log("Seed failed!"));
+seedData().catch((e) => {
+  console.error("Seed failed!");
+  console.error(e);
+});
