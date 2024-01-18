@@ -1,9 +1,10 @@
 import { db } from "@/server/db";
+
 import { readFileSync, readdirSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "path";
 import type { UserRole } from "types";
 
-const dataPath = "C:/Users/rasmu/Documents/GitHub/SaltTalentPool/backup/data";
+const dataPath = join(__dirname, "..", "/backup/data");
 
 type Account = {
   id: string;
