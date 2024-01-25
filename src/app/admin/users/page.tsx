@@ -16,7 +16,13 @@ const page = async () => {
       <p>You are not allowed here {session.user.role}!</p>
     </main>;
   }
-  const users = await api.users.getAll.query();
+
+  const users = await api.users.getAll.query().catch((error) => {
+    console.error("Error calling api.users.getAll.query():");
+    console.error(error);
+    return [];
+  });
+
   return (
     <main className="flex flex-col gap-2">
       <Navbar page="users" />
