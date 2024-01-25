@@ -5,11 +5,7 @@ import { TRPCError } from "@trpc/server";
 
 export const usersRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async ({ ctx }) => {
-    const result = await ctx.db.user.findMany();
-
-    console.log({ result });
-
-    return result;
+    return await ctx.db.user.findMany();
   }),
   changeRole: protectedProcedure
     .input(z.object({ id: z.string().min(1), zRole }))
