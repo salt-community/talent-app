@@ -23,22 +23,25 @@ const Header = () => {
           data-cy="logo"
         />
       </Link>
-      <div className="flex items-center gap-4">
-        {!!session && session.user.role === "ADMIN" && (
-          <Link href={"/admin/users"}>
-            <Icon
-              icon="admin"
-              className="h-10 w-10 fill-black active:fill-orange"
-            />
-          </Link>
-        )}
-        {!!session &&
-          (session.user.role === "SALTIE" || session.user.role === "ADMIN") && (
-            <Button onClick={() => router.push("/profile")}>Profile</Button>
+      {session?.user ? (
+        <div className="flex items-center gap-4">
+          {!!session && session.user.role === "ADMIN" && (
+            <Link href={"/admin/users"}>
+              <Icon
+                icon="admin"
+                className="h-10 w-10 fill-black active:fill-orange"
+              />
+            </Link>
           )}
-        {session && session.user.role === "CLIENT" && <CartStatus />}
-        <Login />
-      </div>
+          {!!session &&
+            (session.user.role === "SALTIE" ||
+              session.user.role === "ADMIN") && (
+              <Button onClick={() => router.push("/profile")}>Profile</Button>
+            )}
+          {session && session.user.role === "CLIENT" && <CartStatus />}
+          <Login />
+        </div>
+      ) : null}
     </header>
   );
 };
