@@ -1,11 +1,11 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
-
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
+import seedMeilisearch from "@/server/seedMeilisearch";
 
 export const metadata = {
   title:
@@ -16,11 +16,12 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await seedMeilisearch();
   return (
     <html lang="en" className="h-full">
       <body className="flex h-full flex-col">
