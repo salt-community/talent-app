@@ -39,9 +39,12 @@ const Header = () => {
               <Button onClick={() => router.push("/profile")}>Profile</Button>
             )}
           {session && session.user.role === "CLIENT" && <CartStatus />}
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
           <Login />
         </div>
-      ) : null}
+      )}
     </header>
   );
 };
