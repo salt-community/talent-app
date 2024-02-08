@@ -39,7 +39,6 @@ const seedMeilisearch = async () => {
     console.log(updatedSettings);
   } catch (error: unknown) {
     console.error(error);
-    throw Error("Failed Seeding MeiliSearch: " + (error as Error).message);
   }
 };
 
