@@ -145,6 +145,7 @@ export const developerRouter = createTRPCRouter({
       }
 
       try {
+        console.log("Will search for", search, "with meilisearch");
         const res = await ctx.msClient.index("developers").search(search);
         const searchData = res.hits as SearchResult[];
         return searchData.map((dev) => ({

@@ -3,6 +3,7 @@ import settings from "./meilisearchSettings";
 import { db } from "./db";
 
 const seedMeilisearch = async () => {
+  console.log("Meilisearch seed was called!");
   try {
     const data = await db.developer.findMany();
     const devs = data.map((c) => ({
@@ -21,7 +22,7 @@ const seedMeilisearch = async () => {
     const addDocumentsResult = await client
       .index("developers")
       .addDocuments(devs);
-    console.log(addDocumentsResult);
+    //console.log(addDocumentsResult);
 
     await client
       .index("developers")
@@ -36,7 +37,7 @@ const seedMeilisearch = async () => {
     await client.index("developers").updateSettings(settings);
 
     const updatedSettings = await client.index("developers").getSettings();
-    console.log(updatedSettings);
+    //console.log(updatedSettings);
   } catch (error: unknown) {
     console.error(error);
   }
