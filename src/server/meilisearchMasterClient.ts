@@ -1,0 +1,24 @@
+import MeiliSearch from "meilisearch";
+import { env } from "../env.mjs";
+
+const createApiKey = async () => {
+  const client = new MeiliSearch({
+    host: env.NEXT_MEILISEARCH_HOST,
+    apiKey: "password123",
+  });
+  try {
+    const keys = await client.getKeys()
+    // const newApiKey = await client.createKey({
+    //   description: "Search developers",
+    //   actions: ["search"],
+    //   indexes: ["developers"],
+    //   expiresAt: null,
+    // });
+    // console.log(newApiKey)
+    console.log(keys)
+  } catch (error) {
+    console.log("ERROR!!: ", error)
+  }
+};
+
+export default createApiKey
