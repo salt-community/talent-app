@@ -4,7 +4,7 @@ import { env } from "../env.mjs";
 const createApiKey = async () => {
   const client = new MeiliSearch({
     host: env.NEXT_MEILISEARCH_HOST,
-    apiKey: "password123",
+    apiKey: env.NEXT_MEILISEARCH_MASTER_KEY,
   });
   try {
     const keys = await client.getKeys()

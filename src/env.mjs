@@ -32,6 +32,7 @@ export const env = createEnv({
     NEXT_GOOGLE_SECRET: z.string(),
     NEXT_MEILISEARCH_HOST: z.string(),
     NEXT_MEILISEARCH_KEY: z.string(),
+    NEXT_MEILISEARCH_MASTER_KEY: z.string(),
     EMAIL_SERVER: z.string(),
     EMAIL_FROM: z.string(),
     // Add ` on ID and SECRET if you want to make sure they're not empty
@@ -60,6 +61,7 @@ export const env = createEnv({
     NEXT_GOOGLE_SECRET: process.env.NEXT_GOOGLE_SECRET,
     NEXT_MEILISEARCH_HOST: process.env.NEXT_MEILISEARCH_HOST,
     NEXT_MEILISEARCH_KEY: process.env.NEXT_MEILISEARCH_KEY,
+    NEXT_MEILISEARCH_MASTER_KEY: process.env.NEXT_MEILISEARCH_MASTER_KEY,
     EMAIL_SERVER: process.env.EMAIL_SERVER,
     EMAIL_FROM: process.env.EMAIL_FROM,
     NEXT_PUBLIC_FF_CONTACT: process.env.NEXT_PUBLIC_FF_CONTACT,
