@@ -6,6 +6,7 @@ const createApiKey = async () => {
     host: env.NEXT_MEILISEARCH_HOST,
     apiKey: env.NEXT_MEILISEARCH_MASTER_KEY,
   });
+  console.log("CLIENT",client)
   try {
     const keys = await client.getKeys()
     // const newApiKey = await client.createKey({
