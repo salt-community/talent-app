@@ -6,7 +6,6 @@ import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
 import seedMeilisearch from "@/server/seedMeilisearch";
-import createApiKey from "@/server/meilisearchMasterClient";
 
 export const metadata = {
   title:
@@ -22,7 +21,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await createApiKey();
   await seedMeilisearch();
   return (
     <html lang="en" className="h-full">

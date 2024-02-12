@@ -153,6 +153,7 @@ export const developerRouter = createTRPCRouter({
           inCart: !!cart.find((i) => i === dev.id),
         }));
       } catch (error) {
+        console.log("Error with meilisearch, will search with prisma instead");
         console.error(error);
         const mode = "insensitive";
         const data = await ctx.db.developer.findMany({

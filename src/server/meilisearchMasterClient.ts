@@ -6,9 +6,9 @@ const createApiKey = async () => {
     host: env.NEXT_MEILISEARCH_HOST,
     apiKey: env.NEXT_MEILISEARCH_MASTER_KEY,
   });
-  console.log("CLIENT",client)
+  //console.log("CLIENT", client);
   try {
-    const keys = await client.getKeys()
+    const keys = await client.getKeys();
     // const newApiKey = await client.createKey({
     //   description: "Search developers",
     //   actions: ["search"],
@@ -16,10 +16,10 @@ const createApiKey = async () => {
     //   expiresAt: null,
     // });
     // console.log(newApiKey)
-    console.log(keys)
+    console.log(keys.results);
   } catch (error) {
-    console.log("ERROR!!: ", error)
+    console.log("ERROR!!: ", error);
   }
 };
 
-export default createApiKey
+export default createApiKey;
