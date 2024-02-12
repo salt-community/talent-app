@@ -52,10 +52,10 @@ We welcome contributions and feedback from the community. If you have suggestion
 
 1. Follow this guide: https://dev.to/jakovglavac/deploy-meilisearch-on-flyio-p89.
 
-- This guide will create/launch a application for you on Fly.io.
+- This guide will create/launch an application for you on Fly.io.
 - The guide will tell you to use ´flyctl login´, this command will not work, instead, use ´flyctl auth login´.
 
-2. Make sure you set the NEXT_MEILISEARCH_MASTER_KEY for your Fly.io application under:
+2. Make sure you set the Master Key for your Fly.io application under:
 
 - Apps > [YOUR_APP_NAME] > Secrets > New Secret.
 - Make sure that the secret is named MEILI_MASTER_KEY.
