@@ -8,7 +8,7 @@ import {
 import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
 import { devSchema, searchDevSchema } from "@/utils/zodSchema";
-import seedMeilisearch from "@/server/seedMeilisearch";
+import { seedMeilisearch } from "@/server/seedMeilisearch";
 
 // const shuffleArray = <T>(array: T[]): T[] => {
 //   const newArray = [...array];

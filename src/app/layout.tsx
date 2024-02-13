@@ -5,7 +5,7 @@ import Header from "./_components/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
-import seedMeilisearch from "@/server/seedMeilisearch";
+import { checkIndexExists } from "@/server/seedMeilisearch";
 
 export const metadata = {
   title:
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await seedMeilisearch();
+  await checkIndexExists("developers");
   return (
     <html lang="en" className="h-full">
       <body className="flex h-full flex-col">

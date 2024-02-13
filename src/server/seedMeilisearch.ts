@@ -1,6 +1,6 @@
-import client from "./meilisearchClient";
 import settings from "./meilisearchSettings";
 import { db } from "./db";
+import msClient from "./meilisearchClient";
 
 const seedMeilisearch = async () => {
   console.log("Meilisearch seed was called!");
@@ -17,14 +17,14 @@ const seedMeilisearch = async () => {
       id: c.id,
     }));
 
-    await client.deleteIndex("developers");
+    await msClient.deleteIndex("developers");
 
-    const addDocumentsResult = await client
+    const addDocumentsResult = await msClient
       .index("developers")
       .addDocuments(devs);
     //console.log(addDocumentsResult);
 
-    await client
+    await msClient
       .index("developers")
       .updateSearchableAttributes([
         "skills",
@@ -34,13 +34,40 @@ const seedMeilisearch = async () => {
         "name",
       ]);
 
-    await client.index("developers").updateSettings(settings);
+    await msClient.index("developers").updateSettings(settings);
 
-    const updatedSettings = await client.index("developers").getSettings();
+    const updatedSettings = await msClient.index("developers").getSettings();
     //console.log(updatedSettings);
   } catch (error: unknown) {
     console.error(error);
   }
 };
 
-export default seedMeilisearch;
+async function checkIndexExists(indexName: string) {
+  try {
+    const indexes = await msClient.getIndexes();
+    if (!indexes) {
+      await seedMeilisearch();
+      console.log("No indexes where found, Meilisearch was succesfully seeded");
+      return null;
+    }
+
+    const indexExists = indexes.results.find(
+      (index) => index.uid === indexName,
+    );
+
+    if (!indexExists) {
+      await seedMeilisearch();
+      console.log("Meilisearch was succesfully seeded");
+    }
+
+    console.log("An index already exists, will not seed meilisearch.");
+    return null;
+  } catch (error) {
+    console.log("Meilisearch could not be  seeded");
+    console.error("Error checking index existence:", error);
+    return false;
+  }
+}
+
+export { seedMeilisearch, checkIndexExists };
