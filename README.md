@@ -44,3 +44,24 @@ Salt Talent Pool is currently in maintenance mode. While not actively adding new
 
 ## How to Contribute
 We welcome contributions and feedback from the community. If you have suggestions, bug reports, or want to contribute to the project.
+
+# Meillisearch Step-By-Step (for production)
+1. Navigate to the "meilisearch" folder
+
+2. Follow this guide: https://dev.to/jakovglavac/deploy-meilisearch-on-flyio-p89.
+
+- This guide will create/launch an application for you on Fly.io.
+- The guide will tell you to use ´flyctl login´, this command will not work, instead, use ´flyctl auth login´.
+
+3. Make sure you set the Master Key for your Fly.io application under:
+
+- Apps > [YOUR_APP_NAME] > Secrets > New Secret.
+- Make sure that the secret is named MEILI_MASTER_KEY.
+
+4. Make sure you have NEXT_MEILISEARCH_HOST and NEXT_MEILISEARCH_MASTER_KEY set in your .env file.
+
+- You can get these values from fly.io.
+
+5. After the secret is created, make sure you redeploy meilisearch by running ´flyctl deploy'.
+
+6. Create, update or delete a developer to seed Meilisearch.
