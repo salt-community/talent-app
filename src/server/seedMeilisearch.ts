@@ -59,6 +59,7 @@ async function checkIndexExists(indexName: string) {
     if (!indexExists) {
       await seedMeilisearch();
       console.log("Meilisearch was succesfully seeded");
+      return null;
     }
 
     console.log("An index already exists, will not seed meilisearch.");
