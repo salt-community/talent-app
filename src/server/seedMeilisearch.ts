@@ -1,6 +1,7 @@
 import settings from "./meilisearchSettings";
 import { db } from "./db";
 import msClient from "./meilisearchClient";
+import { env } from "../env.mjs";
 
 const seedMeilisearch = async () => {
   console.log("Meilisearch seed was called!");
@@ -46,6 +47,7 @@ const seedMeilisearch = async () => {
 async function checkIndexExists(indexName: string) {
   try {
     const indexes = await msClient.getIndexes();
+    console.log("INDEXES: ", indexes);
     if (!indexes) {
       await seedMeilisearch();
       console.log("No indexes where found, Meilisearch was succesfully seeded");
@@ -68,6 +70,9 @@ async function checkIndexExists(indexName: string) {
     console.log("Meilisearch could not be  seeded");
     console.error("Error checking index existence:", error);
     return false;
+  } finally {
+    console.log("HOST: ", env.NEXT_MEILISEARCH_HOST);
+    console.log("MASTER KEY: ", env.NEXT_MEILISEARCH_MASTER_KEY);
   }
 }
 
