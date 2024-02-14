@@ -19,7 +19,7 @@
 next-env.d.ts
 
 # meilisearch
-/meili_data
+/meilisearch/meili_data
 
 # production
 /build
