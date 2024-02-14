@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
+
 .pnp.js
 
 # testing
@@ -16,6 +17,9 @@
 /.next/
 /out/
 next-env.d.ts
+
+# meilisearch
+/meili_data
 
 # production
 /build

@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  meilisearch:
+    platform: linux/x86_64
+    image: getmeili/meilisearch
+    ports:
+      - "7700:7700"
+    volumes:
+      - ./meili_data:/meili_data
+    environment:
+      MEILI_MASTER_KEY: "2uzFCA4HB9JhhcrdXD07PwFCnBOAlMooRNjYpy_qp7cSALT"
