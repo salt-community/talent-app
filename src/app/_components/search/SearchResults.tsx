@@ -41,7 +41,7 @@ const SearchResults = ({ search }: Props) => {
     <ul
       ref={scrollRef}
       data-cy="dev-list"
-      className="flex h-full w-full max-w-5xl flex-col gap-4 overflow-y-auto p-2"
+      className="flex h-full w-full max-w-5xl flex-col gap-4 p-2"
     >
       {gotDevs && developers.length === 0 && (
         <p data-cy="no-listings">No results found...</p>
