@@ -28,7 +28,7 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <Header />
-            {children}
+            <div className="mt-[56px]">{children}</div>
           </SessionProviderWrapper>
         </TRPCReactProvider>
       </body>
