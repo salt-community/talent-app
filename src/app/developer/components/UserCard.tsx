@@ -6,7 +6,6 @@ import AddToCart from "./AddToCart";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import parseLocalStorage from "./helpers/parseLocalStorage";
-import LogLink from "@/app/_components/LogLink";
 
 type Developer = RouterOutputs["developer"]["getBySlug"];
 type Props = { developer: Developer };
@@ -15,7 +14,7 @@ const UserCard = ({ developer }: Props) => {
   const [bigImage, setBigImage] = useState(false);
   const router = useRouter();
 
-  const { next, prev, search } = parseLocalStorage(developer.slug);
+  const { search } = parseLocalStorage(developer.slug);
   const locations = showMore
     ? developer.locationPref
     : developer.locationPref.slice(0, 3);
@@ -45,7 +44,7 @@ const UserCard = ({ developer }: Props) => {
           </section>
         </>
       ) : (
-        <section className="relative flex w-full max-w-5xl items-center justify-between gap-2 rounded-md border border-black/20 bg-gray p-5 pt-10 shadow-lg">
+        <section className="relative flex w-full max-w-5xl items-center justify-center gap-2 rounded-md border border-black/20 bg-gray p-5 pt-10 shadow-lg">
           <button
             onClick={() => router.push(!!search ? `/?search=${search}` : "/")}
             className="absolute left-2 top-2 w-10"
@@ -55,12 +54,6 @@ const UserCard = ({ developer }: Props) => {
           <div className="absolute right-2 top-2">
             <AddToCart developerId={developer.id} />
           </div>
-          <LogLink
-            slug={prev ? prev : ""}
-            className={!!prev ? "block" : "invisible"}
-          >
-            <Icon icon="previousPerson" className="h-10 fill-black" />
-          </LogLink>
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-1">
               <Image
@@ -116,12 +109,6 @@ const UserCard = ({ developer }: Props) => {
               </a>
             </div>
           </div>
-          <LogLink
-            slug={next ? next : ""}
-            className={!!next ? "block" : "invisible"}
-          >
-            <Icon icon="nextPerson" className="h-10 fill-black" />
-          </LogLink>
         </section>
       )}
     </>
