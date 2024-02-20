@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for meilisearch-talent-pool on 2024-02-09T15:08:51+01:00
+# fly.toml app configuration file generated for talent-pool-meilisearch on 2024-02-20T13:23:58+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'meilisearch-talent-pool'
+app = 'talent-pool-meilisearch'
 primary_region = 'ams'
 kill_signal = 'SIGINT'
 kill_timeout = '5s'
@@ -17,6 +17,7 @@ kill_timeout = '5s'
 [[mounts]]
   source = 'disc1'
   destination = '/meili_data'
+  initial_size = '1GB'
 
 [[services]]
   protocol = 'tcp'
