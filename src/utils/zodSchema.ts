@@ -11,6 +11,7 @@ export const devSchema = z.object({
   resume: z.string().url(),
   title: z.string().min(2),
   description: z.string().min(2),
+  published: z.boolean(),
   skills: z
     .array(z.object({ skill: z.string().min(1) }))
     .min(1, "Minimum one skill")
@@ -64,6 +65,7 @@ export const cartItem = z.object({
 export type tCartItem = z.infer<typeof cartItem>;
 
 export const zRole = z.object({ role: z.enum(["SALTIE", "CLIENT", "ADMIN"]) });
+// export const zPublish = z.object({ published: z.boolean() });
 export type tRole = z.infer<typeof zRole>;
 
 export const zMail = z.object({ email: z.string().email() });

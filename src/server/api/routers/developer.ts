@@ -227,6 +227,20 @@ export const developerRouter = createTRPCRouter({
       },
     ),
 
+  changePublish: protectedProcedure
+    .input(z.object({ id: z.string().min(1), published: z.boolean()}))
+    .mutation(
+      async ({
+        ctx,
+        input: {
+          id,
+          published,
+        },
+      }) => {
+        await ctx.db.developer.update({ where: { id }, data: { published } });
+      },
+    ),
+
   getByUser: protectedProcedure.query(async ({ ctx }) => {
     const data = await ctx.db.developer.findFirst({
       where: { User: { every: { id: ctx.session.user.id } } },

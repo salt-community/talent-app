@@ -3,30 +3,36 @@ import { api } from "@/trpc/react";
 import type { RouterOutputs } from "@/trpc/shared";
 import { zRole, type tRole } from "@/utils/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { type Developer } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type Users = RouterOutputs["users"]["getAll"][number];
 type Props = { user: Users };
 const EditUserRole = ({ user }: Props) => {
-  const {
-    data: fetchedDeveloper,
-    isLoading,
-    isSuccess,
-    isError,
-  } = api.developer.getById.useQuery({ id: user.id });
-  // fetch devloper and add to state
-  const [isPublished, setIsPublished] = useState(
-    Boolean(fetchedDeveloper?.published),
-  );
+  
+    let developer: Developer | null = null
 
+    if(user.developerId) {
+      const {
+        data: fetchedDeveloper,
+      } = api.developer.getById.useQuery({ id: user.developerId });
+      developer = fetchedDeveloper ?? null
+    }
+
+  const { mutate: updatePublished } = api.developer.changePublish.useMutation({
+      onSuccess: () => router.refresh(),
+    });
+  
   const handlePublished = () => {
     // fetch developer
     // find the value of developer.published
     // update the value of developer.published
-    update({ id: user.id, zRole: { role } });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore jsjsjs
+    updatePublished({ id: user.developerId, published: !developer.published });
   };
 
   const router = useRouter();
@@ -71,7 +77,7 @@ const EditUserRole = ({ user }: Props) => {
               <input
                 id="publishDev"
                 type="checkbox"
-                checked={developer.published}
+                checked={developer?.published ? true : false}
                 onChange={() => handlePublished()}
               />
             </label>
