@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
-
+import { NextUIProvider } from "@nextui-org/react";
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
@@ -25,11 +25,13 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="flex flex-col overscroll-none">
         <TRPCReactProvider headers={headers()}>
-          <Toaster />
-          <SessionProviderWrapper>
-            <Header />
-            {children}
-          </SessionProviderWrapper>
+          <NextUIProvider>
+            <Toaster />
+            <SessionProviderWrapper>
+              <Header />
+              {children}
+            </SessionProviderWrapper>
+          </NextUIProvider>
         </TRPCReactProvider>
       </body>
     </html>
