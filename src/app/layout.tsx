@@ -1,11 +1,11 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
-import { NextUIProvider } from "@nextui-org/react";
 import { TRPCReactProvider } from "@/trpc/react";
 import Header from "./_components/HeaderComp";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
+import { NextUIProvider } from "./NextUIProvider";
 
 export const metadata = {
   title:
@@ -25,13 +25,13 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="flex flex-col overscroll-none">
         <TRPCReactProvider headers={headers()}>
-          <NextUIProvider>
-            <Toaster />
-            <SessionProviderWrapper>
+          <Toaster />
+          <SessionProviderWrapper>
+            <NextUIProvider>
               <Header />
               {children}
-            </SessionProviderWrapper>
-          </NextUIProvider>
+            </NextUIProvider>
+          </SessionProviderWrapper>
         </TRPCReactProvider>
       </body>
     </html>
