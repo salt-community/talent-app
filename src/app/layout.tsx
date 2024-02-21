@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className="flex h-full flex-col">
+      <body className="flex flex-col overscroll-none">
         <TRPCReactProvider headers={headers()}>
           <Toaster />
           <SessionProviderWrapper>

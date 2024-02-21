@@ -12,10 +12,10 @@ const Header = () => {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <header className="flex items-center justify-between border-b border-b-black/20 bg-white px-3 py-2 md:py-5">
+    <header className="sticky top-0 z-50 flex w-full items-center justify-between bg-white px-4 py-3">
       <Link href={"/"}>
         <Image
-          className="w-24 p-2 lg:w-36"
+          className="w-24"
           src="/logoBlack.png"
           alt="salt logo"
           width={130}
