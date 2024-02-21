@@ -12,7 +12,7 @@ const Header = () => {
   const { data: session } = useSession();
   const router = useRouter();
   return (
-    <header className="sticky top-0 z-50 flex w-full items-center justify-between bg-white px-4 py-3">
+    <header className="sticky top-0 z-50 flex h-[76px] w-full items-center justify-between bg-white px-4 py-3">
       <Link href={"/"}>
         <Image
           className="w-24"

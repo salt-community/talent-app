@@ -16,7 +16,7 @@ const SearchForm = () => {
   }, [debouncedSearch, router]);
 
   return (
-    <div className="sticky top-[76px] z-50 flex w-full justify-center bg-gradient-to-r from-[rgb(255,121,97)] to-[rgb(243,92,126)] p-5 xs:top-[64px]">
+    <div className="sticky top-[76px] z-50 flex w-full justify-center bg-gradient-to-r from-[rgb(255,121,97)] to-[rgb(243,92,126)] p-5">
       <form
         onSubmit={(e) => {
           e.preventDefault();
