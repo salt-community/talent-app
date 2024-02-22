@@ -9,6 +9,7 @@ import type { SearchResult } from "types";
 import { TRPCError } from "@trpc/server";
 import { devSchema, searchDevSchema } from "@/utils/zodSchema";
 import seedMeilisearch from "@/server/seedMeilisearch";
+import { allowedDeveloperIds } from "@/allowed-developer-ids";
 
 // const shuffleArray = <T>(array: T[]): T[] => {
 //   const newArray = [...array];
@@ -127,9 +128,14 @@ export const developerRouter = createTRPCRouter({
         }
       }
       if (search === "") {
-        const data = await ctx.db.developer.findMany({
+        const allDevelopers = await ctx.db.developer.findMany({
           orderBy: { name: "asc" },
         });
+
+        const data = allDevelopers.filter((dev) =>
+        allowedDeveloperIds.includes(dev.id),
+      );
+      
         return data.map(
           ({ skills, title, description, name, image, slug, id }) => ({
             skills,
