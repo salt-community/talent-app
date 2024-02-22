@@ -1,11 +1,17 @@
 import client from "./meilisearchClient";
 import settings from "./meilisearchSettings";
 import { db } from "./db";
+import { allowedDeveloperIds } from "@/allowed-developer-ids";
 
 const seedMeilisearch = async () => {
   try {
     const data = await db.developer.findMany();
-    const devs = data.map((c) => ({
+
+    const allowedDevelopers = data.filter((dev) =>
+      allowedDeveloperIds.includes(dev.id),
+    );
+
+    const devs = allowedDevelopers.map((c) => ({
       skills: c.skills,
       title: c.title,
       name: c.name,
