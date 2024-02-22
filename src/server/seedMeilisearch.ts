@@ -5,13 +5,7 @@ import { db } from "./db";
 const seedMeilisearch = async () => {
   try {
     const data = await db.developer.findMany();
-    const allowedDeveloperIds: string[] = [];
-
-    const allowedDevelopers = data.filter((dev) =>
-      allowedDeveloperIds.includes(dev.id),
-    );
-
-    const devs = allowedDevelopers.map((c) => ({
+    const devs = data.map((c) => ({
       skills: c.skills,
       title: c.title,
       name: c.name,
