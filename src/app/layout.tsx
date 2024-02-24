@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
-import Header from "./_components/HeaderComp";
+import Header from "./_components/Header";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
