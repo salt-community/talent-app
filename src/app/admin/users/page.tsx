@@ -25,7 +25,7 @@ const page = async () => {
 
   return (
     <main className="flex flex-col gap-2">
-      <Navbar page="users" />
+      <Navbar />
       <Users users={users} />
     </main>
   );

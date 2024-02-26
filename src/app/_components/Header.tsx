@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/app/assets/icons/Icon";
 import CartStatus from "./CartStatus";
 import { signIn, signOut, useSession } from "next-auth/react";
 import {
@@ -40,12 +39,7 @@ const Header = () => {
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <div className="flex items-center gap-4">
           {!!session && session.user.role === "ADMIN" && (
-            <Link href={"/admin/users"}>
-              <Icon
-                icon="admin"
-                className="h-10 w-10 fill-black active:fill-orange"
-              />
-            </Link>
+            <Link href={"/admin/users"}>Admin</Link>
           )}
           {!!session &&
             (session.user.role === "SALTIE" ||
@@ -87,10 +81,7 @@ const Header = () => {
         <div className="flex flex-col items-center gap-4">
           {!!session && session.user.role === "ADMIN" && (
             <Link href={"/admin/users"} onClick={() => setIsMenuOpen(false)}>
-              <Icon
-                icon="admin"
-                className="h-10 w-10 fill-black active:fill-orange"
-              />
+              Admin
             </Link>
           )}
           {!!session &&

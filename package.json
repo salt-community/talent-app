@@ -36,6 +36,7 @@
     "@trpc/server": "^10.37.1",
     "cross-env": "^7.0.3",
     "framer-motion": "^11.0.5",
+    "lucide-react": "^0.341.0",
     "meilisearch": "^0.35.0",
     "next": "^13.5.4",
     "next-auth": "^4.23.0",
