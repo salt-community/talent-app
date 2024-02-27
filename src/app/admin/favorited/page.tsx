@@ -18,9 +18,9 @@ const page = async () => {
     </main>;
   }
   const cartItems = await api.log.getCarts.query();
-  const className = "border text-xs md:text-base";
+  const className = "border text-xs md:text-base pl-2";
   return (
-    <main className="flex flex-col">
+    <main className="mt-20 flex flex-col">
       <section className="flex w-full max-w-5xl flex-col self-center p-5">
         <table>
           <thead>

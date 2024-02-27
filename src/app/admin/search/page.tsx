@@ -17,9 +17,10 @@ const page = async () => {
     </main>;
   }
   const searches = await api.log.getSearch.query();
-  const className = "border text-xs md:text-base";
+  const className = "border text-xs md:text-base pl-2";
+
   return (
-    <main className="flex flex-col gap-2">
+    <main className="mt-20 flex flex-col gap-2">
       <section className="flex w-full max-w-5xl flex-col self-center">
         <table>
           <thead>
