@@ -1,7 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
-import Navbar from "../_components/Navbar";
+
 const Admin = async () => {
   const session = await getServerAuthSession();
   if (!session) {
@@ -20,9 +20,7 @@ const Admin = async () => {
   const className = "border text-xs md:text-base";
   return (
     <main className="flex flex-col gap-2">
-      <Navbar page="visits" />
       <section className="flex w-full max-w-5xl flex-col self-center">
-        <h2 className="text-lg font-bold">Developers visited</h2>
         <table>
           <thead>
             <tr>

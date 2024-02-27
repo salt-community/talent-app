@@ -1,7 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/trpc/server";
 import Link from "next/link";
-import Navbar from "../_components/Navbar";
 import Comment from "./_components/Comment";
 
 const page = async () => {
@@ -22,9 +21,7 @@ const page = async () => {
   const className = "border text-xs md:text-base";
   return (
     <main className="flex flex-col">
-      <Navbar page="favorited" />
       <section className="flex w-full max-w-5xl flex-col self-center p-5">
-        <h2 className="text-lg font-bold">Developers favorited</h2>
         <table>
           <thead>
             <tr>
