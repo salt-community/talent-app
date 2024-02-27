@@ -30,13 +30,13 @@ const EditUserRole = ({ user }: Props) => {
     }
   }, [isSubmitSuccessful, reset]);
   return (
-    <li className="flex items-center justify-between border px-1 text-xs md:text-base">
+    <li className="flex justify-between border p-2 text-xs md:text-base">
       {user.role === "CLIENT" ? (
         <Link className="underline" href={`/admin/client/${user.id}`}>
           {user.email}
         </Link>
       ) : (
-        <p>{user.email}</p>
+        <p className="font-bold">{user.email}</p>
       )}
       <form
         onSubmit={(event) =>

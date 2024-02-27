@@ -35,8 +35,7 @@ const Users = ({ users }: Props) => {
           <option value="ADMIN">Admin</option>
         </select>
       </form>
-      <h2>Users</h2>
-      <ul className="flex flex-col gap-1">
+      <ul className="mt-10 flex flex-col gap-1">
         {users
           .filter(({ role }) =>
             filter.role ? role.toString() === filter.role : true,
