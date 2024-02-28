@@ -32,19 +32,23 @@ const ProjectPage = () => {
     });
   if (validatedSearchParams.data.do === "create") {
     return (
-      <main className="flex max-w-md flex-col gap-2 p-2">
+      <main className="m-auto mt-20 flex max-w-md flex-col gap-2 p-2">
         <h2 className="text-2xl">Create project</h2>
         <ProjectForm handleData={(project) => create({ project, developerId })}>
           <div className="flex gap-2">
-            <Button disabled={creatingProject} className="w-1/2 py-2">
-              Create project
-            </Button>
             <Button
               className="w-1/2 py-2"
               onClick={() => router.push("/profile")}
               type="button"
             >
               Cancel
+            </Button>
+            <Button
+              disabled={creatingProject}
+              callToAction
+              className="w-1/2 bg-orange py-2"
+            >
+              Create project
             </Button>
           </div>
         </ProjectForm>

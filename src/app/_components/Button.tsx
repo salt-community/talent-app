@@ -15,8 +15,8 @@ export function Button({
 }: ButtonProps) {
   const className = {
     colors: callToAction
-      ? "bg-orange md:hover:bg-black text-white md:hover:text-white active:bg-black"
-      : "bg-gray md:hover:bg-orange text-black md:hover:text-white active:bg-orange",
+      ? "bg-orange hover:bg-darkOrange text-white active:bg-black"
+      : "bg-gray md:hover:bg-zinc-200 text-black active:bg-orange",
   };
   return (
     <button

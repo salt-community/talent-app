@@ -21,6 +21,7 @@ export default {
       },
       colors: {
         orange: "#ff7961",
+        darkOrange: "rgb(234 88 12)",
         black: "#353535",
         gray: "#f8f8f8",
         white: "#ffffff",
