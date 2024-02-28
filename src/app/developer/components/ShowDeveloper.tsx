@@ -97,8 +97,8 @@ const ShowDeveloper = ({ developer }: Props) => {
             </Article>
           )}
         </section>
+        <Contact developer={developer} />
       </main>
-      <Contact developer={developer} />
     </>
   );
 };
