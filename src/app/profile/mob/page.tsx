@@ -33,19 +33,19 @@ const MobPage = () => {
   );
   if (validatedSearchParams.data.do === "create") {
     return (
-      <main className="flex max-w-md flex-col gap-2 p-2">
+      <main className="m-auto mt-20 flex max-w-md flex-col gap-2 p-2">
         <h2 className="text-2xl">Create mob</h2>
         <MobForm handleData={(mob) => create({ mob, developerId })}>
           <div className="flex gap-2">
-            <Button disabled={creatingMob} className="w-1/2 py-2">
-              Create mob
-            </Button>
             <Button
               className="w-1/2 py-2"
               onClick={() => router.push("/profile")}
               type="button"
             >
               Cancel
+            </Button>
+            <Button disabled={creatingMob} callToAction className="w-1/2 py-2">
+              Create mob
             </Button>
           </div>
         </MobForm>
