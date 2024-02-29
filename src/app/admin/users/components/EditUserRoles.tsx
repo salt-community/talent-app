@@ -26,6 +26,7 @@ const EditUserRole = ({ user }: Props) => {
     resolver: zodResolver(zRole),
     defaultValues: { role: user.role },
   });
+
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({}, { keepValues: true });
@@ -55,6 +56,7 @@ const EditUserRole = ({ user }: Props) => {
         >
           {isDirty && <button className="px-5">Save</button>}
           <Select
+            {...register("role")}
             variant="bordered"
             aria-label="role"
             defaultSelectedKeys={[user.role]}
@@ -80,6 +82,7 @@ const EditUserRole = ({ user }: Props) => {
               defaultSelectedKeys={["PUBLISHED"]}
               value={"PUBLISHED"}
               size="sm"
+              color="primary"
               labelPlacement="outside"
             >
               <SelectItem key="PUBLISHED" value="PUBLISHED">
