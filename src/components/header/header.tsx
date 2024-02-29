@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Icon from "@/app/assets/icons/Icon";
-import CartStatus from "./CartStatus";
+import CartStatus from "@/app/_components/CartStatus";
 import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Navbar,
