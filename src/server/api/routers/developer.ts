@@ -133,9 +133,9 @@ export const developerRouter = createTRPCRouter({
         });
 
         const data = allDevelopers.filter((dev) =>
-        allowedDeveloperIds.includes(dev.id),
-      );
-      
+          allowedDeveloperIds.includes(dev.id),
+        );
+
         return data.map(
           ({ skills, title, description, name, image, slug, id }) => ({
             skills,
@@ -249,6 +249,7 @@ export const developerRouter = createTRPCRouter({
       },
     });
     if (data) {
+      console.log("data: ", data);
       return {
         ...data,
         projects: data.projects.map(({ id, project, order }) => ({
