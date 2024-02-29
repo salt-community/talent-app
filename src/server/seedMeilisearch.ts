@@ -11,7 +11,22 @@ const seedMeilisearch = async () => {
       allowedDeveloperIds.includes(dev.id),
     );
 
+    const notAllowedDevelopers = data.filter(
+      (dev) => !allowedDeveloperIds.includes(dev.id),
+    );
+
     const devs = allowedDevelopers.map((c) => ({
+      skills: c.skills,
+      title: c.title,
+      name: c.name,
+      description: c.description,
+      slug: c.slug,
+      image: c.image,
+      locations: c.locationPref,
+      id: c.id,
+    }));
+
+    const nonPayrollDevs = notAllowedDevelopers.map((c) => ({
       skills: c.skills,
       title: c.title,
       name: c.name,
@@ -26,7 +41,7 @@ const seedMeilisearch = async () => {
     await client.deleteIndex("non-payrolled-developers");
 
     await client.index("developers").addDocuments(devs);
-    await client.index("non-payrolled-developers").addDocuments([]);
+    await client.index("non-payrolled-developers").addDocuments(nonPayrollDevs);
 
     await client
       .index("developers")
@@ -39,8 +54,8 @@ const seedMeilisearch = async () => {
       ]);
 
     await client.index("developers").updateSettings(settings);
-
     const updatedSettings = await client.index("developers").getSettings();
+
     console.log(updatedSettings);
   } catch (err: unknown) {
     console.log(err);
