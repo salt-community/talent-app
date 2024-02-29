@@ -23,11 +23,10 @@ const seedMeilisearch = async () => {
     }));
 
     await client.deleteIndex("developers");
+    await client.deleteIndex("non-payrolled-developers");
 
-    const addDocumentsResult = await client
-      .index("developers")
-      .addDocuments(devs);
-    console.log(addDocumentsResult);
+    await client.index("developers").addDocuments(devs);
+    await client.index("non-payrolled-developers").addDocuments([]);
 
     await client
       .index("developers")
