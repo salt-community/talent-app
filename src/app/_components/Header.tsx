@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 
-const Header = () => {
+export const Header = () => {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -142,5 +142,3 @@ const Header = () => {
     </Navbar>
   );
 };
-
-export default Header;
