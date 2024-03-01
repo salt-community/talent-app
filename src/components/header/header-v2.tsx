@@ -1,4 +1,4 @@
-import { Search } from "./search";
+import { Search } from "./search/search";
 import { Navbar } from "./navbar";
 import { Brand } from "./brand";
 import { Menu } from "./menu";
