@@ -18,8 +18,7 @@ export const Search = () => {
   return (
     <NavbarContent>
       <Input
-        placeholder="Search for talents..."
-        size="lg"
+        placeholder="Search talents..."
         type="search"
         onChange={(e) => setSearch(e.target.value)}
         onKeyUp={(e) => {
