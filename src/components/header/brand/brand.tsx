@@ -6,7 +6,7 @@ export const Brand = () => {
     <NavbarContent justify="start">
       <NavbarBrand>
         <Link href={"/"}>
-          <Image src="/logoBlack.png" alt="salt logo" width={96} />
+          <Image src="/logoBlack.png" alt="salt logo" width={64} />
         </Link>
       </NavbarBrand>
     </NavbarContent>
