@@ -6,7 +6,7 @@ type Props = {
 
 export const Navbar = ({ children }: Props) => {
   return (
-    <NextNavbar className="bg-gradient-to-r from-[rgb(255,121,97)] to-[rgb(243,92,126)]">
+    <NextNavbar className="bg-gradient-to-r from-[rgb(255,121,97)] to-[rgb(243,92,126)] p-2">
       {children}
     </NextNavbar>
   );
