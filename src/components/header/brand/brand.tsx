@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const Brand = () => {
   return (
-    <NavbarContent>
+    <NavbarContent justify="start">
       <NavbarBrand>
         <Link href={"/"}>
           <Image src="/logoBlack.png" alt="salt logo" width={96} />
