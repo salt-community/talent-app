@@ -17,8 +17,9 @@ export const MenuItems = () => {
   if (session.data.user.role == "ADMIN") {
     return (
       <>
-        <Admin />
         <FavoritesBadge />
+        <Saltie />
+        <Admin />
         <SignOut />
       </>
     );
@@ -36,8 +37,8 @@ export const MenuItems = () => {
   if (session.data.user.role === "SALTIE") {
     return (
       <>
-        <Saltie />
         <FavoritesBadge />
+        <Saltie />
         <SignOut />
       </>
     );
