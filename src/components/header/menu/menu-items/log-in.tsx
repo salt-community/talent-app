@@ -3,7 +3,7 @@
 import { Link, NavbarMenuItem } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 
-export const SignedOut = () => {
+export const LogIn = () => {
   return (
     <>
       <NavbarMenuItem>

@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import CartStatus from "@/app/_components/CartStatus";
 import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Navbar,
@@ -11,6 +10,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import { useState } from "react";
+import { FavoritesBadge } from "./menu/favorites-badge";
 
 export const Header = () => {
   const { data: session } = useSession();
@@ -46,7 +46,7 @@ export const Header = () => {
               session.user.role === "ADMIN") && (
               <Link href="/profile">Profile</Link>
             )}
-          {session && session.user.role === "CLIENT" && <CartStatus />}
+          {session && session.user.role === "CLIENT" && <FavoritesBadge />}
           {!session && (
             <>
               <Link
@@ -91,7 +91,7 @@ export const Header = () => {
                 Profile
               </Link>
             )}
-          {session && session.user.role === "CLIENT" && <CartStatus />}
+          {session && session.user.role === "CLIENT" && <FavoritesBadge />}
           {!session && (
             <>
               <Link

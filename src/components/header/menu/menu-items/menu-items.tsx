@@ -1,25 +1,24 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { SignedOut } from "./signed-out";
+import { LogIn } from "./log-in";
 import { SignOut } from "./sign-out";
 import { Admin } from "./admin";
 import { Saltie } from "./saltie";
-import { FavoritesBadge } from "./favorites-badge";
+import { FavoritesBadge } from "../favorites-badge";
 
-export const Content = () => {
+export const MenuItems = () => {
   const session = useSession();
 
-  console.log({ session });
-
   if (!session.data) {
-    return <SignedOut />;
+    return <LogIn />;
   }
 
   if (session.data.user.role == "ADMIN") {
     return (
       <>
         <Admin />
+        <FavoritesBadge />
         <SignOut />
       </>
     );
@@ -38,6 +37,7 @@ export const Content = () => {
     return (
       <>
         <Saltie />
+        <FavoritesBadge />
         <SignOut />
       </>
     );
