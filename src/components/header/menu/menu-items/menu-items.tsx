@@ -14,7 +14,9 @@ export const MenuItems = () => {
     return <LogIn />;
   }
 
-  if (session.data.user.role == "ADMIN") {
+  const { role } = session.data.user;
+
+  if (role == "ADMIN") {
     return (
       <>
         <FavoritesBadge />
@@ -25,7 +27,7 @@ export const MenuItems = () => {
     );
   }
 
-  if (session.data.user.role === "CLIENT") {
+  if (role === "CLIENT") {
     return (
       <>
         <FavoritesBadge />
@@ -34,7 +36,7 @@ export const MenuItems = () => {
     );
   }
 
-  if (session.data.user.role === "SALTIE") {
+  if (role === "SALTIE") {
     return (
       <>
         <FavoritesBadge />
