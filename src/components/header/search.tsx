@@ -1,5 +1,6 @@
 "use client";
 import Icon from "@/app/assets/icons/Icon";
+import { NavbarContent } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";
@@ -16,7 +17,7 @@ export const Search = () => {
   }, [debouncedSearch, router]);
 
   return (
-    <div>
+    <NavbarContent>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -38,6 +39,6 @@ export const Search = () => {
           />
         </button>
       </form>
-    </div>
+    </NavbarContent>
   );
 };
