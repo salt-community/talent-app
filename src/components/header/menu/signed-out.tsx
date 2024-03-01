@@ -6,8 +6,12 @@ export const SignedOut = () => {
       <NavbarMenuItem>
         <Link href="#">Sign In</Link>
       </NavbarMenuItem>
-      <NavbarMenuItem>
-        <Link href="#">Saltie Sign In</Link>
+      <NavbarMenuItem className="text-tiny">
+        SALT employees sign in{" "}
+        <Link className="text-tiny" href="#">
+          here
+        </Link>
+        .
       </NavbarMenuItem>
     </>
   );
