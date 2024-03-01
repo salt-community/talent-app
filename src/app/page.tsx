@@ -4,6 +4,7 @@ import { isFeatureHeaderV2Enabled } from "@/feature-flags";
 import SearchForm from "./_components/search/SearchForm";
 import SearchResults from "./_components/search/SearchResults";
 import { zSearchFilter } from "@/utils/zodSchema";
+import { useSession } from "next-auth/react";
 
 type Props = {
   searchParams: Record<string, string | string[] | undefined>;
@@ -12,8 +13,9 @@ type Props = {
 const Home = ({ searchParams }: Props) => {
   const { search } = validateSearchParams({ searchParams });
   const decodedSearch = decodeURIComponent(search);
+  const session = useSession();
 
-  const featureHeaderV2Enabled = isFeatureHeaderV2Enabled();
+  const featureHeaderV2Enabled = isFeatureHeaderV2Enabled(session);
 
   return (
     <main className="flex flex-col items-center">
