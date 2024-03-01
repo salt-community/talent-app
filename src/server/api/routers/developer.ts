@@ -133,9 +133,9 @@ export const developerRouter = createTRPCRouter({
         });
 
         const data = allDevelopers.filter((dev) =>
-        allowedDeveloperIds.includes(dev.id),
-      );
-      
+          allowedDeveloperIds.includes(dev.id),
+        );
+
         return data.map(
           ({ skills, title, description, name, image, slug, id }) => ({
             skills,
@@ -234,8 +234,16 @@ export const developerRouter = createTRPCRouter({
     ),
 
   getByUser: protectedProcedure.query(async ({ ctx }) => {
-    const data = await ctx.db.developer.findFirst({
-      where: { User: { every: { id: ctx.session.user.id } } },
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.session.user.id },
+    });
+
+    if (!user?.developerId) {
+      return null;
+    }
+
+    const data = await ctx.db.developer.findUnique({
+      where: { id: user.developerId },
       select: {
         id: true,
         image: true,

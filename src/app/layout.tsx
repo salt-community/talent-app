@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
-import Header from "./_components/Header";
+import { Header, HeaderV2 } from "@/components";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
@@ -21,6 +21,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const ffHeaderV2 = process.env.NEXT_PUBLIC_FF_HEADER_V2 === "ON";
+
   return (
     <html lang="en" className="h-full">
       <body className="flex flex-col overscroll-none">
@@ -28,7 +30,7 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <NextUIProvider>
-              <Header />
+              {ffHeaderV2 ? <HeaderV2 /> : <Header />}
               {children}
             </NextUIProvider>
           </SessionProviderWrapper>
@@ -37,20 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-// const Maintenance = () => {
-//   return (
-//     <main className="flex h-full flex-col items-center gap-5">
-//       <h1 className="w-full bg-orange p-5 text-center text-xl">Maintenance</h1>
-//       <div className="flex flex-col gap-5 p-6 font-thin">
-//         <p className="self-center font-normal">Salt talents will be back soon...</p>
-//         <p>Why did the webpage go to therapy?</p>
-//         <p>
-//           Because it needed some downtime for maintenance and emotional
-//           debugging!
-//         </p>
-//         <p className="self-end font-normal">- ChatGPT</p>
-//       </div>
-//     </main>
-//   );
-// };

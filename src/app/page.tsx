@@ -9,9 +9,10 @@ type Props = {
 const Home = ({ searchParams }: Props) => {
   const { search } = validateSearchParams({ searchParams });
   const decodedSearch = decodeURIComponent(search);
+  const ffHeaderV2 = process.env.NEXT_PUBLIC_FF_HEADER_V2 === "ON";
   return (
     <main className="flex flex-col items-center">
-      <SearchForm />
+      {ffHeaderV2 ? null : <SearchForm />}
       <SearchResults search={decodedSearch} />
     </main>
   );

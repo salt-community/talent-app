@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import CartStatus from "./CartStatus";
+import CartStatus from "@/app/_components/CartStatus";
 import { signIn, signOut, useSession } from "next-auth/react";
 import {
   Navbar,
@@ -12,7 +12,7 @@ import {
 } from "@nextui-org/react";
 import { useState } from "react";
 
-const Header = () => {
+export const Header = () => {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -133,5 +133,3 @@ const Header = () => {
     </Navbar>
   );
 };
-
-export default Header;

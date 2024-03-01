@@ -5,6 +5,7 @@ import Link from "next/link";
 import ItemContainer from "../_components/ItemContainer";
 import MobItem from "./components/MobItem";
 import Projects from "./components/dndProjects/Projects";
+import { useSession } from "next-auth/react";
 
 const Profile = () => {
   const {
@@ -12,6 +13,11 @@ const Profile = () => {
     isSuccess: gotDev,
     isLoading: gettingDev,
   } = api.developer.getByUser.useQuery();
+
+  console.log("DEVELOPER: ", developer);
+
+  const session = useSession();
+  console.log("SESSION: ", session);
 
   return (
     <main className="flex grow flex-col items-center gap-2 bg-gradient-to-b from-orange to-pink p-2 font-light">
