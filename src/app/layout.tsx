@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { headers } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
-import { Header } from "@/components";
+import { Header, HeaderV2 } from "@/components";
 import { SessionProviderWrapper } from "./SessionProviderWrapper";
 import { Toaster } from "react-hot-toast";
 import { env } from "process";
@@ -21,6 +21,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const ffHeaderV2 = process.env.NEXT_PUBLIC_FF_HEADER_V2 === "ON";
+
   return (
     <html lang="en" className="h-full">
       <body className="flex flex-col overscroll-none">
@@ -28,7 +30,7 @@ export default function RootLayout({
           <Toaster />
           <SessionProviderWrapper>
             <NextUIProvider>
-              <Header />
+              {ffHeaderV2 ? <HeaderV2 /> : <Header />}
               {children}
             </NextUIProvider>
           </SessionProviderWrapper>
