@@ -75,24 +75,6 @@ const EditUserRole = ({ user }: Props) => {
               ADMIN
             </SelectItem>
           </Select>
-          {user.role === "SALTIE" && (
-            <Select
-              variant="bordered"
-              aria-label="published"
-              defaultSelectedKeys={["PUBLISHED"]}
-              value={"PUBLISHED"}
-              size="sm"
-              color="primary"
-              labelPlacement="outside"
-            >
-              <SelectItem key="PUBLISHED" value="PUBLISHED">
-                PUBLISHED
-              </SelectItem>
-              <SelectItem key="UNPUBLISHED" value="UNPUBLISHED">
-                UNPUBLISHED
-              </SelectItem>
-            </Select>
-          )}
         </form>
       </div>
     </li>
