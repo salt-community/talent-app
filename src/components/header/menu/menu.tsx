@@ -11,7 +11,7 @@ export const Menu = ({ closeMenu }: Props) => {
   return (
     <NavbarContent justify="end">
       <NavbarMenuToggle />
-      <NavbarMenu className="z-100 flex flex-col items-center gap-4 pt-10">
+      <NavbarMenu className="z-50 flex flex-col items-center gap-4 pt-10">
         <MenuItems closeMenu={closeMenu} />
       </NavbarMenu>
     </NavbarContent>
