@@ -7,11 +7,15 @@ import { Admin } from "./admin";
 import { Saltie } from "./saltie";
 import { FavoritesBadge } from "./favorites-badge";
 
-export const MenuItems = () => {
+type Props = {
+  closeMenu: () => void;
+};
+
+export const MenuItems = ({ closeMenu }: Props) => {
   const session = useSession();
 
   if (!session.data) {
-    return <LogIn />;
+    return <LogIn closeMenu={closeMenu} />;
   }
 
   const { role } = session.data.user;
@@ -19,10 +23,10 @@ export const MenuItems = () => {
   if (role == "ADMIN") {
     return (
       <>
-        <FavoritesBadge />
-        <Saltie />
-        <Admin />
-        <SignOut />
+        <FavoritesBadge closeMenu={closeMenu} />
+        <Saltie closeMenu={closeMenu} />
+        <Admin closeMenu={closeMenu} />
+        <SignOut closeMenu={closeMenu} />
       </>
     );
   }
@@ -30,8 +34,8 @@ export const MenuItems = () => {
   if (role === "CLIENT") {
     return (
       <>
-        <FavoritesBadge />
-        <SignOut />
+        <FavoritesBadge closeMenu={closeMenu} />
+        <SignOut closeMenu={closeMenu} />
       </>
     );
   }
@@ -39,9 +43,9 @@ export const MenuItems = () => {
   if (role === "SALTIE") {
     return (
       <>
-        <FavoritesBadge />
-        <Saltie />
-        <SignOut />
+        <FavoritesBadge closeMenu={closeMenu} />
+        <Saltie closeMenu={closeMenu} />
+        <SignOut closeMenu={closeMenu} />
       </>
     );
   }

@@ -1,5 +1,13 @@
 import { Link } from "@nextui-org/react";
 
-export const Admin = () => {
-  return <Link href={"/admin/users"}>SALT Admin</Link>;
+type Props = {
+  closeMenu: () => void;
+};
+
+export const Admin = ({ closeMenu }: Props) => {
+  return (
+    <Link href={"/admin/users"} onClick={closeMenu}>
+      SALT Admin
+    </Link>
+  );
 };

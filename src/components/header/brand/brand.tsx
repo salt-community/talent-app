@@ -1,11 +1,20 @@
 import { NavbarBrand, NavbarContent, Image } from "@nextui-org/react";
 import Link from "next/link";
 
-export const Brand = () => {
+type Props = {
+  closeMenu: () => void;
+};
+
+export const Brand = ({ closeMenu }: Props) => {
   return (
     <NavbarContent justify="start">
       <NavbarBrand>
-        <Link href="/">
+        <Link
+          href="/"
+          onClick={() => {
+            closeMenu();
+          }}
+        >
           <Image src="/logoBlack.png" alt="salt logo" width={64} />
         </Link>
       </NavbarBrand>

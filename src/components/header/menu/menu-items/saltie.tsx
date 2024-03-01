@@ -1,5 +1,13 @@
 import { Link } from "@nextui-org/react";
 
-export const Saltie = () => {
-  return <Link href="/profile">Profile</Link>;
+type Props = {
+  closeMenu: () => void;
+};
+
+export const Saltie = ({ closeMenu }: Props) => {
+  return (
+    <Link href="/profile" onClick={closeMenu}>
+      Profile
+    </Link>
+  );
 };

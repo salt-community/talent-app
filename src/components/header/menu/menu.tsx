@@ -3,12 +3,16 @@
 import { NavbarContent, NavbarMenu, NavbarMenuToggle } from "@nextui-org/react";
 import { MenuItems } from "./menu-items/menu-items";
 
-export const Menu = () => {
+type Props = {
+  closeMenu: () => void;
+};
+
+export const Menu = ({ closeMenu }: Props) => {
   return (
     <NavbarContent justify="end">
       <NavbarMenuToggle />
       <NavbarMenu className="z-100 flex flex-col items-center gap-4 pt-10">
-        <MenuItems />
+        <MenuItems closeMenu={closeMenu} />
       </NavbarMenu>
     </NavbarContent>
   );

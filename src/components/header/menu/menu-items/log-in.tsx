@@ -3,11 +3,17 @@
 import { Link, NavbarMenuItem } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 
-export const LogIn = () => {
+type Props = {
+  closeMenu: () => void;
+};
+
+export const LogIn = ({ closeMenu }: Props) => {
   return (
     <>
       <NavbarMenuItem>
-        <Link href="login">Log In</Link>
+        <Link href="/login" onClick={closeMenu}>
+          Log In
+        </Link>
       </NavbarMenuItem>
       <NavbarMenuItem className="text-tiny">
         SALT employees log in{" "}
@@ -15,6 +21,7 @@ export const LogIn = () => {
           className="text-tiny"
           href="#"
           onClick={() => {
+            closeMenu();
             void signIn("google");
           }}
         >
