@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { FavoritesBadge } from "./menu/menu-items/favorites-badge";
 
-export const Header = () => {
+export const HeaderV1 = () => {
   const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -46,7 +46,9 @@ export const Header = () => {
               session.user.role === "ADMIN") && (
               <Link href="/profile">Profile</Link>
             )}
-          {session && session.user.role === "CLIENT" && <FavoritesBadge />}
+          {session && session.user.role === "CLIENT" && (
+            <FavoritesBadge closeMenu={() => setIsMenuOpen(false)} />
+          )}
           {!session && (
             <>
               <Link
@@ -91,7 +93,9 @@ export const Header = () => {
                 Profile
               </Link>
             )}
-          {session && session.user.role === "CLIENT" && <FavoritesBadge />}
+          {session && session.user.role === "CLIENT" && (
+            <FavoritesBadge closeMenu={() => setIsMenuOpen(false)} />
+          )}
           {!session && (
             <>
               <Link
