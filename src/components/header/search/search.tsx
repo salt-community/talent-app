@@ -21,6 +21,7 @@ export const Search = () => {
         className="min-w-[150px]"
         placeholder="Talent search"
         type="search"
+        size="sm"
         onChange={(e) => setSearch(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === "Enter") {
