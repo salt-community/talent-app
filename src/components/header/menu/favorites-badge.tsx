@@ -1,9 +1,9 @@
 "use client";
-import Icon from "../assets/icons/Icon";
+import Icon from "@/app/assets/icons/Icon";
 import { api } from "@/trpc/react";
 import Link from "next/link";
 
-const CartStatus = () => {
+export const FavoritesBadge = () => {
   const { data: cart, isSuccess } = api.cart.getAll.useQuery();
   return (
     <Link href={"/cart"} className="relative">
@@ -14,5 +14,3 @@ const CartStatus = () => {
     </Link>
   );
 };
-
-export default CartStatus;

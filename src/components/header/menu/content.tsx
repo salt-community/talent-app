@@ -5,7 +5,7 @@ import { SignedOut } from "./signed-out";
 import { SignOut } from "./sign-out";
 import { Admin } from "./admin";
 import { Saltie } from "./saltie";
-import CartStatus from "@/app/_components/CartStatus";
+import { FavoritesBadge } from "./favorites-badge";
 
 export const Content = () => {
   const session = useSession();
@@ -28,7 +28,7 @@ export const Content = () => {
   if (session.data.user.role === "CLIENT") {
     return (
       <>
-        <CartStatus />
+        <FavoritesBadge />
         <SignOut />
       </>
     );
