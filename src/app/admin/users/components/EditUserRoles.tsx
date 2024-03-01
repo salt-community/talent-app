@@ -3,11 +3,10 @@ import { api } from "@/trpc/react";
 import type { RouterOutputs } from "@/trpc/shared";
 import { zRole, type tRole } from "@/utils/zodSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 
 type Users = RouterOutputs["users"]["getAll"][number];
 type Props = { user: Users };
@@ -34,18 +33,19 @@ const EditUserRole = ({ user }: Props) => {
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <li className="mb-4 flex w-full flex-col justify-between gap-2 rounded  bg-zinc-100 p-3 md:items-baseline">
-      <div className="flex w-full grow flex-col items-start justify-between  text-xs sm:flex-row md:text-base">
-        {user.role === "CLIENT" ? (
-          <Link className="underline" href={`/admin/client/${user.id}`}>
-            {user.email}
-          </Link>
-        ) : (
-          <div className="flex flex-col">
-            <h6 className="font-bold">{user.name}</h6>
-            <small className="">{user.email}</small>
-          </div>
-        )}
+    <li className="mb-4 flex w-full flex-col justify-between gap-2 rounded bg-zinc-100 p-3 md:items-baseline">
+      <div className="flex w-full grow flex-col items-start justify-between text-xs sm:flex-row md:text-base">
+        <div
+          className={`flex flex-col  ${
+            user.role === "CLIENT" ? "hover:cursor-pointer" : "hover:none"
+          }`}
+          onClick={() =>
+            user.role === "CLIENT" && router.push(`/admin/client/${user.id}`)
+          }
+        >
+          <h6 className="font-bold">{user?.name}</h6>
+          <small className="">{user.email}</small>
+        </div>
         <form
           className="flex w-full flex-col items-center gap-2 self-end md:w-[150px]"
           onSubmit={(event) =>
@@ -54,7 +54,6 @@ const EditUserRole = ({ user }: Props) => {
             )(event)
           }
         >
-          {isDirty && <button className="px-5">Save</button>}
           <Select
             {...register("role")}
             variant="bordered"
@@ -75,6 +74,17 @@ const EditUserRole = ({ user }: Props) => {
               ADMIN
             </SelectItem>
           </Select>
+          <Button
+            type="submit"
+            disabled={!isDirty}
+            color={isDirty ? "primary" : "default"}
+            fullWidth
+            size="sm"
+            radius="sm"
+            className="px-5"
+          >
+            Save
+          </Button>
         </form>
       </div>
     </li>
