@@ -12,7 +12,7 @@ const Home = ({ searchParams }: Props) => {
   const ffHeaderV2 = process.env.NEXT_PUBLIC_FF_HEADER_V2 === "ON";
   return (
     <main className="flex flex-col items-center">
-      {ffHeaderV2 ?? <SearchForm />}
+      {ffHeaderV2 ? null : <SearchForm />}
       <SearchResults search={decodedSearch} />
     </main>
   );
