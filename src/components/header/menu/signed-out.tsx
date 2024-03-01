@@ -4,10 +4,10 @@ export const SignedOut = () => {
   return (
     <>
       <NavbarMenuItem>
-        <Link href="#">Sign In</Link>
+        <Link href="login">Log In</Link>
       </NavbarMenuItem>
       <NavbarMenuItem className="text-tiny">
-        SALT employees sign in{" "}
+        SALT employees log in{" "}
         <Link className="text-tiny" href="#">
           here
         </Link>
