@@ -1,15 +1,11 @@
 "use client";
 
-import { type SessionContextValue } from "next-auth/react";
-
-export const isFeatureHeaderV2Enabled = <R extends boolean>(
-  session: SessionContextValue<R>,
-) => {
+export const isFeatureHeaderV2Enabled = () => {
   const environmentEnabled = process.env.NEXT_PUBLIC_FF_HEADER_V2 === "ON";
-  const localStorageEnabled = localStorage.getItem("FF_HEADER_V2") === "ON";
-  const userEnabled = session?.data?.user?.email?.includes(
-    "@appliedtechnology.se",
-  );
+  const localStorageEnabled =
+    typeof window !== "undefined"
+      ? window.localStorage.getItem("FF_HEADER_V2") === "ON"
+      : false;
 
-  return environmentEnabled || localStorageEnabled || userEnabled;
+  return environmentEnabled || localStorageEnabled;
 };
