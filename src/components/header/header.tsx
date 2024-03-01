@@ -10,7 +10,7 @@ import {
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import { useState } from "react";
-import { FavoritesBadge } from "./menu/favorites-badge";
+import { FavoritesBadge } from "./menu/menu-items/favorites-badge";
 
 export const Header = () => {
   const { data: session } = useSession();

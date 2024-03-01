@@ -5,7 +5,7 @@ import { LogIn } from "./log-in";
 import { SignOut } from "./sign-out";
 import { Admin } from "./admin";
 import { Saltie } from "./saltie";
-import { FavoritesBadge } from "../favorites-badge";
+import { FavoritesBadge } from "./favorites-badge";
 
 export const MenuItems = () => {
   const session = useSession();
