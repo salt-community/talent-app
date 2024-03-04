@@ -17,6 +17,16 @@ export const usersRouter = createTRPCRouter({
           zRole: { role },
         },
       }) => {
+        const user = await ctx.db.user.findUnique({ where: { id } });
+        if (!user) {
+          throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+        }
+        if (user.role !== "ADMIN") {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "User is not an admin",
+          });
+        }
         await ctx.db.user.update({ where: { id }, data: { role } });
       },
     ),
