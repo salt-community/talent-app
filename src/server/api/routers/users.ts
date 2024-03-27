@@ -31,6 +31,19 @@ export const usersRouter = createTRPCRouter({
       },
     ),
 
+  publish: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input: { id } }) => {
+      if (ctx.session.user.role !== "ADMIN") {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "User is not an admin",
+        });
+      }
+
+      console.log("id", id);
+    }),
+
   getInteractionsById: protectedProcedure
     .input(z.object({ id: z.string().cuid() }))
     .query(async ({ ctx, input: { id } }) => {
