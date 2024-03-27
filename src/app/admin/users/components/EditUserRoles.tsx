@@ -16,6 +16,13 @@ const EditUserRole = ({ user }: Props) => {
   const { mutate: update } = api.users.changeRole.useMutation({
     onSuccess: () => router.refresh(),
   });
+
+  const ffPublish = process.env.NEXT_PUBLIC_FF_PUBLISH === "ON";
+
+  const publish = (id: string) => {
+    console.log(id);
+  };
+
   const {
     handleSubmit,
     register,
@@ -85,6 +92,15 @@ const EditUserRole = ({ user }: Props) => {
           >
             Save
           </Button>
+          {ffPublish && (
+            <Button
+              onClick={() => {
+                publish(user.id);
+              }}
+            >
+              Publish
+            </Button>
+          )}
         </form>
       </div>
     </li>
