@@ -12,6 +12,7 @@ const allowedDevelopers = [
   { id: "clt70i6xd000ajv08w92faydx", name: "Kostadinka Karova" },
   { id: "clu2pr1pc000bjg08hdt9mhjy", name: "Jagoda Bodnar" },
   { id: "clt70ginq0005l908qq52oucr", name: "Anthony Raynaud" },
+  { id: "clu884i9t0000l5082cqf50w3", name: "Johan Käck" },
 ];
 
 export const allowedDeveloperIds: string[] = allowedDevelopers.map(
