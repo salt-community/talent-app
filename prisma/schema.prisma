@@ -122,6 +122,7 @@ model Developer {
     CartItem     CartItem[]
     LogClickDev  LogClickDev[]
     locationPref String[]
+    status       String              @default("UNPUBLISHED")
 
     @@map("public.developer")
 }

@@ -41,7 +41,10 @@ export const usersRouter = createTRPCRouter({
         });
       }
 
-      console.log("id", id);
+      await ctx.db.user.update({
+        where: { id },
+        data: {},
+      });
     }),
 
   getInteractionsById: protectedProcedure
