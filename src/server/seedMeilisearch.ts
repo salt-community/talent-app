@@ -1,11 +1,13 @@
 import client from "./meilisearchClient";
 import settings from "./meilisearchSettings";
 import { db } from "./db";
-import { allowedDeveloperIds } from "@/allowed-developer-ids";
+import { getAllowedDeveloperIds } from "@/allowed-developer-ids";
 
 const seedMeilisearchWithNonPayRollDevs = async () => {
   try {
     const data = await db.developer.findMany();
+
+    const allowedDeveloperIds = await getAllowedDeveloperIds();
 
     const notAllowedDevelopers = data.filter(
       (dev) => !allowedDeveloperIds.includes(dev.id),
@@ -44,6 +46,8 @@ const seedMeilisearchWithNonPayRollDevs = async () => {
 const seedMeilisearchWithPayRollDevs = async () => {
   try {
     const data = await db.developer.findMany();
+
+    const allowedDeveloperIds = await getAllowedDeveloperIds();
 
     const allowedDevelopers = data.filter((dev) =>
       allowedDeveloperIds.includes(dev.id),
