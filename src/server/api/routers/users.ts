@@ -41,9 +41,11 @@ export const usersRouter = createTRPCRouter({
         });
       }
 
+      const userId = id;
+
       await ctx.db.user.update({
-        where: { id },
-        data: {},
+        where: { id: userId },
+        data: { developer: { update: { status: "PUBLISHED" } } },
       });
     }),
 
