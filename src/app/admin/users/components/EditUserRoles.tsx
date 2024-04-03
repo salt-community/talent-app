@@ -19,9 +19,10 @@ const EditUserRole = ({ user }: Props) => {
 
   const ffPublish = process.env.NEXT_PUBLIC_FF_PUBLISH === "ON";
 
-  const { mutate: publish } = api.users.publish.useMutation({
-    onSuccess: () => router.refresh(),
-  });
+  const { mutate: publishDeveloperProfile } =
+    api.users.publishDeveloperProfile.useMutation({
+      onSuccess: () => router.refresh(),
+    });
 
   const {
     handleSubmit,
@@ -93,13 +94,22 @@ const EditUserRole = ({ user }: Props) => {
             Save
           </Button>
           {ffPublish && (
-            <Button
-              onClick={() => {
-                publish({ id: user.id });
-              }}
-            >
-              Publish
-            </Button>
+            <div className="flex gap-1">
+              <Button
+                onClick={() => {
+                  publishDeveloperProfile({ userId: user.id, publish: true });
+                }}
+              >
+                Publish
+              </Button>
+              <Button
+                onClick={() => {
+                  publishDeveloperProfile({ userId: user.id, publish: false });
+                }}
+              >
+                Unpublish
+              </Button>
+            </div>
           )}
         </form>
       </div>

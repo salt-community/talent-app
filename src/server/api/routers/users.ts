@@ -31,9 +31,9 @@ export const usersRouter = createTRPCRouter({
       },
     ),
 
-  publish: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .mutation(async ({ ctx, input: { id } }) => {
+  publishDeveloperProfile: protectedProcedure
+    .input(z.object({ userId: z.string(), publish: z.boolean() }))
+    .mutation(async ({ ctx, input: { userId, publish } }) => {
       if (ctx.session.user.role !== "ADMIN") {
         throw new TRPCError({
           code: "FORBIDDEN",
@@ -41,11 +41,15 @@ export const usersRouter = createTRPCRouter({
         });
       }
 
-      const userId = id;
+      const status = publish ? "PUBLISHED" : "UNPUBLISHED";
 
       await ctx.db.user.update({
         where: { id: userId },
-        data: { developer: { update: { status: "PUBLISHED" } } },
+        data: {
+          developer: {
+            update: { status },
+          },
+        },
       });
     }),
 
