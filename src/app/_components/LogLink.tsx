@@ -15,7 +15,7 @@ type Props = {
 const LogLink = ({ children, slug, className, storeScroll }: Props) => {
   const { data: session } = useSession();
   const { mutate: logClick } = api.log.logClick.useMutation({
-    onError: () => console.log("Could not log"),
+    onError: () => console.error("Could not log"),
   });
   const handleClick = () => {
     if (storeScroll) {

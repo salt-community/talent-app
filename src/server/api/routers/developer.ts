@@ -123,7 +123,7 @@ export const developerRouter = createTRPCRouter({
         cart = res.map(({ developerId }) => developerId);
         if (!!search) {
           ctx.db.logSearch.create({ data: { userId, search } }).catch(() => {
-            console.log("Could not log search");
+            console.error("Could not log search");
           });
         }
       }
@@ -160,7 +160,7 @@ export const developerRouter = createTRPCRouter({
           inCart: !!cart.find((i) => i === dev.id),
         }));
       } catch (error) {
-        console.log(error);
+        console.error(error);
         const mode = "insensitive";
         const data = await ctx.db.developer.findMany({
           where: {

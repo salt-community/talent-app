@@ -10,8 +10,6 @@ import { getUrl, transformer } from "./shared";
 
 const url = getUrl();
 
-console.log("TRPC serverside URL:", url);
-
 export const api = createTRPCProxyClient<AppRouter>({
   transformer,
   links: [
